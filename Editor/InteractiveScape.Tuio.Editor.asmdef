@@ -1,0 +1,8 @@
+{
+    "name": "InteractiveScape.Tuio.Editor",
+    "references": [
+        "InteractiveScape.Tuio"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}
