@@ -1,6 +1,6 @@
 {
     "name": "Tuio",
-    "references": [],
+    "references": ["Tuio.Common"],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
