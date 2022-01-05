@@ -54,6 +54,8 @@ public class Tuio11Manager : MonoBehaviour
         }
     }
 
+    public Tuio11Client tuio11Client => _tuio11Client;
+    
     public Vector2 GetDimensions()
     {
         var height = 900;

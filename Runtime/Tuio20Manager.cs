@@ -57,6 +57,8 @@ public class Tuio20Manager : MonoBehaviour
             _isInitialized = true;
         }
     }
+    
+    public Tuio20Client tuio20Client => _tuio20Client;
 
     public Vector2 GetDimensions()
     {

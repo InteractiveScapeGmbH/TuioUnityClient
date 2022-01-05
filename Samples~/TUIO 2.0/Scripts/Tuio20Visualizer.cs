@@ -21,7 +21,7 @@ public class Tuio20Visualizer: MonoBehaviour, Tuio20Listener
             tokenBehaviour.Initialize(tuio20Object.token);
         }
 
-        if (tuio20Object.ContainsTuioPointer())
+        if (tuio20Object.ContainsNewTuioPointer())
         {
             GameObject pointerGameObject = Instantiate(pointerPrefab, transform);
             PointerBehaviour pointerBehaviour = pointerGameObject.GetComponent<PointerBehaviour>();
