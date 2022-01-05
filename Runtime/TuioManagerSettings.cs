@@ -1,7 +1,7 @@
 using Tuio.Common;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "TUIO/TUIO Manager Settings")]
+[CreateAssetMenu(fileName = "New TUIO Manager Settings", menuName = "TUIO/TUIO Manager Settings")]
 public class TuioManagerSettings : ScriptableObject
 {
     [SerializeField] public TuioConnectionType tuioConnectionType = TuioConnectionType.Websocket;
