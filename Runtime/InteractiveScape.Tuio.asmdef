@@ -1,13 +1,6 @@
 {
-    "name": "Tuio",
-    "references": ["Tuio.Common"],
+    "name": InteractiveScape.Tuio
+    "references": [],
     "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+    "excludePlatforms": []
 }
