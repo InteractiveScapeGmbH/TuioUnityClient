@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Tuio11Visualizer: MonoBehaviour, Tuio11Listener
 {
-    [SerializeField] private GameObject cursorPrefab;
+    [SerializeField] private GameObject tuio11CursorPrefab;
+    [SerializeField] private GameObject tuio11ObjectPrefab;
 
     void Start()
     {
@@ -13,6 +14,9 @@ public class Tuio11Visualizer: MonoBehaviour, Tuio11Listener
 
     public void AddTuioObject(Tuio11Object tuio11Object)
     {
+        var tuio11ObjectGameObject = Instantiate(tuio11ObjectPrefab, transform);
+        var tuio11ObjectBehaviour = tuio11ObjectGameObject.GetComponent<Tuio11ObjectBehaviour>();
+        tuio11ObjectBehaviour.Initialize(tuio11Object);
     }
 
     public void UpdateTuioObject(Tuio11Object tuio11Object)
@@ -25,9 +29,9 @@ public class Tuio11Visualizer: MonoBehaviour, Tuio11Listener
 
     public void AddTuioCursor(Tuio11Cursor tuio11Cursor)
     {
-        GameObject cursorGameObject = Instantiate(cursorPrefab, transform);
-        CursorBehaviour cursorBehaviour = cursorGameObject.GetComponent<CursorBehaviour>();
-        cursorBehaviour.Initialize(tuio11Cursor);
+        var tuio11CursorGameObject = Instantiate(tuio11CursorPrefab, transform);
+        var tuio11CursorBehaviour = tuio11CursorGameObject.GetComponent<Tuio11CursorBehaviour>();
+        tuio11CursorBehaviour.Initialize(tuio11Cursor);
     }
 
     public void UpdateTuioCursor(Tuio11Cursor tuio11Cursor)

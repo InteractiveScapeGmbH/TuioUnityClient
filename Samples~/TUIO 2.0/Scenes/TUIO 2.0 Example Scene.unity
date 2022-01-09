@@ -152,8 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d59f30a82caae7047a6c7b39d9ccec3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tokenPrefab: {fileID: 7724892041580830071, guid: f2585f835edfed64e91890005392dccc, type: 3}
-  pointerPrefab: {fileID: 5205819796726127684, guid: 7871dccfcfd187643b032533039aea21, type: 3}
+  tuio20TokenPrefab: {fileID: 7724892041580830071, guid: f2585f835edfed64e91890005392dccc, type: 3}
+  tuio20PointerPrefab: {fileID: 5205819796726127684, guid: 7871dccfcfd187643b032533039aea21, type: 3}
 --- !u!4 &1245454341
 Transform:
   m_ObjectHideFlags: 0

@@ -152,7 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53770f1c045203f4eb929d3339dabd92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursorPrefab: {fileID: 398461388315857645, guid: 41694e85395678b48961d7d19d713bdf, type: 3}
+  tuio11CursorPrefab: {fileID: 398461388315857645, guid: 41694e85395678b48961d7d19d713bdf, type: 3}
+  tuio11ObjectPrefab: {fileID: 6158020011331392542, guid: 28bd4505c6ef67a44a0175578439c479, type: 3}
 --- !u!4 &54709766
 Transform:
   m_ObjectHideFlags: 0
@@ -178,6 +179,7 @@ GameObject:
   - component: {fileID: 584408652}
   - component: {fileID: 584408651}
   - component: {fileID: 584408650}
+  - component: {fileID: 584408653}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -202,8 +204,8 @@ Camera:
   m_GameObject: {fileID: 584408649}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -219,7 +221,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -250,6 +252,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &584408653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584408649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d6bd607304de1744ac303f74bdfa24c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &936545062
 GameObject:
   m_ObjectHideFlags: 0

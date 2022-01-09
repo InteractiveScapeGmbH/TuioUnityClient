@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Tuio20Visualizer: MonoBehaviour, Tuio20Listener
 {
-    [SerializeField] private GameObject tokenPrefab;
-    [SerializeField] private GameObject pointerPrefab;
+    [SerializeField] private GameObject tuio20TokenPrefab;
+    [SerializeField] private GameObject tuio20PointerPrefab;
 
     void Start()
     {
@@ -16,16 +16,16 @@ public class Tuio20Visualizer: MonoBehaviour, Tuio20Listener
     {
         if (tuio20Object.ContainsNewTuioToken())
         {
-            GameObject tokenGameObject = Instantiate(tokenPrefab, transform);
-            TokenBehaviour tokenBehaviour = tokenGameObject.GetComponent<TokenBehaviour>();
-            tokenBehaviour.Initialize(tuio20Object.token);
+            var tuio20TokenGameObject = Instantiate(tuio20TokenPrefab, transform);
+            var tuio20TokenBehaviour = tuio20TokenGameObject.GetComponent<Tuio20TokenBehaviour>();
+            tuio20TokenBehaviour.Initialize(tuio20Object.token);
         }
 
         if (tuio20Object.ContainsNewTuioPointer())
         {
-            GameObject pointerGameObject = Instantiate(pointerPrefab, transform);
-            PointerBehaviour pointerBehaviour = pointerGameObject.GetComponent<PointerBehaviour>();
-            pointerBehaviour.Initialize(tuio20Object.pointer);
+            var tuio20PointerGameObject = Instantiate(tuio20PointerPrefab, transform);
+            var tuio20PointerBehaviour = tuio20PointerGameObject.GetComponent<Tuio20PointerBehaviour>();
+            tuio20PointerBehaviour.Initialize(tuio20Object.pointer);
         }
     }
 

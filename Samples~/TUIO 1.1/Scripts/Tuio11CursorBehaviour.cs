@@ -2,7 +2,7 @@ using Tuio.Common;
 using Tuio.Tuio11;
 using UnityEngine;
 
-public class CursorBehaviour : MonoBehaviour
+public class Tuio11CursorBehaviour : MonoBehaviour
 {
     private Transform _transform;
     protected Tuio11Cursor _cursor;
@@ -29,7 +29,7 @@ public class CursorBehaviour : MonoBehaviour
         }
         else
         {
-            Vector2 dimensions = Tuio20Manager.Instance.GetDimensions();
+            Vector2 dimensions = Tuio11Manager.Instance.GetDimensions();
             _transform.position = new Vector3(dimensions.x * _cursor.xPos, dimensions.y * (1-_cursor.yPos), 0);
         }
     }
