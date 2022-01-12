@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Tuio11Manager : MonoBehaviour
 {
-    [SerializeField] private TuioManagerSettings _tuioManagerSettings;
+    [SerializeField] private TuioManagerSettings tuioManagerSettings;
     
     private bool _isInitialized;
     private Tuio11Client _tuio11Client;
@@ -39,13 +39,17 @@ public class Tuio11Manager : MonoBehaviour
     {
         if (!_isInitialized)
         {
-            switch (_tuioManagerSettings.tuioConnectionType)
+            if (tuioManagerSettings is null)
+            {
+                tuioManagerSettings = ScriptableObject.CreateInstance<TuioManagerSettings>();
+            }
+            switch (tuioManagerSettings.tuioConnectionType)
             {
                 case TuioConnectionType.UDP:
-                    _tuioReceiver = new UdpTuioReceiver(_tuioManagerSettings.udpPort, false);
+                    _tuioReceiver = new UdpTuioReceiver(tuioManagerSettings.udpPort, false);
                     break;
                 case TuioConnectionType.Websocket:
-                    _tuioReceiver = new WebsocketTuioReceiver(_tuioManagerSettings.websocketAddress, _tuioManagerSettings.websocketPort, false);
+                    _tuioReceiver = new WebsocketTuioReceiver(tuioManagerSettings.websocketAddress, tuioManagerSettings.websocketPort, false);
                     break;
             }
             _tuio11Client = new Tuio11Client(_tuioReceiver);
@@ -60,7 +64,7 @@ public class Tuio11Manager : MonoBehaviour
     {
         var height = 900;
         var width = 1600;
-        return new Vector2(width * _tuioManagerSettings.scale.x, height * _tuioManagerSettings.scale.y);
+        return new Vector2(width * tuioManagerSettings.scale.x, height * tuioManagerSettings.scale.y);
     }
 
     public void AddTuio11Listener(Tuio11Listener listener)

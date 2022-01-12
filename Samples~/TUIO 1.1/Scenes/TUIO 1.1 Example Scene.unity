@@ -293,7 +293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0e18c0e8cab31e4fafca5ee44f2156b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tuioManagerSettings: {fileID: 11400000, guid: 108a537cc15428c4bb75b3c588c25f29, type: 2}
+  tuioManagerSettings: {fileID: 11400000, guid: 108a537cc15428c4bb75b3c588c25f29, type: 2}
 --- !u!4 &936545064
 Transform:
   m_ObjectHideFlags: 0

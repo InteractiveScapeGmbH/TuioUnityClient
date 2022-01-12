@@ -15,5 +15,5 @@ MonoBehaviour:
   tuioConnectionType: 0
   udpPort: 3333
   websocketAddress: 10.0.0.20
-  websocketPort: 3343
+  websocketPort: 3333
   scale: {x: 0.001, y: 0.001}
