@@ -41,6 +41,11 @@ namespace Tuio.Tuio11
             return _prevPoints.ToList();
         }
 
+        internal void _updateTime(TuioTime currentTime)
+        {
+            _currentTime = currentTime.Subtract(_startTime);
+        }
+
         internal void _updateContainer(TuioTime currentTime, float xPos, float yPos, float xSpeed, float ySpeed, float motionAccel, bool isCalculateSpeeds)
         {
             var lastPoint = _prevPoints[_prevPoints.Count - 1];
@@ -69,7 +74,6 @@ namespace Tuio.Tuio11
                 _motionAccel = motionAccel;
             }
 
-            _currentTime = currentTime;
             _prevPoints.Add(new Tuio11Point(currentTime, xPos, yPos));
             if (_prevPoints.Count > MAX_PATH_LENGTH)
             {

@@ -188,6 +188,7 @@ namespace Tuio.Tuio11
                                 if (currentSIds.Contains(s))
                                 {
                                     var tuioObject = _tuioObjects[s];
+                                    tuioObject._updateTime(_currentTime);
                                     if (tuioObject._hasChanged(x, y, a, X, Y, A, m, r))
                                     {
                                         tuioObject._update(_currentTime, x, y, a, X, Y, A, m, r);
