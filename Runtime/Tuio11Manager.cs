@@ -81,4 +81,9 @@ public class Tuio11Manager : MonoBehaviour
     {
         _tuioReceiver.ProcessMessages();
     }
+
+    private void OnApplicationQuit()
+    {
+        _tuio11Client.Disconnect();
+    }
 }
