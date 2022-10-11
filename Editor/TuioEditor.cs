@@ -1,7 +1,8 @@
 using UnityEditor;
 using UnityEngine;
 
-public class TuioEditor : MonoBehaviour
+#if UNITY_EDITOR
+public class TuioEditor
 {
     [MenuItem("GameObject/TUIO/TUIO 1.1 Manager", false, 1)]
     static void CreateTuio11Manager(MenuCommand menuCommand)
@@ -23,3 +24,4 @@ public class TuioEditor : MonoBehaviour
         Selection.activeObject = go;
     }
 }
+#endif
