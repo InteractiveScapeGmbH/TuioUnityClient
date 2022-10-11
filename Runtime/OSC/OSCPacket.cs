@@ -46,7 +46,7 @@ namespace OSC.NET
 
         static OSCPacket()
         {
-            ASCIIEncoding8Bit = Encoding.GetEncoding(1252);
+            ASCIIEncoding8Bit = Encoding.Default;
         }
         
 		public OSCPacket(bool extendedMode = false)
