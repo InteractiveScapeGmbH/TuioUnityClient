@@ -1,6 +1,6 @@
 {
   "name": "com.interactive-scape.tuio_client",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "displayName": "TUIO Client",
   "description": "TUIO Client package for TUIO 1.1 and TUIO 2.0",
   "unity": "2020.3",
@@ -8,9 +8,7 @@
   "documentationUrl": "https://example.com/",
   "changelogUrl": "https://example.com/changelog.html",
   "licensesUrl": "https://example.com/licensing.html",
-  "dependencies": {
- },
- "keywords": [
+  "keywords": [
     "keyword1",
     "keyword2",
     "keyword3"
