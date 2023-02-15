@@ -8,12 +8,12 @@ namespace Tuio.Common
         private static TuioTime _startTime;
 
         private long _seconds;
-        private long _milliseconds;
+        private long _microseconds;
 
-        public TuioTime(long seconds, long milliseconds)
+        public TuioTime(long seconds, long microseconds)
         {
             _seconds = seconds;
-            _milliseconds = milliseconds;
+            _microseconds = microseconds;
         }
 
         public static TuioTime FromOscTime(OscTimeTag oscTimeTag)
@@ -24,20 +24,20 @@ namespace Tuio.Common
         public TuioTime Subtract(TuioTime other)
         {
             var seconds = _seconds - other._seconds;
-            var milliseconds = _milliseconds - other._milliseconds;
+            var microseconds = _microseconds - other._microseconds;
 
-            if (milliseconds < 0)
+            if (microseconds < 0)
             {
-                milliseconds += 1000;
+                microseconds += 1000000;
                 seconds -= 1;
             }
 
-            return new TuioTime(seconds, milliseconds);
+            return new TuioTime(seconds, microseconds);
         }
 
         public long GetTotalMilliseconds()
         {
-            return 1000 * _seconds + _milliseconds;
+            return 1000 * (long) _seconds + _microseconds / 1000;
         }
 
         public static void Init()
