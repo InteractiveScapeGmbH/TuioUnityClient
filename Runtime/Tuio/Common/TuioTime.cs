@@ -19,6 +19,8 @@ namespace Tuio.Common
         /// Time fraction in microseconds.
         /// </summary>
         public long Microseconds { get; private set; }
+
+        private const long MicrosecondsPerSecond = 1000000;
         
         public TuioTime(long seconds, long microseconds)
         {
@@ -40,12 +42,12 @@ namespace Tuio.Common
         public static TuioTime operator +(TuioTime time, long microseconds)
         {
             long sumOfMicroseconds = time.Microseconds + microseconds;
-            long sec = time.Seconds + sumOfMicroseconds / 1000000;
+            long sec = time.Seconds + sumOfMicroseconds / MicrosecondsPerSecond;
             if (sumOfMicroseconds < 0)
             {
                 sec--;
             }
-            long microsec = (sumOfMicroseconds + 1000000) % 1000000;
+            long microsec = (sumOfMicroseconds + MicrosecondsPerSecond) % MicrosecondsPerSecond;
             return new TuioTime(sec, microsec);
         }
 
@@ -59,8 +61,8 @@ namespace Tuio.Common
         {
             long sec = timeA.Seconds + timeB.Seconds;
             long microsec = timeA.Microseconds + timeB.Microseconds;
-            sec += microsec / 1000000;
-            microsec %= 1000000;
+            sec += microsec / MicrosecondsPerSecond;
+            microsec %= MicrosecondsPerSecond;
             return new TuioTime(sec, microsec);
         }
         
@@ -72,11 +74,11 @@ namespace Tuio.Common
         /// <returns>The subtraction result of this TuioTime minus the provided time in microseconds.</returns>
         public static TuioTime operator -(TuioTime time, long microseconds)
         {
-            long sec = time.Seconds - microseconds / 1000000;
-            long microsec = time.Microseconds - microseconds % 1000000;
+            long sec = time.Seconds - microseconds / MicrosecondsPerSecond;
+            long microsec = time.Microseconds - microseconds % MicrosecondsPerSecond;
             if (microsec < 0)
             {
-                microsec += 1000000;
+                microsec += MicrosecondsPerSecond;
                 sec--;
             }
 
@@ -95,7 +97,7 @@ namespace Tuio.Common
             long microsec = timeA.Microseconds - timeB.Microseconds;
             if (microsec < 0)
             {
-                microsec += 1000000;
+                microsec += MicrosecondsPerSecond;
                 sec--;
             }
 
@@ -141,7 +143,7 @@ namespace Tuio.Common
 
             if (microseconds < 0)
             {
-                microseconds += 1000000;
+                microseconds += MicrosecondsPerSecond;
                 seconds -= 1;
             }
 
