@@ -13,17 +13,17 @@ namespace Tuio.Common
         /// <summary>
         /// The time since session started in seconds.
         /// </summary>
-        private readonly long _seconds;
+        public long Seconds { get; private set; }
         
         /// <summary>
         /// Time fraction in microseconds.
         /// </summary>
-        private readonly long _microseconds;
+        public long Microseconds { get; private set; }
 
         public TuioTime(long seconds, long microseconds)
         {
-            _seconds = seconds;
-            _microseconds = microseconds;
+            Seconds = seconds;
+            Microseconds = microseconds;
         }
 
         public static TuioTime FromOscTime(OscTimeTag oscTimeTag)
@@ -39,8 +39,8 @@ namespace Tuio.Common
         /// <returns>The sum of this TuioTime with the provided time in microseconds.</returns>
         public static TuioTime operator +(TuioTime time, long microseconds)
         {
-            long sec = time._seconds + microseconds / 1000000;
-            long microsec = time._microseconds + microseconds % 1000000;
+            long sec = time.Seconds + microseconds / 1000000;
+            long microsec = time.Microseconds + microseconds % 1000000;
             return new TuioTime(sec, microsec);
         }
 
@@ -52,8 +52,8 @@ namespace Tuio.Common
         /// <returns>Sum of this TuioTime with the provided TuioTime.</returns>
         public static TuioTime operator +(TuioTime timeA, TuioTime timeB)
         {
-            long sec = timeA._seconds + timeB._seconds;
-            long microsec = timeA._microseconds + timeB._microseconds;
+            long sec = timeA.Seconds + timeB.Seconds;
+            long microsec = timeA.Microseconds + timeB.Microseconds;
             sec += microsec / 1000000;
             microsec %= 1000000;
             return new TuioTime(sec, microsec);
@@ -67,8 +67,8 @@ namespace Tuio.Common
         /// <returns>The subtraction result of this TuioTime minus the provided time in microseconds.</returns>
         public static TuioTime operator -(TuioTime time, long microseconds)
         {
-            long sec = time._seconds - microseconds / 1000000;
-            long microsec = time._microseconds - microseconds % 1000000;
+            long sec = time.Seconds - microseconds / 1000000;
+            long microsec = time.Microseconds - microseconds % 1000000;
             if (microsec < 0)
             {
                 microsec += 1000000;
@@ -86,8 +86,8 @@ namespace Tuio.Common
         /// <returns>The subtraction result of this TuioTime minus the provided TuioTime.</returns>
         public static TuioTime operator -(TuioTime timeA, TuioTime timeB)
         {
-            long sec = timeA._seconds - timeB._seconds;
-            long microsec = timeA._microseconds - timeB._microseconds;
+            long sec = timeA.Seconds - timeB.Seconds;
+            long microsec = timeA.Microseconds - timeB.Microseconds;
             if (microsec < 0)
             {
                 microsec += 1000000;
@@ -104,7 +104,7 @@ namespace Tuio.Common
         /// <returns>True if the TuioTime are equal in seconds and microseconds.</returns>
         public bool Equals(TuioTime time)
         {
-            return (_seconds == time._seconds) && (_microseconds == time._microseconds);
+            return (Seconds == time.Seconds) && (Microseconds == time.Microseconds);
         }
         
         /// <summary>
@@ -131,8 +131,8 @@ namespace Tuio.Common
 
         public TuioTime Subtract(TuioTime other)
         {
-            var seconds = _seconds - other._seconds;
-            var microseconds = _microseconds - other._microseconds;
+            var seconds = Seconds - other.Seconds;
+            var microseconds = Microseconds - other.Microseconds;
 
             if (microseconds < 0)
             {
@@ -145,7 +145,7 @@ namespace Tuio.Common
 
         public long GetTotalMilliseconds()
         {
-            return 1000 * (long) _seconds + _microseconds / 1000;
+            return 1000 * (long) Seconds + Microseconds / 1000;
         }
 
         public static void Init()
