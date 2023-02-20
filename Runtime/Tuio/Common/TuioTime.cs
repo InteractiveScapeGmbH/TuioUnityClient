@@ -42,11 +42,7 @@ namespace Tuio.Common
         public static TuioTime operator +(TuioTime time, long microseconds)
         {
             long sumOfMicroseconds = time.Microseconds + microseconds;
-            long sec = time.Seconds + sumOfMicroseconds / MicrosecondsPerSecond;
-            if (sumOfMicroseconds < 0)
-            {
-                sec--;
-            }
+            long sec = sumOfMicroseconds < 0 ? time.Seconds - 1 : time.Seconds + sumOfMicroseconds / MicrosecondsPerSecond;
             long microsec = (sumOfMicroseconds + MicrosecondsPerSecond) % MicrosecondsPerSecond;
             return new TuioTime(sec, microsec);
         }
