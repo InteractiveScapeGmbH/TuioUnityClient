@@ -7,8 +7,8 @@ namespace Tuio.Common
     {
         private static TuioTime _startTime;
 
-        private long _seconds;
-        private long _microseconds;
+        private readonly long _seconds;
+        private readonly long _microseconds;
 
         public TuioTime(long seconds, long microseconds)
         {
@@ -19,6 +19,48 @@ namespace Tuio.Common
         public static TuioTime FromOscTime(OscTimeTag oscTimeTag)
         {
             return new TuioTime(oscTimeTag.SecondsSinceEpoch, oscTimeTag.FractionalSecond);
+        }
+
+        public static TuioTime operator +(TuioTime time, long microseconds)
+        {
+            long sec = time._seconds + microseconds / 1000000;
+            long microsec = time._microseconds + microseconds % 1000000;
+            return new TuioTime(sec, microsec);
+        }
+
+        public static TuioTime operator +(TuioTime timeA, TuioTime timeB)
+        {
+            long sec = timeA._seconds + timeB._seconds;
+            long microsec = timeA._microseconds + timeB._microseconds;
+            sec += microsec / 1000000;
+            microsec %= 1000000;
+            return new TuioTime(sec, microsec);
+        }
+
+        public static TuioTime operator -(TuioTime time, long microseconds)
+        {
+            long sec = time._seconds - microseconds / 1000000;
+            long microsec = time._microseconds - microseconds % 1000000;
+            if (microsec < 0)
+            {
+                microsec += 1000000;
+                sec--;
+            }
+
+            return new TuioTime(sec, microsec);
+        }
+
+        public static TuioTime operator -(TuioTime timeA, TuioTime timeB)
+        {
+            long sec = timeA._seconds - timeB._seconds;
+            long microsec = timeA._microseconds - timeB._microseconds;
+            if (microsec < 0)
+            {
+                microsec += 1000000;
+                sec--;
+            }
+
+            return new TuioTime(sec, microsec);
         }
 
         public TuioTime Subtract(TuioTime other)
