@@ -6,7 +6,7 @@ namespace Tests.Runtime
     public class TuioTimeTests
     {
         [Test]
-        public void AddTwoTuioTimes()
+        public void Add_Two_TuioTimes()
         {
             var timeA = new TuioTime(1,15);
             var timeB = new TuioTime(2, 10);
@@ -16,7 +16,7 @@ namespace Tests.Runtime
         }
 
         [Test]
-        public void AddTwoTuioTimesWithOverflowMicroseconds()
+        public void Add_Two_TuioTimes_With_Overflowing_Microseconds()
         {
             var timeA = new TuioTime(2, 999999);
             var timeB = new TuioTime(0, 3);
@@ -26,7 +26,7 @@ namespace Tests.Runtime
         }
 
         [Test]
-        public void AddNegativeTuioTime()
+        public void Add_Negative_TuioTime()
         {
             var timeA = new TuioTime(3, 5);
             var timeB = new TuioTime(-2, -3);
@@ -36,7 +36,7 @@ namespace Tests.Runtime
         }
 
         [Test]
-        public void AddMicroseconds()
+        public void Add_Microseconds()
         {
             var time = new TuioTime(3, 20);
             long microsec = 500;
@@ -46,7 +46,7 @@ namespace Tests.Runtime
         }
 
         [Test]
-        public void AddMicrosecondsWithOverflow()
+        public void Add_Microseconds_With_Overflow()
         {
             var time = new TuioTime(2, 999999);
             var microsec = 3;
@@ -56,7 +56,7 @@ namespace Tests.Runtime
         }
 
         [Test]
-        public void AddNegativeMicrosecondsWithOverflow()
+        public void Add_Negative_Microseconds_With_Overflow()
         {
             var time = new TuioTime(2, 2);
             var microsec = -3;
