@@ -19,7 +19,7 @@ namespace Tuio.Common
         /// Time fraction in microseconds.
         /// </summary>
         public long Microseconds { get; private set; }
-
+        
         public TuioTime(long seconds, long microseconds)
         {
             Seconds = seconds;
@@ -39,8 +39,13 @@ namespace Tuio.Common
         /// <returns>The sum of this TuioTime with the provided time in microseconds.</returns>
         public static TuioTime operator +(TuioTime time, long microseconds)
         {
-            long sec = time.Seconds + microseconds / 1000000;
-            long microsec = time.Microseconds + microseconds % 1000000;
+            long sumOfMicroseconds = time.Microseconds + microseconds;
+            long sec = time.Seconds + sumOfMicroseconds / 1000000;
+            if (sumOfMicroseconds < 0)
+            {
+                sec--;
+            }
+            long microsec = (sumOfMicroseconds + 1000000) % 1000000;
             return new TuioTime(sec, microsec);
         }
 
