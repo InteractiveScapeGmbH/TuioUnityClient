@@ -64,5 +64,45 @@ namespace Tests.Runtime
             Assert.AreEqual(result.Seconds, 1);
             Assert.AreEqual(result.Microseconds, 999999);
         }
+
+        [Test]
+        public void Subtract_Two_TuioTimes()
+        {
+            var timeA = new TuioTime(3, 25);
+            var timeB = new TuioTime(2, 12);
+            var result = timeA - timeB;
+            Assert.AreEqual(result.Seconds, 1);
+            Assert.AreEqual(result.Microseconds, 13);
+        }
+
+        [Test]
+        public void Subtract_Two_TuioTimes_With_Overflow()
+        {
+            var timeA = new TuioTime(3, 3);
+            var timeB = new TuioTime(1, 4);
+            var result = timeA - timeB;
+            Assert.AreEqual(result.Seconds, 1);
+            Assert.AreEqual(result.Microseconds, 999999);
+        }
+
+        [Test]
+        public void Subtract_Microseconds()
+        {
+            var time = new TuioTime(3, 10);
+            var microseconds = 5;
+            var result = time - microseconds;
+            Assert.AreEqual(result.Seconds, 3);
+            Assert.AreEqual(result.Microseconds, 5);
+        }
+
+        [Test]
+        public void Subtract_Microseconds_With_Overflow()
+        {
+            var time = new TuioTime(3, 10);
+            var microseconds = 11;
+            var result = time - microseconds;
+            Assert.AreEqual(result.Seconds, 2);
+            Assert.AreEqual(result.Microseconds, 999999);
+        }
     }
 }
