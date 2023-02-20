@@ -8,7 +8,7 @@ namespace Tuio.Common
         /// <summary>
         /// The start time of the session.
         /// </summary>
-        private static TuioTime _startTime;
+        public static TuioTime StartTime { get; private set; }
 
         /// <summary>
         /// The time since session started in seconds.
@@ -157,7 +157,7 @@ namespace Tuio.Common
         /// </summary>
         public static void Init()
         {
-            _startTime = GetSystemTime();
+            StartTime = GetSystemTime();
         }
 
         public static TuioTime GetSystemTime()
@@ -168,7 +168,7 @@ namespace Tuio.Common
 
         public static TuioTime GetCurrentTime()
         {
-            return GetSystemTime().Subtract(_startTime);
+            return GetSystemTime() -StartTime;
         }
     }
 }
