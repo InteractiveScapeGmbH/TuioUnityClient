@@ -142,12 +142,19 @@ namespace Tuio.Common
 
             return new TuioTime(seconds, microseconds);
         }
-
+        
+        /// <summary>
+        /// Returns the total TuioTime in milliseconds.
+        /// </summary>
+        /// <returns>The total TuioTime in milliseconds.</returns>
         public long GetTotalMilliseconds()
         {
             return 1000 * (long) Seconds + Microseconds / 1000;
         }
 
+        /// <summary>
+        /// Globally resets the Tuio session time.
+        /// </summary>
         public static void Init()
         {
             _startTime = GetSystemTime();
