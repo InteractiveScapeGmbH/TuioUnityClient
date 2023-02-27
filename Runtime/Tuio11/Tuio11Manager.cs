@@ -1,9 +1,11 @@
-﻿using TuioNet.Common;
+﻿using System;
+using TuioNet.Common;
 using TuioNet.Tuio11;
 using UnityEngine;
 
 public class Tuio11Manager : MonoBehaviour
 {
+    [SerializeField] private Camera _camera;
     [SerializeField] private TuioManagerSettings tuioManagerSettings;
     
     private bool _isInitialized;
@@ -11,7 +13,6 @@ public class Tuio11Manager : MonoBehaviour
     private TuioReceiver _tuioReceiver;
 
     private static Tuio11Manager _instance;
-
     public static Tuio11Manager Instance
     {
         get
@@ -28,6 +29,12 @@ public class Tuio11Manager : MonoBehaviour
 
             return _instance;
         }
+    }
+
+    public Vector2 GetWorldPosition(Vector2 tuioPosition)
+    {
+        tuioPosition.y = (1 - tuioPosition.y);
+        return _camera.ViewportToWorldPoint(tuioPosition);
     }
 
     public void Awake()
@@ -60,12 +67,12 @@ public class Tuio11Manager : MonoBehaviour
 
     public Tuio11Client tuio11Client => _tuio11Client;
     
-    public Vector2 GetDimensions()
-    {
-        var height = 900;
-        var width = 1600;
-        return new Vector2(width * tuioManagerSettings.Scale.x, height * tuioManagerSettings.Scale.y);
-    }
+    // public Vector2 GetDimensions()
+    // {
+    //     var height = 900;
+    //     var width = 1600;
+    //     return new Vector2(width * tuioManagerSettings.Scale.x, height * tuioManagerSettings.Scale.y);
+    // }
 
     public void AddTuio11Listener(Tuio11Listener listener)
     {

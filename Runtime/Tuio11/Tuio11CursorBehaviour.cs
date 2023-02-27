@@ -8,7 +8,7 @@ namespace TuioUnity.Tuio11
         public Tuio11Cursor TuioCursor { get; private set; }
         
         private Transform _transform;
-        private Vector3 _position = Vector3.zero;
+        private Vector2 _tuioPosition = Vector2.zero;
         
         public void Initialize(Tuio11Cursor cursor)
         {
@@ -27,10 +27,10 @@ namespace TuioUnity.Tuio11
 
         private void UpdateCursor()
         {
-            Vector2 dimensions = Tuio11Manager.Instance.GetDimensions();
-            _position.x = dimensions.x * TuioCursor.xPos;
-            _position.y = dimensions.y * (1 - TuioCursor.yPos);
-            _transform.position = _position;
+            _tuioPosition.x = TuioCursor.xPos;
+            _tuioPosition.y = TuioCursor.yPos;
+            
+            _transform.position = Tuio11Manager.Instance.GetWorldPosition(_tuioPosition);
         }
         
         private void RemoveCursor()
