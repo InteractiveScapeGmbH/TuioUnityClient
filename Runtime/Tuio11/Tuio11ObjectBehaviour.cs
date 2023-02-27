@@ -36,8 +36,8 @@ namespace TuioUnity.Tuio11
         
         private void UpdateObject()
         {
-            _tuioPosition.x = TuioObject.xPos;
-            _tuioPosition.y = TuioObject.yPos;
+            _tuioPosition.x = TuioObject.Position.X;
+            _tuioPosition.y = TuioObject.Position.Y;
             _angle = -Mathf.Rad2Deg * TuioObject.Angle;
 
             _transform.position = Tuio11Manager.Instance.GetScreenPosition(_tuioPosition);

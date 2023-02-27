@@ -34,8 +34,8 @@ namespace TuioUnity.Tuio11
 
         private void UpdateCursor()
         {
-            _tuioPosition.x = TuioCursor.xPos;
-            _tuioPosition.y = TuioCursor.yPos;
+            _tuioPosition.x = TuioCursor.Position.X;
+            _tuioPosition.y = TuioCursor.Position.Y;
             
             _transform.position = Tuio11Manager.Instance.GetScreenPosition(_tuioPosition);
             OnUpdate?.Invoke();
