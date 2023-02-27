@@ -43,13 +43,13 @@ public class Tuio11Manager : MonoBehaviour
             {
                 tuioManagerSettings = ScriptableObject.CreateInstance<TuioManagerSettings>();
             }
-            switch (tuioManagerSettings.tuioConnectionType)
+            switch (tuioManagerSettings.TuioConnectionType)
             {
                 case TuioConnectionType.UDP:
-                    _tuioReceiver = new UdpTuioReceiver(tuioManagerSettings.udpPort, false);
+                    _tuioReceiver = new UdpTuioReceiver(tuioManagerSettings.UdpPort, false);
                     break;
                 case TuioConnectionType.Websocket:
-                    _tuioReceiver = new WebsocketTuioReceiver(tuioManagerSettings.websocketAddress, tuioManagerSettings.websocketPort, false);
+                    _tuioReceiver = new WebsocketTuioReceiver(tuioManagerSettings.WebsocketAddress, tuioManagerSettings.WebsocketPort, false);
                     break;
             }
             _tuio11Client = new Tuio11Client(_tuioReceiver);
@@ -64,7 +64,7 @@ public class Tuio11Manager : MonoBehaviour
     {
         var height = 900;
         var width = 1600;
-        return new Vector2(width * tuioManagerSettings.scale.x, height * tuioManagerSettings.scale.y);
+        return new Vector2(width * tuioManagerSettings.Scale.x, height * tuioManagerSettings.Scale.y);
     }
 
     public void AddTuio11Listener(Tuio11Listener listener)
