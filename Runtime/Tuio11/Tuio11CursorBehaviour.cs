@@ -30,7 +30,7 @@ namespace TuioUnity.Tuio11
             _tuioPosition.x = TuioCursor.xPos;
             _tuioPosition.y = TuioCursor.yPos;
             
-            _transform.position = Tuio11Manager.Instance.GetWorldPosition(_tuioPosition);
+            _transform.position = Tuio11Manager.Instance.GetScreenPosition(_tuioPosition);
         }
         
         private void RemoveCursor()
