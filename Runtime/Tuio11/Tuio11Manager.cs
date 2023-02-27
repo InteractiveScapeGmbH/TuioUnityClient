@@ -68,6 +68,12 @@ namespace TuioUnity.Tuio11
             tuioPosition.y = (1 - tuioPosition.y);
             return _camera.ViewportToWorldPoint(tuioPosition);
         }
+        
+        public Vector2 GetScreenPosition(Vector2 tuioPosition)
+        {
+            tuioPosition.y = (1 - tuioPosition.y);
+            return _camera.ViewportToScreenPoint(tuioPosition);
+        }
 
         public void AddTuio11Listener(Tuio11Listener listener)
         {
