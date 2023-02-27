@@ -31,12 +31,6 @@ public class Tuio11Manager : MonoBehaviour
         }
     }
 
-    public Vector2 GetWorldPosition(Vector2 tuioPosition)
-    {
-        tuioPosition.y = (1 - tuioPosition.y);
-        return _camera.ViewportToWorldPoint(tuioPosition);
-    }
-
     public void Awake()
     {
         Initialize();
@@ -67,12 +61,11 @@ public class Tuio11Manager : MonoBehaviour
 
     public Tuio11Client tuio11Client => _tuio11Client;
     
-    // public Vector2 GetDimensions()
-    // {
-    //     var height = 900;
-    //     var width = 1600;
-    //     return new Vector2(width * tuioManagerSettings.Scale.x, height * tuioManagerSettings.Scale.y);
-    // }
+    public Vector2 GetWorldPosition(Vector2 tuioPosition)
+    {
+        tuioPosition.y = (1 - tuioPosition.y);
+        return _camera.ViewportToWorldPoint(tuioPosition);
+    }
 
     public void AddTuio11Listener(Tuio11Listener listener)
     {
