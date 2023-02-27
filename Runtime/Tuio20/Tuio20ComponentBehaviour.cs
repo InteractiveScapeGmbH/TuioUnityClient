@@ -1,7 +1,4 @@
-using System;
-using TuioNet.Common;
 using TuioNet.Tuio20;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace TuioUnity.Tuio20
