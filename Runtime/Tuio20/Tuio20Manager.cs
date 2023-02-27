@@ -2,84 +2,95 @@
 using TuioNet.Tuio20;
 using UnityEngine;
 
-public class Tuio20Manager : MonoBehaviour
+namespace TuioUnity.Tuio20
 {
-    [SerializeField] private TuioManagerSettings tuioManagerSettings;
-    
-    private bool _isInitialized;
-    private Tuio20Client _tuio20Client;
-    private TuioReceiver _tuioReceiver;
-
-    private static Tuio20Manager _instance;
-
-    public static Tuio20Manager Instance
+    public class Tuio20Manager : MonoBehaviour
     {
-        get
+        [SerializeField] private Camera _camera;
+        [SerializeField] private TuioManagerSettings tuioManagerSettings;
+        
+        private bool _isInitialized;
+        private Tuio20Client _tuio20Client;
+        private TuioReceiver _tuioReceiver;
+
+        private static Tuio20Manager _instance;
+
+        public static Tuio20Manager Instance
         {
-            if (_instance == null)
+            get
             {
-                _instance = FindObjectOfType<Tuio20Manager>();
                 if (_instance == null)
                 {
-                    _instance = new GameObject("TUIO 2.0 Manager").AddComponent<Tuio20Manager>();
+                    _instance = FindObjectOfType<Tuio20Manager>();
+                    if (_instance == null)
+                    {
+                        _instance = new GameObject("TUIO 2.0 Manager").AddComponent<Tuio20Manager>();
+                    }
+                    _instance.Initialize();
                 }
-                _instance.Initialize();
+
+                return _instance;
             }
-
-            return _instance;
         }
-    }
 
-    public void Awake()
-    {
-        Initialize();
-    }
-
-    private void Initialize()
-    {
-        if (!_isInitialized)
+        public void Awake()
         {
-            if (tuioManagerSettings is null)
-            {
-                tuioManagerSettings = ScriptableObject.CreateInstance<TuioManagerSettings>();
-            }
-            switch (tuioManagerSettings.TuioConnectionType)
-            {
-                case TuioConnectionType.UDP:
-                    _tuioReceiver = new UdpTuioReceiver(tuioManagerSettings.UdpPort, false);
-                    break;
-                case TuioConnectionType.Websocket:
-                    _tuioReceiver = new WebsocketTuioReceiver(tuioManagerSettings.WebsocketAddress, tuioManagerSettings.WebsocketPort, false);
-                    break;
-            }
-            _tuio20Client = new Tuio20Client(_tuioReceiver);
-            _tuio20Client.Connect();
-            _isInitialized = true;
+            Initialize();
         }
-    }
-    
-    public Tuio20Client tuio20Client => _tuio20Client;
 
-    public Vector2 GetDimensions()
-    {
-        var dim = _tuio20Client.dim;
-        var height = dim >> 16;
-        var width = dim & 0x0000FFFF;
-        return new Vector2(width * tuioManagerSettings.Scale.x, height * tuioManagerSettings.Scale.y);
-    }
+        private void Initialize()
+        {
+            if (!_isInitialized)
+            {
+                if (tuioManagerSettings is null)
+                {
+                    tuioManagerSettings = ScriptableObject.CreateInstance<TuioManagerSettings>();
+                }
+                switch (tuioManagerSettings.TuioConnectionType)
+                {
+                    case TuioConnectionType.UDP:
+                        _tuioReceiver = new UdpTuioReceiver(tuioManagerSettings.UdpPort, false);
+                        break;
+                    case TuioConnectionType.Websocket:
+                        _tuioReceiver = new WebsocketTuioReceiver(tuioManagerSettings.WebsocketAddress, tuioManagerSettings.WebsocketPort, false);
+                        break;
+                }
+                _tuio20Client = new Tuio20Client(_tuioReceiver);
+                _tuio20Client.Connect();
+                _isInitialized = true;
+            }
+        }
+        
+        public Tuio20Client tuio20Client => _tuio20Client;
+        
+        public Vector2 GetWorldPosition(Vector2 tuioPosition)
+        {
+            tuioPosition.y = (1 - tuioPosition.y);
+            return _camera.ViewportToWorldPoint(tuioPosition);
+        }
 
-    public void AddTuio20Listener(Tuio20Listener listener)
-    {
-        _tuio20Client.AddTuioListener(listener);
-    }
+        // public Vector2 GetDimensions()
+        // {
+        //     var dim = _tuio20Client.dim;
+        //     var height = dim >> 16;
+        //     var width = dim & 0x0000FFFF;
+        //     return Vector2.zero;
+        //     // return new Vector2(width * tuioManagerSettings.Scale.x, height * tuioManagerSettings.Scale.y);
+        // }
 
-    public void RemoveTuio20Listener(Tuio20Listener listener)
-    {
-        _tuio20Client.RemoveTuioListener(listener);
-    }
+        public void AddTuio20Listener(Tuio20Listener listener)
+        {
+            _tuio20Client.AddTuioListener(listener);
+        }
 
-    public void Update()
-    {
-        _tuioReceiver.ProcessMessages();
+        public void RemoveTuio20Listener(Tuio20Listener listener)
+        {
+            _tuio20Client.RemoveTuioListener(listener);
+        }
+
+        public void Update()
+        {
+            _tuioReceiver.ProcessMessages();
+        }
     }
 }
