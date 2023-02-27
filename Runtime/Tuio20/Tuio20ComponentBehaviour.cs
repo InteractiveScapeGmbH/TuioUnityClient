@@ -32,7 +32,7 @@ namespace TuioUnity.Tuio20
             _tuioPosition.y = Tuio20Component.yPos;
             _angle = -Mathf.Rad2Deg * Tuio20Component.Angle;
 
-            _transform.position = Tuio20Manager.Instance.GetWorldPosition(_tuioPosition);
+            _transform.position = Tuio20Manager.Instance.GetScreenPosition(_tuioPosition);
             _transform.rotation = Quaternion.Euler(0, 0, _angle);
         }
 
