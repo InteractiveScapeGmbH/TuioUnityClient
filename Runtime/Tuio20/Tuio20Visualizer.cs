@@ -1,7 +1,6 @@
 using TuioNet.Common;
 using TuioNet.Tuio20;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace TuioUnity.Tuio20
 {

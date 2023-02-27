@@ -69,15 +69,6 @@ namespace TuioUnity.Tuio20
             return _camera.ViewportToWorldPoint(tuioPosition);
         }
 
-        // public Vector2 GetDimensions()
-        // {
-        //     var dim = _tuio20Client.dim;
-        //     var height = dim >> 16;
-        //     var width = dim & 0x0000FFFF;
-        //     return Vector2.zero;
-        //     // return new Vector2(width * tuioManagerSettings.Scale.x, height * tuioManagerSettings.Scale.y);
-        // }
-
         public void AddTuio20Listener(Tuio20Listener listener)
         {
             _tuio20Client.AddTuioListener(listener);
