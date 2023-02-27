@@ -1,13 +1,14 @@
 using TuioNet.Common;
 using TuioNet.Tuio20;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace TuioUnity.Tuio20
 {
     public class Tuio20Visualizer: MonoBehaviour, Tuio20Listener
     {
-        [SerializeField] private GameObject tuio20TokenPrefab;
-        [SerializeField] private GameObject tuio20PointerPrefab;
+        [SerializeField] private Tuio20TokenBehaviour _tuio20TokenPrefab;
+        [SerializeField] private Tuio20PointerBehaviour _tuio20PointerPrefab;
 
         void Start()
         {
@@ -18,15 +19,13 @@ namespace TuioUnity.Tuio20
         {
             if (tuio20Object.ContainsNewTuioToken())
             {
-                var tuio20TokenGameObject = Instantiate(tuio20TokenPrefab, transform);
-                var tuio20TokenBehaviour = tuio20TokenGameObject.GetComponent<Tuio20TokenBehaviour>();
+                var tuio20TokenBehaviour = Instantiate(_tuio20TokenPrefab, transform);
                 tuio20TokenBehaviour.Initialize(tuio20Object.Token);
             }
 
             if (tuio20Object.ContainsNewTuioPointer())
             {
-                var tuio20PointerGameObject = Instantiate(tuio20PointerPrefab, transform);
-                var tuio20PointerBehaviour = tuio20PointerGameObject.GetComponent<Tuio20PointerBehaviour>();
+                var tuio20PointerBehaviour = Instantiate(_tuio20PointerPrefab, transform);
                 tuio20PointerBehaviour.Initialize(tuio20Object.Pointer);
             }
         }

@@ -6,8 +6,8 @@ namespace TuioUnity.Tuio11
 {
     public class Tuio11Visualizer: MonoBehaviour, Tuio11Listener
     {
-        [SerializeField] private GameObject _tuio11CursorPrefab;
-        [SerializeField] private GameObject _tuio11ObjectPrefab;
+        [SerializeField] private Tuio11CursorBehaviour _tuio11CursorPrefab;
+        [SerializeField] private Tuio11ObjectBehaviour _tuio11ObjectPrefab;
 
         void Start()
         {
@@ -16,8 +16,7 @@ namespace TuioUnity.Tuio11
 
         public void AddTuioObject(Tuio11Object tuio11Object)
         {
-            var tuio11ObjectGameObject = Instantiate(_tuio11ObjectPrefab, transform);
-            var tuio11ObjectBehaviour = tuio11ObjectGameObject.GetComponent<Tuio11ObjectBehaviour>();
+            var tuio11ObjectBehaviour = Instantiate(_tuio11ObjectPrefab, transform);
             tuio11ObjectBehaviour.Initialize(tuio11Object);
         }
 
@@ -31,8 +30,7 @@ namespace TuioUnity.Tuio11
 
         public void AddTuioCursor(Tuio11Cursor tuio11Cursor)
         {
-            var tuio11CursorGameObject = Instantiate(_tuio11CursorPrefab, transform);
-            var tuio11CursorBehaviour = tuio11CursorGameObject.GetComponent<Tuio11CursorBehaviour>();
+            var tuio11CursorBehaviour = Instantiate(_tuio11CursorPrefab, transform);
             tuio11CursorBehaviour.Initialize(tuio11Cursor);
         }
 
