@@ -1,6 +1,6 @@
 {
     "name": "InteractiveScape.Tuio",
-    "rootNamespace": "",
+    "rootNamespace": "TuioUnity",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
