@@ -1,9 +1,10 @@
 using TuioNet.Tuio20;
+using TuioUnity.Common;
 using UnityEngine;
 
 namespace TuioUnity.Tuio20
 {
-    public abstract class Tuio20ComponentBehaviour : MonoBehaviour
+    public abstract class Tuio20ComponentBehaviour : TuioBehaviour
     {
         public Tuio20Component Tuio20Component { get; protected set; }
         
@@ -25,7 +26,7 @@ namespace TuioUnity.Tuio20
             Tuio20Component.OnRemove -= RemoveComponent;
         }
 
-        private void UpdateComponent()
+        protected virtual void UpdateComponent()
         {
             _tuioPosition.x = Tuio20Component.xPos;
             _tuioPosition.y = Tuio20Component.yPos;
