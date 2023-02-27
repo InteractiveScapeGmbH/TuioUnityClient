@@ -1,61 +1,43 @@
-using TuioNet.Common;
 using TuioNet.Tuio11;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace TuioUnity.Tuio11
 {
     public class Tuio11ObjectBehaviour : MonoBehaviour
     {
+        public Tuio11Object TuioObject { get; private set; }
+
         private Transform _transform;
-        protected Tuio11Object _tuio11Object;
-
-        [SerializeField] private Image _image;
-
-        private Vector2 _screenDimensions = new Vector2(Screen.width, Screen.height);
-        private RectTransform _rectTransform;
-        private RectTransform _imageRectTransform;
-
-        public uint Id { get; private set; }
-        public Vector2 ScreenPosition { get; private set; }
-        public float Angle { get; private set; }
-        public long MilliSeconds { get; private set; }
+        private Vector3 _position = Vector3.zero;
+        private float _angle;
 
         public void Initialize(Tuio11Object tuio11Object)
         {
-            _tuio11Object = tuio11Object;
-            Id = _tuio11Object.SymbolId;
+            _transform = transform;
+            TuioObject = tuio11Object;
+            TuioObject.OnUpdate += UpdateObject;
+            TuioObject.OnRemove += RemoveObject;
         }
 
-        private void Start()
+        private void OnDestroy()
         {
-            _rectTransform = GetComponent<RectTransform>();
-            _imageRectTransform = _image.GetComponent<RectTransform>();
-            Random.InitState((int)_tuio11Object.SessionId);
+            TuioObject.OnUpdate -= UpdateObject;
+            TuioObject.OnRemove -= RemoveObject;
+        }
+        
+        private void UpdateObject()
+        {
+            Vector2 dimensions = Tuio11Manager.Instance.GetDimensions();
+            _position.x = dimensions.x * TuioObject.xPos;
+            _position.y = dimensions.y * (1 - TuioObject.yPos);
+            _angle = -Mathf.Rad2Deg * TuioObject.Angle;
+            _transform.position = _position;
+            _transform.rotation = Quaternion.Euler(0, 0, _angle);
         }
 
-        public void SetColor(Color color)
+        private void RemoveObject()
         {
-            _image.color = color;
-        }
-
-        void LateUpdate()
-        {
-            if (_tuio11Object.State == TuioState.Removed)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                Vector2 halfNormalizedPosition = new Vector2(_tuio11Object.xPos - 0.5f, -_tuio11Object.yPos + 0.5f);
-                ScreenPosition = new Vector2(halfNormalizedPosition.x * _screenDimensions.x,
-                    halfNormalizedPosition.y * _screenDimensions.y);
-
-                _rectTransform.anchoredPosition = ScreenPosition;
-                Angle = -Mathf.Rad2Deg * _tuio11Object.Angle;
-                _imageRectTransform.rotation = Quaternion.Euler(0, 0, Angle);
-                MilliSeconds = _tuio11Object.CurrentTime.GetTotalMilliseconds();
-            }
+            Destroy(gameObject);
         }
     }
 }

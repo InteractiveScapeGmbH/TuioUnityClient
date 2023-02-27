@@ -1,4 +1,3 @@
-using TuioNet.Common;
 using TuioNet.Tuio11;
 using UnityEngine;
 
@@ -6,38 +5,37 @@ namespace TuioUnity.Tuio11
 {
     public class Tuio11CursorBehaviour : MonoBehaviour
     {
+        public Tuio11Cursor TuioCursor { get; private set; }
+        
         private Transform _transform;
-        private Tuio11Cursor _cursor;
         private Vector3 _position = Vector3.zero;
         
         public void Initialize(Tuio11Cursor cursor)
         {
-            _cursor = cursor;
+            _transform = transform;
+            TuioCursor = cursor;
+            TuioCursor.OnUpdate += UpdateCursor;
+            TuioCursor.OnRemove += RemoveCursor;
+            UpdateCursor();
+        }
+
+        private void OnDestroy()
+        {
+            TuioCursor.OnUpdate -= UpdateCursor;
+            TuioCursor.OnRemove -= RemoveCursor;
+        }
+
+        private void UpdateCursor()
+        {
+            Vector2 dimensions = Tuio11Manager.Instance.GetDimensions();
+            _position.x = dimensions.x * TuioCursor.xPos;
+            _position.y = dimensions.y * (1 - TuioCursor.yPos);
+            _transform.position = _position;
         }
         
-        private void Start()
+        private void RemoveCursor()
         {
-            _transform = transform;
-        }
-
-        public void UpdatePosition()
-        {
-            
-        }
-
-        void LateUpdate()
-        {
-            if (_cursor.State == TuioState.Removed)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                Vector2 dimensions = Tuio11Manager.Instance.GetDimensions();
-                _position.x = dimensions.x * _cursor.xPos;
-                _position.y = dimensions.y * (1 - _cursor.yPos);
-                _transform.position = _position;
-            }
+            Destroy(gameObject);
         }
     }
 }
