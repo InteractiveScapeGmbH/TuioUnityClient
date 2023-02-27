@@ -1,4 +1,4 @@
-using Tuio.Common;
+using TuioNet.Common;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New TUIO Manager Settings", menuName = "TUIO/TUIO Manager Settings")]

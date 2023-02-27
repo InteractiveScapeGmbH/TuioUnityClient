@@ -7,7 +7,7 @@
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "Tuio.Net.dll"
+        "TuioNet.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [],

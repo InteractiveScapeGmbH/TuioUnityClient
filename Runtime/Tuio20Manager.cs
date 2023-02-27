@@ -1,5 +1,5 @@
-﻿using Tuio.Common;
-using Tuio.Tuio20;
+﻿using TuioNet.Common;
+using TuioNet.Tuio20;
 using UnityEngine;
 
 public class Tuio20Manager : MonoBehaviour
