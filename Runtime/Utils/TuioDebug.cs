@@ -14,7 +14,7 @@ namespace TuioUnity.Utils
         private DebugText _debugText;
         private void Start()
         {
-            Random.InitState((int)_tuioBehaviour.SessionId);
+            Random.InitState((int)_tuioBehaviour.Id);
             var color = Random.ColorHSV(0f, 1f, 0.7f, 0.8f, 1f, 1f);
             _image.color = color;
 
