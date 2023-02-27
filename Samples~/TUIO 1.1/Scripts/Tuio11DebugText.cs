@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;

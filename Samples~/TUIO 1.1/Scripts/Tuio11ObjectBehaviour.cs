@@ -1,5 +1,5 @@
-using Tuio.Common;
-using Tuio.Tuio11;
+using TuioNet.Common;
+using TuioNet.Tuio11;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,14 +22,14 @@ public class Tuio11ObjectBehaviour : MonoBehaviour
     public void Initialize(Tuio11Object tuio11Object)
     {
         _tuio11Object = tuio11Object;
-        Id = _tuio11Object.symbolId;
+        Id = _tuio11Object.SymbolId;
     }
     
     private void Start()
     {
         _rectTransform = GetComponent<RectTransform>();
         _imageRectTransform = _image.GetComponent<RectTransform>();
-        Random.InitState((int)_tuio11Object.sessionId);
+        Random.InitState((int)_tuio11Object.SessionId);
     }
 
     public void SetColor(Color color)
@@ -39,7 +39,7 @@ public class Tuio11ObjectBehaviour : MonoBehaviour
 
     void LateUpdate()
     {
-        if (_tuio11Object.state == TuioState.Removed)
+        if (_tuio11Object.State == TuioState.Removed)
         {
             Destroy(gameObject);
         }
@@ -50,9 +50,9 @@ public class Tuio11ObjectBehaviour : MonoBehaviour
                 halfNormalizedPosition.y * _screenDimensions.y);
             
             _rectTransform.anchoredPosition = ScreenPosition;
-            Angle = -Mathf.Rad2Deg * _tuio11Object.angle;
+            Angle = -Mathf.Rad2Deg * _tuio11Object.Angle;
             _imageRectTransform.rotation = Quaternion.Euler(0, 0, Angle);
-            MilliSeconds = _tuio11Object.currentTime.GetTotalMilliseconds();
+            MilliSeconds = _tuio11Object.CurrentTime.GetTotalMilliseconds();
         }
     }
 }

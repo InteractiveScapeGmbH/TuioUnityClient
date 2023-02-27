@@ -1,5 +1,5 @@
-using Tuio.Common;
-using Tuio.Tuio11;
+using TuioNet.Common;
+using TuioNet.Tuio11;
 using UnityEngine;
 
 public class Tuio11CursorBehaviour : MonoBehaviour
@@ -17,13 +17,13 @@ public class Tuio11CursorBehaviour : MonoBehaviour
     private void Start()
     {
         _transform = transform;
-        Random.InitState((int)_cursor.sessionId);
+        Random.InitState((int)_cursor.SessionId);
         _spriteRenderer.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
     }
 
     void LateUpdate()
     {
-        if (_cursor.state == TuioState.Removed)
+        if (_cursor.State == TuioState.Removed)
         {
             Destroy(gameObject);
         }

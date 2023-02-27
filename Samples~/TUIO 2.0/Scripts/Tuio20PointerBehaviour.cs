@@ -1,4 +1,4 @@
-using Tuio.Tuio20;
+using TuioNet.Tuio20;
 
 public class Tuio20PointerBehaviour : Tuio20ComponentBehaviour
 {

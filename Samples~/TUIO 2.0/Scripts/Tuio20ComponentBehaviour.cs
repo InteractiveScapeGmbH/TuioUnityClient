@@ -1,5 +1,5 @@
-using Tuio.Common;
-using Tuio.Tuio20;
+using TuioNet.Common;
+using TuioNet.Tuio20;
 using UnityEngine;
 
 public abstract class Tuio20ComponentBehaviour : MonoBehaviour
@@ -12,13 +12,13 @@ public abstract class Tuio20ComponentBehaviour : MonoBehaviour
     private void Start()
     {
         _transform = transform;
-        Random.InitState((int)_tuio20Component.sessionId);
+        Random.InitState((int)_tuio20Component.SessionId);
         _spriteRenderer.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
     }
 
     void LateUpdate()
     {
-        if (_tuio20Component.state == TuioState.Removed)
+        if (_tuio20Component.State == TuioState.Removed)
         {
             Destroy(gameObject);
         }
@@ -26,7 +26,7 @@ public abstract class Tuio20ComponentBehaviour : MonoBehaviour
         {
             Vector2 dimensions = Tuio20Manager.Instance.GetDimensions();
             _transform.position = new Vector3(dimensions.x * _tuio20Component.xPos, dimensions.y * (1-_tuio20Component.yPos), 0);
-            _transform.eulerAngles = new Vector3(0, 0, -Mathf.Rad2Deg * _tuio20Component.angle);
+            _transform.eulerAngles = new Vector3(0, 0, -Mathf.Rad2Deg * _tuio20Component.Angle);
         }
     }
 }

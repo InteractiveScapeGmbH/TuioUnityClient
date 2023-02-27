@@ -1,5 +1,5 @@
-using Tuio.Common;
-using Tuio.Tuio11;
+using TuioNet.Common;
+using TuioNet.Tuio11;
 using UnityEngine;
 
 public class Tuio11Visualizer: MonoBehaviour, Tuio11Listener
