@@ -1,5 +1,5 @@
 # TUIO Client for Unity
-
+This package provides the functionality to use TUIO 1.1 or 2.0 in you Unity projects. It is based on [TuioNet](https://github.com/InteractiveScapeGmbH/TuioNet), a .Net implementation of the TUIO 1.1 and 2.0 specification by Martin Kaltenbrunner.
 
 ## Overview
 
@@ -11,7 +11,8 @@ The Editor and Runtime folders contain key scripts for the Unity editor and runt
 
 ## Installation instructions
 
-Open the Package Manager window and click the plus icon followed by "Add package from git URL...". Enter https://github.com/InteractiveScapeGmbH/TuioUnityClient.git and click "Add".
+Open the Package Manager window and click the plus icon followed by "Add package from git URL...". Enter https://github.com/InteractiveScapeGmbH/TuioUnityClient.git and click "Add".</br>
+Alternatively download the code from github, unzip it and choose the "Add package from disk.." option. Select the ```package.json``` file from the package directory.
 
 ![Add Package](Documentation~/img/pm-add.png)
 
@@ -21,7 +22,7 @@ After the import process is finished the package should appear in the Package Ma
 
 ## Requirements
 
-You will require a TUIO source, such as a Scape Tangible display connected to your device.
+You will require a TUIO source connected to your device.
 
 This package is built to run from Unity 2020.3 upwards.
 
