@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 584408651}
-  tuioManagerSettings: {fileID: 11400000, guid: 108a537cc15428c4bb75b3c588c25f29, type: 2}
+  _tuioManagerSettings: {fileID: 11400000, guid: 108a537cc15428c4bb75b3c588c25f29, type: 2}
 --- !u!4 &77172105
 Transform:
   m_ObjectHideFlags: 0

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: TUIO 2.0 Manager Settings
   m_EditorClassIdentifier: 
   TuioConnectionType: 0
-  UdpPort: 3333
+  UdpPort: 3343
   WebsocketAddress: 10.0.0.20
   WebsocketPort: 3343
