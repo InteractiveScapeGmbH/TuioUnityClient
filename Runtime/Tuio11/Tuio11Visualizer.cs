@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TuioUnity.Tuio11
 {
-    public class Tuio11Visualizer: MonoBehaviour, Tuio11Listener
+    public class Tuio11Visualizer: MonoBehaviour, ITuio11Listener
     {
         [SerializeField] private Tuio11CursorBehaviour _tuio11CursorPrefab;
         [SerializeField] private Tuio11ObjectBehaviour _tuio11ObjectPrefab;

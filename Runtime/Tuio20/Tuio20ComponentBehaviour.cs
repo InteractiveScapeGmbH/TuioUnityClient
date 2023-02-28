@@ -18,6 +18,7 @@ namespace TuioUnity.Tuio20
             Tuio20Component = component;
             Tuio20Component.OnUpdate += UpdateComponent;
             Tuio20Component.OnRemove += RemoveComponent;
+            UpdateComponent();
         }
 
         private void OnDestroy()
@@ -28,8 +29,8 @@ namespace TuioUnity.Tuio20
 
         protected virtual void UpdateComponent()
         {
-            _tuioPosition.x = Tuio20Component.xPos;
-            _tuioPosition.y = Tuio20Component.yPos;
+            _tuioPosition.x = Tuio20Component.Position.X;
+            _tuioPosition.y = Tuio20Component.Position.Y;
             _angle = -Mathf.Rad2Deg * Tuio20Component.Angle;
 
             _transform.position = Tuio20Manager.Instance.GetScreenPosition(_tuioPosition);

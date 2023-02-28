@@ -15,7 +15,7 @@ namespace TuioUnity.Tuio20
             base.Initialize(component);
             TuioPointer = (Tuio20Pointer)component;
             SessionId = TuioPointer.SessionId;
-            Id = TuioPointer.CId;
+            Id = TuioPointer.ComponentId;
         }
 
         protected override void UpdateComponent()

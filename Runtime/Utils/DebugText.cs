@@ -27,9 +27,9 @@ namespace TuioUnity.Utils
             _angle.text = $"{angle:f2} \u00ba";
         }
         
-        private void SetPosition(Vector2 positon)
+        private void SetPosition(Vector2 position)
         {
-            _position.text = $"x: {positon.x:f2}, \ny: {positon.y:f2}";
+            _position.text = $"x: {position.x:f2}, \ny: {position.y:f2}";
         }
 
         public void UpdateText(TuioBehaviour tuioBehaviour)

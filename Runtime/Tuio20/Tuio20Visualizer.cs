@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TuioUnity.Tuio20
 {
-    public class Tuio20Visualizer: MonoBehaviour, Tuio20Listener
+    public class Tuio20Visualizer: MonoBehaviour, ITuio20Listener
     {
         [SerializeField] private Tuio20TokenBehaviour _tuio20TokenPrefab;
         [SerializeField] private Tuio20PointerBehaviour _tuio20PointerPrefab;
