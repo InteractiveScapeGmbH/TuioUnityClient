@@ -26,6 +26,10 @@ You will require a TUIO source connected to your device.
 
 This package is built to run from Unity 2020.3 upwards.
 
+**Important:** By default the windows firewall blocks network communication of the Unity Editor. In order to receive UDP messages from other devices in your local network you need to allow it in the windows firewall settings as shown below:
+
+![Firewall Settings](/Documentation~/img/firewall.png)
+
 ## Dependencies
 - TextMesh Pro for displaying debugging information like id, position or angle.
 
