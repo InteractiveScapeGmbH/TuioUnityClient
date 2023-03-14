@@ -1,6 +1,6 @@
 {
   "name": "com.interactive-scape.tuio_client",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "displayName": "TUIO Client",
   "description": "TUIO Client package for TUIO 1.1 and TUIO 2.0",
   "unity": "2020.3",
@@ -21,9 +21,9 @@
     }
   ],
   "keywords": [
-    "keyword1",
-    "keyword2",
-    "keyword3"
+    "TUIO",
+    "touch",
+    "multitouch"
   ],
   "author": {
     "name": "Interactive Scape",
