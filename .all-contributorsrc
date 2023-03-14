@@ -1,0 +1,34 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "eqbic",
+      "name": "Erich Querner",
+      "avatar_url": "https://avatars.githubusercontent.com/u/51314413?v=4",
+      "profile": "https://www.interactive-scape.com/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "gilescoope",
+      "name": "Giles Coope",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5291605?v=4",
+      "profile": "https://github.com/gilescoope",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "TuioUnityClient",
+  "projectOwner": "InteractiveScapeGmbH"
+}
