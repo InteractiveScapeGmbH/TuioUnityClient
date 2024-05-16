@@ -2,6 +2,9 @@
 
 namespace TuioUnity.Common
 {
+    /// <summary>
+    /// Describes which tuio specification should be used.
+    /// </summary>
     public enum TuioVersion
     {
         [InspectorName("Tuio 1.1")]
