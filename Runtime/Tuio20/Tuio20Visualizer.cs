@@ -18,18 +18,18 @@ namespace TuioUnity.Tuio20
 
         private readonly Dictionary<uint, Tuio20ComponentBehaviour> _tuioBehaviours = new();
 
-        private Tuio20Dispatcher Manager => (Tuio20Dispatcher)_tuioSession.TuioDispatcher;
+        private Tuio20Dispatcher Dispatcher => (Tuio20Dispatcher)_tuioSession.TuioDispatcher;
 
         private void OnEnable()
         {
-            Manager.OnObjectAdd += SpawnTuioObject;
-            Manager.OnObjectRemove += DestroyTuioObject;
+            Dispatcher.OnObjectAdd += SpawnTuioObject;
+            Dispatcher.OnObjectRemove += DestroyTuioObject;
         }
 
         private void OnDisable()
         {
-            Manager.OnObjectAdd -= SpawnTuioObject;
-            Manager.OnObjectRemove -= DestroyTuioObject;
+            Dispatcher.OnObjectAdd -= SpawnTuioObject;
+            Dispatcher.OnObjectRemove -= DestroyTuioObject;
         }
 
         private void SpawnTuioObject(Tuio20Object tuioObject)

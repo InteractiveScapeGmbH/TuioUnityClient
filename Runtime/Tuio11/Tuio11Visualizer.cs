@@ -18,35 +18,35 @@ namespace TuioUnity.Tuio11
 
         private readonly Dictionary<uint, Tuio11Behaviour> _tuioBehaviours = new();
 
-        private Tuio11Dispatcher _manager;
+        private Tuio11Dispatcher _dispatcher;
 
         private void Awake()
         {
-            _manager = (Tuio11Dispatcher)_tuioSession.TuioDispatcher;
+            _dispatcher = (Tuio11Dispatcher)_tuioSession.TuioDispatcher;
         }
 
         private void OnEnable()
         {
-            _manager.OnCursorAdd += AddTuioCursor;
-            _manager.OnCursorRemove += RemoveTuioCursor;
+            _dispatcher.OnCursorAdd += AddTuioCursor;
+            _dispatcher.OnCursorRemove += RemoveTuioCursor;
 
-            _manager.OnObjectAdd += AddTuioObject;
-            _manager.OnObjectRemove += RemoveTuioObject;
+            _dispatcher.OnObjectAdd += AddTuioObject;
+            _dispatcher.OnObjectRemove += RemoveTuioObject;
 
-            _manager.OnBlobAdd += AddTuioBlob;
-            _manager.OnBlobRemove += RemoveTuioBlob;
+            _dispatcher.OnBlobAdd += AddTuioBlob;
+            _dispatcher.OnBlobRemove += RemoveTuioBlob;
         }
 
         private void OnDisable()
         {
-            _manager.OnCursorAdd -= AddTuioCursor;
-            _manager.OnCursorRemove -= RemoveTuioCursor;
+            _dispatcher.OnCursorAdd -= AddTuioCursor;
+            _dispatcher.OnCursorRemove -= RemoveTuioCursor;
             
-            _manager.OnObjectAdd -= AddTuioObject;
-            _manager.OnObjectRemove -= RemoveTuioObject;
+            _dispatcher.OnObjectAdd -= AddTuioObject;
+            _dispatcher.OnObjectRemove -= RemoveTuioObject;
             
-            _manager.OnBlobAdd -= AddTuioBlob;
-            _manager.OnBlobRemove -= RemoveTuioBlob;
+            _dispatcher.OnBlobAdd -= AddTuioBlob;
+            _dispatcher.OnBlobRemove -= RemoveTuioBlob;
         }
 
         private void AddTuioCursor(Tuio11Cursor tuio11Cursor)
