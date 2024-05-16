@@ -59,6 +59,10 @@ Set the desired TUIO Session Settings (see Reference).
 
 ![Manager Settings](Documentation~/img/settings.png)
 
+**Default Websocket ports**
+- Tuio 1.1: `3333`
+- Tuio 2.0: `3343`
+
 ### Simple Setup
 - Add a TUIO 1.1 or TUIO 2.0 Visualizer from the `Prefabs` folder of the package to your scene
 - Set the reference to the `Tuio Session` and make sure all references to Tuio Prefabs are set (you can find them in the `Prefabs` folder of the packge too.)
