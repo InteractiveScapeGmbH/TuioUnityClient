@@ -5,6 +5,10 @@ using UnityEngine;
 
 namespace TuioUnity.Tuio11
 {
+    /// <summary>
+    /// Basic example how to implement a simple visualisation of Tuio 1.1 objects by registering on the Add and Remove
+    /// events to spawn and destroy UI elements for each type.
+    /// </summary>
     public class Tuio11Visualizer: MonoBehaviour
     {
         [SerializeField] private TuioSession _tuioSession;
