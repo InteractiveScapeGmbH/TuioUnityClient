@@ -6,6 +6,10 @@ using Random = UnityEngine.Random;
 
 namespace TuioUnity.Utils
 {
+    /// <summary>
+    /// Simple component to display properties of tuio objects in the scene and set a random color for easier
+    /// distinction between objects or touches.
+    /// </summary>
     [RequireComponent(typeof(TuioBehaviour))]
     public class TuioDebug : MonoBehaviour
     {
