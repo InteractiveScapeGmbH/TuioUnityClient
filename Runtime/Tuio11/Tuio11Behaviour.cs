@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace TuioUnity.Tuio11
 {
+    /// <summary>
+    /// Base class for all Tuio 1.1 MonoBehaviours. Tuio objects update their transforms themselves and provide functionality
+    /// to destroy them when the object or touch gets removed from the screen.
+    /// </summary>
     public abstract class Tuio11Behaviour : TuioBehaviour
     {
         private Vector2 _position = Vector2.zero;

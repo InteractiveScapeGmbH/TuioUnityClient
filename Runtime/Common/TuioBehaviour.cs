@@ -2,6 +2,9 @@
 
 namespace TuioUnity.Common
 {
+    /// <summary>
+    /// Base class for all Tuio (1.1 and 2.0) MonoBehaviours.
+    /// </summary>
     [RequireComponent(typeof(RectTransform))]
     public abstract class TuioBehaviour : MonoBehaviour
     {

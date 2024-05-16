@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace TuioUnity.Tuio20
 {
+    /// <summary>
+    /// Base class for all Tuio 2.0 MonoBehaviours. Tuio objects update their transforms themselves and provide functionality
+    /// to destroy them when the object or touch gets removed from the screen.
+    /// </summary>
     public abstract class Tuio20ComponentBehaviour : TuioBehaviour
     {
         private Tuio20Component _tuio20Component;
