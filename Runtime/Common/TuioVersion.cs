@@ -2,7 +2,7 @@
 
 namespace TuioUnity.Common
 {
-    public enum TuioType
+    public enum TuioVersion
     {
         [InspectorName("Tuio 1.1")]
         Tuio11,
