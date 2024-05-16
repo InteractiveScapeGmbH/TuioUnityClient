@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d59f30a82caae7047a6c7b39d9ccec3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tuioManager: {fileID: 6282188938933972878, guid: dbaa5cd0f9d2e2140a42639f7b84806c, type: 3}
-  _tuio20TokenPrefab: {fileID: 8159175845109018078, guid: 23252af3a26060a48bedf1716fd3b6df, type: 3}
-  _tuio20PointerPrefab: {fileID: 7180560162413034633, guid: ec90a1736c95aa747b799c4ea1b0345f, type: 3}
+  _tuioSession: {fileID: 0}
+  _tokenPrefab: {fileID: 8159175845109018078, guid: 23252af3a26060a48bedf1716fd3b6df, type: 3}
+  _pointerPrefab: {fileID: 7180560162413034633, guid: ec90a1736c95aa747b799c4ea1b0345f, type: 3}
   _phonePrefab: {fileID: 2446837830664123726, guid: c19ee03977837834e99b6310db9b0252, type: 3}

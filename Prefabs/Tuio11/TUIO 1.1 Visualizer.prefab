@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53770f1c045203f4eb929d3339dabd92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tuioManagerBehaviour: {fileID: 6282188938933972878, guid: dbaa5cd0f9d2e2140a42639f7b84806c, type: 3}
-  _tuio11CursorPrefab: {fileID: 1098858469007961909, guid: 41694e85395678b48961d7d19d713bdf, type: 3}
-  _tuio11ObjectPrefab: {fileID: 4893285864280235794, guid: 5566ded49ae6e874394145e2fd9e11b7, type: 3}
-  _tuio11BlobPrefab: {fileID: 7294536467442807394, guid: 161995d131d260a448903cb7bb0d7fb6, type: 3}
+  _tuioSession: {fileID: 0}
+  _cursorPrefab: {fileID: 1098858469007961909, guid: 41694e85395678b48961d7d19d713bdf, type: 3}
+  _objectPrefab: {fileID: 4893285864280235794, guid: 5566ded49ae6e874394145e2fd9e11b7, type: 3}
+  _blobPrefab: {fileID: 7294536467442807394, guid: 161995d131d260a448903cb7bb0d7fb6, type: 3}
