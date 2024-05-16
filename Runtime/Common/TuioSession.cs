@@ -6,6 +6,11 @@ using UnityEngine;
 
 namespace TuioUnity.Common
 {
+    /// <summary>
+    /// A Tuio-Session is responsible for the communication between the tuio sender and the unity application. It establishes
+    /// a connection via UDP or Websocket depending on the given network settings and registers the appropriate callbacks on
+    /// the events based on the used tuio version.
+    /// </summary>
     public class TuioSession : MonoBehaviour
     {
         [SerializeField] private TuioVersion _tuioVersion = TuioVersion.Tuio11;
