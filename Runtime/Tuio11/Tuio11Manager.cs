@@ -1,100 +1,117 @@
-﻿using TuioNet.Common;
+﻿using System;
+using TuioNet.Common;
 using TuioNet.Tuio11;
-using UnityEngine;
+using TuioUnity.Common;
 
 namespace TuioUnity.Tuio11
 {
-    public class Tuio11Manager : MonoBehaviour
+    public class Tuio11Manager : ITuioManager
     {
-        [SerializeField] private Camera _camera;
-        [SerializeField] private TuioManagerSettings _tuioManagerSettings;
+
+        private Tuio11Processor _processor;
         
-        private bool _isInitialized;
-        public Tuio11Client TuioClient { get; private set; }
+        public event Action<Tuio11Cursor> OnCursorAdd;
+        public event Action<Tuio11Cursor> OnCursorUpdate;
+        public event Action<Tuio11Cursor> OnCursorRemove;
 
-        private static Tuio11Manager _instance;
-        public static Tuio11Manager Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = FindObjectOfType<Tuio11Manager>();
-                    if (_instance == null)
-                    {
-                        _instance = new GameObject("TUIO 1.1 Manager").AddComponent<Tuio11Manager>();
-                    }
-                    _instance.Initialize();
-                }
-
-                return _instance;
-            }
-        }
-
-        public void Awake()
-        {
-            Initialize();
-        }
-
-        private void Initialize()
-        {
-            if (!_isInitialized)
-            {
-                if (_tuioManagerSettings is null)
-                {
-                    _tuioManagerSettings = ScriptableObject.CreateInstance<TuioManagerSettings>();
-                }
-
-                string address = "0.0.0.0";
-                int port = 3333;
-                switch (_tuioManagerSettings.TuioConnectionType)
-                {
-                    case TuioConnectionType.UDP:
-                        port = _tuioManagerSettings.UdpPort;
-                        break;
-                    case TuioConnectionType.Websocket:
-                        address = _tuioManagerSettings.WebsocketAddress;
-                        port = _tuioManagerSettings.WebsocketPort;
-                        break;
-                }
-
-                TuioClient = new Tuio11Client(_tuioManagerSettings.TuioConnectionType, address, port, false);
-                TuioClient.Connect();
-                _isInitialized = true;
-            }
-        }
-
+        public event Action<Tuio11Object> OnObjectAdd;
+        public event Action<Tuio11Object> OnObjectUpdate;
+        public event Action<Tuio11Object> OnObjectRemove;
         
-        public Vector2 GetWorldPosition(Vector2 tuioPosition)
+        public event Action<Tuio11Blob> OnBlobAdd;
+        public event Action<Tuio11Blob> OnBlobUpdate;
+        public event Action<Tuio11Blob> OnBlobRemove;
+
+        public event Action<TuioTime> OnRefresh;
+        
+        
+        private void AddCursor(Tuio11Cursor tuioCursor)
         {
-            tuioPosition.y = (1 - tuioPosition.y);
-            return _camera.ViewportToWorldPoint(tuioPosition);
+            OnCursorAdd?.Invoke(tuioCursor);
+        }
+
+        private void RemoveCursor(Tuio11Cursor tuioCursor)
+        {
+            OnCursorRemove?.Invoke(tuioCursor);
+        }
+
+        private void UpdateCursor(Tuio11Cursor tuioCursor)
+        {
+            OnCursorUpdate?.Invoke(tuioCursor);
+        }
+
+        private void AddObject(Tuio11Object tuioObject)
+        {
+            OnObjectAdd?.Invoke(tuioObject);
+        }
+
+        private void UpdateObject(Tuio11Object tuioObject)
+        {
+            OnObjectUpdate?.Invoke(tuioObject);
+        }
+
+        private void RemoveObject(Tuio11Object tuioObject)
+        {
+            OnObjectRemove?.Invoke(tuioObject);
+        }
+
+        private void AddBlob(Tuio11Blob tuioBlob)
+        {
+            OnBlobAdd?.Invoke(tuioBlob);
         }
         
-        public Vector2 GetScreenPosition(Vector2 tuioPosition)
+        private void UpdateBlob(Tuio11Blob tuioBlob)
         {
-            tuioPosition.y = (1 - tuioPosition.y);
-            return _camera.ViewportToScreenPoint(tuioPosition);
+            OnBlobUpdate?.Invoke(tuioBlob);
+        }
+        
+        private void RemoveBlob(Tuio11Blob tuioBlob)
+        {
+            OnBlobRemove?.Invoke(tuioBlob);
         }
 
-        public void AddTuio11Listener(ITuio11Listener listener)
+        private void Refresh(TuioTime tuioTime)
         {
-            TuioClient.AddTuioListener(listener);
+            OnRefresh?.Invoke(tuioTime);
         }
 
-        public void RemoveTuio11Listener(ITuio11Listener listener)
+        public void SetupProcessor(TuioClient tuioClient)
         {
-            TuioClient.RemoveTuioListener(listener);
+            _processor = new Tuio11Processor(tuioClient);
         }
 
-        public void Update()
+        public void RegisterCallbacks()
         {
-            TuioClient.ProcessMessages();
+            _processor.OnCursorAdded += AddCursor;
+            _processor.OnCursorUpdated += UpdateCursor;
+            _processor.OnCursorRemoved += RemoveCursor;
+
+            _processor.OnObjectAdded += AddObject;
+            _processor.OnObjectUpdated += UpdateObject;
+            _processor.OnObjectRemoved += RemoveObject;
+
+            _processor.OnBlobAdded += AddBlob;
+            _processor.OnBlobUpdated += UpdateBlob;
+            _processor.OnBlobRemoved += RemoveBlob;
+
+            _processor.OnRefreshed += Refresh;
         }
 
-        private void OnApplicationQuit()
+        public void UnregisterCallbacks()
         {
-            TuioClient.Disconnect();
+            _processor.OnCursorAdded -= AddCursor;
+            _processor.OnCursorUpdated -= UpdateCursor;
+            _processor.OnCursorRemoved -= RemoveCursor;
+            
+            _processor.OnObjectAdded -= AddObject;
+            _processor.OnObjectUpdated -= UpdateObject;
+            _processor.OnObjectRemoved -= RemoveObject;
+
+            _processor.OnBlobAdded -= AddBlob;
+            _processor.OnBlobUpdated -= UpdateBlob;
+            _processor.OnBlobRemoved -= RemoveBlob;
+
+            _processor.OnRefreshed -= Refresh;
         }
     }
 }

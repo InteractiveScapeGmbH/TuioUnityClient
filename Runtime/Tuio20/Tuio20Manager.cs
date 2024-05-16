@@ -1,93 +1,57 @@
-﻿using TuioNet.Common;
+﻿using System;
+using TuioNet.Common;
 using TuioNet.Tuio20;
-using UnityEngine;
+using TuioUnity.Common;
 
 namespace TuioUnity.Tuio20
 {
-    public class Tuio20Manager : MonoBehaviour
+    public class Tuio20Manager : ITuioManager
     {
-        [SerializeField] private Camera _camera;
-        [SerializeField] private TuioManagerSettings _tuioManagerSettings;
-        
-        public Tuio20Client TuioClient { get; private set; }
+        private Tuio20Processor _processor;
+        public event Action<Tuio20Object> OnObjectAdd;
+        public event Action<Tuio20Object> OnObjectUpdate;
+        public event Action<Tuio20Object> OnObjectRemove;
+        public event Action<TuioTime> OnRefresh; 
 
-        private bool _isInitialized;
-        private static Tuio20Manager _instance;
-        public static Tuio20Manager Instance
+        private void AddObject(Tuio20Object tuioObject)
         {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = FindObjectOfType<Tuio20Manager>();
-                    if (_instance == null)
-                    {
-                        _instance = new GameObject("TUIO 2.0 Manager").AddComponent<Tuio20Manager>();
-                    }
-                    _instance.Initialize();
-                }
-
-                return _instance;
-            }
-        }
-
-        public void Awake()
-        {
-            Initialize();
-        }
-
-        private void Initialize()
-        {
-            if (!_isInitialized)
-            {
-                if (_tuioManagerSettings is null)
-                {
-                    _tuioManagerSettings = ScriptableObject.CreateInstance<TuioManagerSettings>();
-                }
-
-                string address = "0.0.0.0";
-                int port = 3333;
-                switch (_tuioManagerSettings.TuioConnectionType)
-                {
-                    case TuioConnectionType.UDP:
-                        port = _tuioManagerSettings.UdpPort;
-                        break;
-                    case TuioConnectionType.Websocket:
-                        address = _tuioManagerSettings.WebsocketAddress;
-                        port = _tuioManagerSettings.WebsocketPort;
-                        break;
-                }
-                TuioClient = new Tuio20Client(_tuioManagerSettings.TuioConnectionType, address, port, false);
-                TuioClient.Connect();
-                _isInitialized = true;
-            }
+            OnObjectAdd?.Invoke(tuioObject);
         }
         
-        public Vector2 GetWorldPosition(Vector2 tuioPosition)
+        private void UpdateObject(Tuio20Object tuioObject)
         {
-            tuioPosition.y = (1 - tuioPosition.y);
-            return _camera.ViewportToWorldPoint(tuioPosition);
+            OnObjectUpdate?.Invoke(tuioObject);
+        }
+        
+        private void RemoveObject(Tuio20Object tuioObject)
+        {
+            OnObjectRemove?.Invoke(tuioObject);
         }
 
-        public Vector2 GetScreenPosition(Vector2 tuioPosition)
+        private void Refresh(TuioTime tuioTime)
         {
-            tuioPosition.y = (1 - tuioPosition.y);
-            return _camera.ViewportToScreenPoint(tuioPosition);
+            OnRefresh?.Invoke(tuioTime);
         }
 
-        public void AddTuio20Listener(ITuio20Listener listener)
+        public void SetupProcessor(TuioClient tuioClient)
         {
-            TuioClient.AddTuioListener(listener);
+            _processor = new Tuio20Processor(tuioClient);
         }
 
-        public void RemoveTuio20Listener(ITuio20Listener listener)
+        public void RegisterCallbacks()
         {
-            TuioClient.RemoveTuioListener(listener);
+            _processor.OnObjectAdded += AddObject;
+            _processor.OnObjectUpdated += UpdateObject;
+            _processor.OnObjectRemoved += RemoveObject;
+            _processor.OnRefreshed += Refresh;
         }
 
-        public void Update()
+        public void UnregisterCallbacks()
         {
-            TuioClient.ProcessMessages();
+            _processor.OnObjectAdded -= AddObject;
+            _processor.OnObjectUpdated -= UpdateObject;
+            _processor.OnObjectRemoved -= RemoveObject;
+            _processor.OnRefreshed -= Refresh;
         }
     }
 }
