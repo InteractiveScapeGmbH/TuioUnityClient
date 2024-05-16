@@ -15,7 +15,7 @@ namespace TuioUnity.Common
     {
         [field: SerializeField] public TuioVersion TuioVersion { get; set; } = TuioVersion.Tuio11;
         [field: SerializeField] public TuioConnectionType ConnectionType { get; set; } = TuioConnectionType.UDP;
-        [field: SerializeField] public string IpAddress { get; set; } = "10.0.0.20";
+        [SerializeField] private string _ipAddress = "10.0.0.20";
         [field: SerializeField] public int UdpPort { get; set; }= 3333;
 
         private ITuioDispatcher _tuioDispatcher;
@@ -60,7 +60,7 @@ namespace TuioUnity.Common
                     };
                 }
 
-                _tuioClient = new TuioClient(ConnectionType, IpAddress, port, false);
+                _tuioClient = new TuioClient(ConnectionType, _ipAddress, port, false);
                 TuioDispatcher.SetupProcessor(_tuioClient);
                 _tuioClient.Connect();
                 _isInitialized = true;
