@@ -2,12 +2,13 @@ using System.Collections.Generic;
 using TuioNet.Tuio20;
 using TuioUnity.Common;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace TuioUnity.Tuio20
 {
     public class Tuio20Visualizer: MonoBehaviour
     {
-        [SerializeField] private TuioSession _tuioManager;
+        [SerializeField] private TuioSession _tuioSession;
         [SerializeField] private Tuio20TokenBehaviour _tuio20TokenPrefab;
         [SerializeField] private Tuio20PointerBehaviour _tuio20PointerPrefab;
         [SerializeField] private PhoneBehaviour _phonePrefab;
@@ -17,7 +18,7 @@ namespace TuioUnity.Tuio20
         private readonly Dictionary<uint, Tuio20TokenBehaviour> _token = new();
         private readonly Dictionary<uint, PhoneBehaviour> _phones = new();
 
-        private Tuio20Dispatcher Manager => (Tuio20Dispatcher)_tuioManager.TuioDispatcher;
+        private Tuio20Dispatcher Manager => (Tuio20Dispatcher)_tuioSession.TuioDispatcher;
 
         private void OnEnable()
         {
