@@ -1,5 +1,4 @@
-using TuioUnity.Tuio11;
-using TuioUnity.Tuio20;
+using TuioUnity.Common;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,7 +11,7 @@ namespace TuioUnity
         static void CreateTuio11Manager(MenuCommand menuCommand)
         {
             GameObject go = new GameObject("TUIO 1.1 Manager");
-            go.AddComponent<Tuio11Manager>();
+            go.AddComponent<TuioManagerBehaviour>();
             GameObjectUtility.SetParentAndAlign(go, menuCommand.context as GameObject);
             Undo.RegisterCreatedObjectUndo(go, "Create " + go.name);
             Selection.activeObject = go;
@@ -22,7 +21,7 @@ namespace TuioUnity
         static void CreateTuio20Manager(MenuCommand menuCommand)
         {
             GameObject go = new GameObject("TUIO 2.0 Manager");
-            go.AddComponent<Tuio20Manager>();
+            go.AddComponent<TuioManagerBehaviour>();
             GameObjectUtility.SetParentAndAlign(go, menuCommand.context as GameObject);
             Undo.RegisterCreatedObjectUndo(go, "Create " + go.name);
             Selection.activeObject = go;
