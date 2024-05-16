@@ -13,8 +13,10 @@ namespace TuioUnity.Common
     /// </summary>
     public class TuioSession : MonoBehaviour
     {
-        [field:SerializeField] public TuioVersion TuioVersion { get; set; } = TuioVersion.Tuio11;
-        [SerializeField] private TuioNetworkSettings _tuioNetworkSettings;
+        [field: SerializeField] public TuioVersion TuioVersion { get; set; } = TuioVersion.Tuio11;
+        [field: SerializeField] public TuioConnectionType ConnectionType { get; set; } = TuioConnectionType.UDP;
+        [field: SerializeField] public string IpAddress { get; set; } = "10.0.0.20";
+        [field: SerializeField] public int UdpPort { get; set; }= 3333;
 
         private ITuioDispatcher _tuioDispatcher;
 
@@ -41,32 +43,24 @@ namespace TuioUnity.Common
 
         private void Awake()
         {
-            Initialize(_tuioNetworkSettings);
+            Initialize();
         }
         
-        private void Initialize(TuioNetworkSettings settings)
+        private void Initialize()
         {
             if (!_isInitialized)
             {
-                if (settings is null)
+                int port = UdpPort;
+                if (ConnectionType == TuioConnectionType.Websocket)
                 {
-                    settings = ScriptableObject.CreateInstance<TuioNetworkSettings>();
+                    port = TuioVersion switch
+                    {
+                        TuioVersion.Tuio11 => 3333,
+                        TuioVersion.Tuio20 => 3343
+                    };
                 }
 
-                var address = "0.0.0.0";
-                var port = 3333;
-                switch (settings.TuioConnectionType)
-                {
-                    case TuioConnectionType.UDP:
-                        port = settings.UdpPort;
-                        break;
-                    case TuioConnectionType.Websocket:
-                        address = settings.WebsocketAddress;
-                        port = settings.WebsocketPort;
-                        break;
-                }
-
-                _tuioClient = new TuioClient(settings.TuioConnectionType, address, port, false);
+                _tuioClient = new TuioClient(ConnectionType, IpAddress, port, false);
                 TuioDispatcher.SetupProcessor(_tuioClient);
                 _tuioClient.Connect();
                 _isInitialized = true;
