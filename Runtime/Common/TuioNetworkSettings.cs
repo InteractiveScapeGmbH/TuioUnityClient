@@ -1,10 +1,10 @@
 using TuioNet.Common;
 using UnityEngine;
 
-namespace TuioUnity
+namespace TuioUnity.Common
 {
-    [CreateAssetMenu(fileName = "New TUIO Manager Settings", menuName = "TUIO/TUIO Manager Settings")]
-    public class TuioManagerSettings : ScriptableObject
+    [CreateAssetMenu(fileName = "New TUIO Network Settings", menuName = "TUIO/TUIO Network Settings")]
+    public class TuioNetworkSettings : ScriptableObject
     {
        public TuioConnectionType TuioConnectionType = TuioConnectionType.Websocket;
         public int UdpPort = 3333;
