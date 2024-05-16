@@ -2,7 +2,7 @@
 
 namespace TuioUnity.Common
 {
-    public interface ITuioManager
+    public interface ITuioDispatcher
     {
         public void SetupProcessor(TuioClient tuioClient);
         public void RegisterCallbacks();

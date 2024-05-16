@@ -7,18 +7,18 @@ namespace TuioUnity.Tuio11
 {
     public class Tuio11Visualizer: MonoBehaviour
     {
-        [SerializeField] private TuioManagerBehaviour _tuioManagerBehaviour;
-        [SerializeField] private Tuio11CursorBehaviour _tuio11CursorPrefab;
-        [SerializeField] private Tuio11ObjectBehaviour _tuio11ObjectPrefab;
-        [SerializeField] private Tuio11BlobBehaviour _tuio11BlobPrefab;
+        [SerializeField] private TuioSession _tuioSession;
+        [SerializeField] private Tuio11CursorBehaviour _cursorPrefab;
+        [SerializeField] private Tuio11ObjectBehaviour _objectPrefab;
+        [SerializeField] private Tuio11BlobBehaviour _blobPrefab;
 
-        private readonly Dictionary<uint, Tuio11Behaviour> _tuioObjects = new();
+        private readonly Dictionary<uint, Tuio11Behaviour> _tuioBehaviours = new();
 
-        private Tuio11Manager _manager;
+        private Tuio11Dispatcher _manager;
 
         private void Awake()
         {
-            _manager = (Tuio11Manager)_tuioManagerBehaviour.TuioManager;
+            _manager = (Tuio11Dispatcher)_tuioSession.TuioDispatcher;
         }
 
         private void OnEnable()
@@ -47,14 +47,14 @@ namespace TuioUnity.Tuio11
 
         private void AddTuioCursor(Tuio11Cursor tuio11Cursor)
         {
-            var tuio11CursorBehaviour = Instantiate(_tuio11CursorPrefab, transform);
+            var tuio11CursorBehaviour = Instantiate(_cursorPrefab, transform);
             tuio11CursorBehaviour.Initialize(tuio11Cursor);
-            _tuioObjects.Add(tuio11Cursor.SessionId,tuio11CursorBehaviour);
+            _tuioBehaviours.Add(tuio11Cursor.SessionId,tuio11CursorBehaviour);
         }
 
         private void RemoveTuioCursor(Tuio11Cursor tuioCursor)
         {
-            if (_tuioObjects.Remove(tuioCursor.SessionId, out var cursorBehaviour))
+            if (_tuioBehaviours.Remove(tuioCursor.SessionId, out var cursorBehaviour))
             {
                 cursorBehaviour.Destroy();
             }
@@ -62,14 +62,14 @@ namespace TuioUnity.Tuio11
         
         private void AddTuioObject(Tuio11Object tuioObject)
         {
-            var objectBehaviour = Instantiate(_tuio11ObjectPrefab, transform);
+            var objectBehaviour = Instantiate(_objectPrefab, transform);
             objectBehaviour.Initialize(tuioObject);
-            _tuioObjects.Add(tuioObject.SessionId, objectBehaviour);
+            _tuioBehaviours.Add(tuioObject.SessionId, objectBehaviour);
         }
         
         private void RemoveTuioObject(Tuio11Object tuioObject)
         {
-            if (_tuioObjects.Remove(tuioObject.SessionId, out var objectBehaviour))
+            if (_tuioBehaviours.Remove(tuioObject.SessionId, out var objectBehaviour))
             {
                 objectBehaviour.Destroy();
             }
@@ -77,14 +77,14 @@ namespace TuioUnity.Tuio11
 
         private void AddTuioBlob(Tuio11Blob tuioBlob)
         {
-            var blobBehaviour = Instantiate(_tuio11BlobPrefab, transform);
+            var blobBehaviour = Instantiate(_blobPrefab, transform);
             blobBehaviour.Initialize(tuioBlob);
-            _tuioObjects.Add(tuioBlob.SessionId, blobBehaviour);
+            _tuioBehaviours.Add(tuioBlob.SessionId, blobBehaviour);
         }
 
         private void RemoveTuioBlob(Tuio11Blob tuioBlob)
         {
-            if (_tuioObjects.Remove(tuioBlob.SessionId, out var blobBehaviour))
+            if (_tuioBehaviours.Remove(tuioBlob.SessionId, out var blobBehaviour))
             {
                 blobBehaviour.Destroy();
             }

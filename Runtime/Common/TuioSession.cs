@@ -6,28 +6,28 @@ using UnityEngine;
 
 namespace TuioUnity.Common
 {
-    public class TuioManagerBehaviour : MonoBehaviour
+    public class TuioSession : MonoBehaviour
     {
-        [SerializeField] private TuioType _tuioType = TuioType.Tuio11;
-        [SerializeField] private TuioManagerSettings _tuioManagerSettings;
+        [SerializeField] private TuioVersion _tuioVersion = TuioVersion.Tuio11;
+        [SerializeField] private TuioNetworkSettings _tuioNetworkSettings;
 
-        private ITuioManager _tuioManager;
+        private ITuioDispatcher _tuioDispatcher;
 
-        public ITuioManager TuioManager
+        public ITuioDispatcher TuioDispatcher
         {
             get
             {
-                if (_tuioManager is null)
+                if (_tuioDispatcher is null)
                 {
-                    _tuioManager = _tuioType switch
+                    _tuioDispatcher = _tuioVersion switch
                     {
-                        TuioType.Tuio11 => new Tuio11Manager(),
-                        TuioType.Tuio20 => new Tuio20Manager(),
+                        TuioVersion.Tuio11 => new Tuio11Dispatcher(),
+                        TuioVersion.Tuio20 => new Tuio20Dispatcher(),
                         _ => throw new ArgumentOutOfRangeException()
                     };
                 }
 
-                return _tuioManager;
+                return _tuioDispatcher;
             }
         }
         
@@ -36,16 +36,16 @@ namespace TuioUnity.Common
 
         private void Awake()
         {
-            Initialize(_tuioManagerSettings);
+            Initialize(_tuioNetworkSettings);
         }
         
-        private void Initialize(TuioManagerSettings settings)
+        private void Initialize(TuioNetworkSettings settings)
         {
             if (!_isInitialized)
             {
                 if (settings is null)
                 {
-                    settings = ScriptableObject.CreateInstance<TuioManagerSettings>();
+                    settings = ScriptableObject.CreateInstance<TuioNetworkSettings>();
                 }
 
                 var address = "0.0.0.0";
@@ -62,7 +62,7 @@ namespace TuioUnity.Common
                 }
 
                 _tuioClient = new TuioClient(settings.TuioConnectionType, address, port, false);
-                TuioManager.SetupProcessor(_tuioClient);
+                TuioDispatcher.SetupProcessor(_tuioClient);
                 _tuioClient.Connect();
                 _isInitialized = true;
             }
@@ -70,12 +70,12 @@ namespace TuioUnity.Common
 
         private void OnEnable()
         {
-            TuioManager.RegisterCallbacks();
+            TuioDispatcher.RegisterCallbacks();
         }
 
         private void OnDisable()
         {
-            TuioManager.UnregisterCallbacks();
+            TuioDispatcher.UnregisterCallbacks();
         }
 
         private void Update()

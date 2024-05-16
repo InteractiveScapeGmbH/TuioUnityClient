@@ -5,7 +5,7 @@ using TuioUnity.Common;
 
 namespace TuioUnity.Tuio20
 {
-    public class Tuio20Manager : ITuioManager
+    public class Tuio20Dispatcher : ITuioDispatcher
     {
         private Tuio20Processor _processor;
         public event Action<Tuio20Object> OnObjectAdd;

@@ -5,7 +5,7 @@ using TuioUnity.Common;
 
 namespace TuioUnity.Tuio11
 {
-    public class Tuio11Manager : ITuioManager
+    public class Tuio11Dispatcher : ITuioDispatcher
     {
 
         private Tuio11Processor _processor;

@@ -2,23 +2,22 @@ using System.Collections.Generic;
 using TuioNet.Tuio20;
 using TuioUnity.Common;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace TuioUnity.Tuio20
 {
     public class Tuio20Visualizer: MonoBehaviour
     {
-        [SerializeField] private TuioManagerBehaviour _tuioManager;
+        [SerializeField] private TuioSession _tuioManager;
         [SerializeField] private Tuio20TokenBehaviour _tuio20TokenPrefab;
         [SerializeField] private Tuio20PointerBehaviour _tuio20PointerPrefab;
-        [FormerlySerializedAs("_tuio20SymbolPrefab")] [SerializeField] private PhoneBehaviour _phonePrefab;
+        [SerializeField] private PhoneBehaviour _phonePrefab;
 
         
         private readonly Dictionary<uint, Tuio20PointerBehaviour> _pointer = new();
         private readonly Dictionary<uint, Tuio20TokenBehaviour> _token = new();
-        private readonly Dictionary<uint, PhoneBehaviour> _symbols = new();
+        private readonly Dictionary<uint, PhoneBehaviour> _phones = new();
 
-        private Tuio20Manager Manager => (Tuio20Manager)_tuioManager.TuioManager;
+        private Tuio20Dispatcher Manager => (Tuio20Dispatcher)_tuioManager.TuioDispatcher;
 
         private void OnEnable()
         {
@@ -54,7 +53,7 @@ namespace TuioUnity.Tuio20
             {
                 var symbolBehaviour = Instantiate(_phonePrefab, transform);
                 symbolBehaviour.Initialize(tuioObject);
-                _symbols.Add(tuioObject.SessionId, symbolBehaviour);
+                _phones.Add(tuioObject.SessionId, symbolBehaviour);
                 return;
             }
             
@@ -72,7 +71,7 @@ namespace TuioUnity.Tuio20
                 tokenBehaviour.Destroy();
             }
             
-            if (_symbols.Remove(tuioObject.SessionId, out var symbolBehaviour))
+            if (_phones.Remove(tuioObject.SessionId, out var symbolBehaviour))
             {
                 symbolBehaviour.Destroy();
             }
