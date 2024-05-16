@@ -1,54 +1,33 @@
-using System;
 using TuioNet.Tuio11;
-using TuioUnity.Common;
 using UnityEngine;
 
 namespace TuioUnity.Tuio11
 {
-    public class Tuio11ObjectBehaviour : TuioBehaviour
+    public class Tuio11ObjectBehaviour : Tuio11Behaviour
     {
-        public Tuio11Object TuioObject { get; private set; }
+        private Tuio11Object _tuioObject;
 
-        private Transform _transform;
-        private Vector2 _tuioPosition = Vector2.zero;
-        private float _angle;
-        public override uint SessionId { get; protected set; }
-        public override uint Id { get; protected set; }
-        public override event Action OnUpdate;
-
-
-        public void Initialize(Tuio11Object tuio11Object)
+        public override void Initialize(Tuio11Container container)
         {
-            _transform = transform;
-            TuioObject = tuio11Object;
-            SessionId = TuioObject.SessionId;
-            Id = TuioObject.SymbolId;
-            TuioObject.OnUpdate += UpdateObject;
-            TuioObject.OnRemove += RemoveObject;
-            UpdateObject();
+            _tuioObject = (Tuio11Object)container;
+            base.Initialize(container);
         }
 
-        private void OnDestroy()
+        protected override void UpdateContainer()
         {
-            TuioObject.OnUpdate -= UpdateObject;
-            TuioObject.OnRemove -= RemoveObject;
-        }
-        
-        private void UpdateObject()
-        {
-            _tuioPosition.x = TuioObject.Position.X;
-            _tuioPosition.y = TuioObject.Position.Y;
-            _angle = -Mathf.Rad2Deg * TuioObject.Angle;
-
-            _transform.position = Tuio11Manager.Instance.GetScreenPosition(_tuioPosition);
-            _transform.rotation = Quaternion.Euler(0, 0, _angle);
-            OnUpdate?.Invoke();
+            base.UpdateContainer();
+            UpdateRotation();
         }
 
-        private void RemoveObject()
+        private void UpdateRotation()
         {
-            Destroy(gameObject);
+            var angle = -Mathf.Rad2Deg * _tuioObject.Angle;
+            RectTransform.rotation = Quaternion.Euler(0, 0, angle);
         }
 
+        public override string DebugText()
+        {
+            return $"ID: {_tuioObject.SymbolId} \nAngle: {_tuioObject.Angle}\u00b0 \nPosition: {_tuioObject.Position}";
+        }
     }
 }

@@ -6,38 +6,35 @@ namespace TuioUnity.Tuio20
 {
     public abstract class Tuio20ComponentBehaviour : TuioBehaviour
     {
-        public Tuio20Component Tuio20Component { get; protected set; }
+        private Tuio20Component _tuio20Component;
         
-        private Transform _transform;
         private Vector2 _tuioPosition = Vector2.zero;
         private float _angle;
 
-        public virtual void Initialize(Tuio20Component component)
+        public virtual void Initialize(Tuio20Object tuioObject)
         {
-            _transform = transform;
-            Tuio20Component = component;
-            Tuio20Component.OnUpdate += UpdateComponent;
-            Tuio20Component.OnRemove += RemoveComponent;
+            _tuio20Component = GetComponent(tuioObject);
             UpdateComponent();
         }
 
-        private void OnDestroy()
+        protected abstract Tuio20Component GetComponent(Tuio20Object tuioObject);
+
+        private void Update()
         {
-            Tuio20Component.OnUpdate -= UpdateComponent;
-            Tuio20Component.OnRemove -= RemoveComponent;
+            UpdateComponent();
         }
 
-        protected virtual void UpdateComponent()
+        private void UpdateComponent()
         {
-            _tuioPosition.x = Tuio20Component.Position.X;
-            _tuioPosition.y = Tuio20Component.Position.Y;
-            _angle = -Mathf.Rad2Deg * Tuio20Component.Angle;
+            _tuioPosition.x = _tuio20Component.Position.X;
+            _tuioPosition.y = _tuio20Component.Position.Y;
+            _angle = -Mathf.Rad2Deg * _tuio20Component.Angle;
 
-            _transform.position = Tuio20Manager.Instance.GetScreenPosition(_tuioPosition);
-            _transform.rotation = Quaternion.Euler(0, 0, _angle);
+            RectTransform.position = TuioTransform.GetScreenPosition(_tuioPosition);
+            RectTransform.rotation = Quaternion.Euler(0, 0, _angle);
         }
 
-        private void RemoveComponent()
+        public void Destroy()
         {
             Destroy(gameObject);
         }

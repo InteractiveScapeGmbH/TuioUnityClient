@@ -5,23 +5,22 @@ namespace TuioUnity.Tuio20
 {
     public class Tuio20TokenBehaviour : Tuio20ComponentBehaviour
     {
-        public Tuio20Token TuioToken { get; private set; }
-        public override uint SessionId { get; protected set; }
-        public override uint Id { get; protected set; }
-        public override event Action OnUpdate;
+        private Tuio20Token _token;
 
-        public override void Initialize(Tuio20Component component)
+        public override void Initialize(Tuio20Object tuioObject)
         {
-            base.Initialize(component);
-            TuioToken = (Tuio20Token)component;
-            SessionId = TuioToken.SessionId;
-            Id = TuioToken.ComponentId;
+            base.Initialize(tuioObject);
+            _token = tuioObject.Token;
         }
 
-        protected override void UpdateComponent()
+        protected override Tuio20Component GetComponent(Tuio20Object tuioObject)
         {
-            base.UpdateComponent();
-            OnUpdate?.Invoke();
+            return tuioObject.Token;
+        }
+
+        public override string DebugText()
+        {
+            return $"ID: {_token.ComponentId} \nAngle: {_token.Angle:f2}\u00b0 \nPosition: {RectTransform.anchoredPosition}";
         }
     }
 }

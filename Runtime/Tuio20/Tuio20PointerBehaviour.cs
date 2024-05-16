@@ -5,23 +5,22 @@ namespace TuioUnity.Tuio20
 {
     public class Tuio20PointerBehaviour : Tuio20ComponentBehaviour
     {
-        public Tuio20Pointer TuioPointer { get; private set; }
-        public override uint SessionId { get; protected set; }
-        public override uint Id { get; protected set; }
+        private Tuio20Pointer _pointer;
 
-        public override event Action OnUpdate;
-        public override void Initialize(Tuio20Component component)
+        public override void Initialize(Tuio20Object tuioObject)
         {
-            base.Initialize(component);
-            TuioPointer = (Tuio20Pointer)component;
-            SessionId = TuioPointer.SessionId;
-            Id = TuioPointer.ComponentId;
+            base.Initialize(tuioObject);
+            _pointer = tuioObject.Pointer;
         }
 
-        protected override void UpdateComponent()
+        protected override Tuio20Component GetComponent(Tuio20Object tuioObject)
         {
-            base.UpdateComponent();
-            OnUpdate?.Invoke();
+            return tuioObject.Pointer;
+        }
+
+        public override string DebugText()
+        {
+            return $"ID: {_pointer.SessionId}";
         }
     }
 }

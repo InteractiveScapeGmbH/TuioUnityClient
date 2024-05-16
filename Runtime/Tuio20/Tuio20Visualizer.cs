@@ -1,44 +1,82 @@
-using TuioNet.Common;
+using System.Collections.Generic;
 using TuioNet.Tuio20;
+using TuioUnity.Common;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace TuioUnity.Tuio20
 {
-    public class Tuio20Visualizer: MonoBehaviour, ITuio20Listener
+    public class Tuio20Visualizer: MonoBehaviour
     {
+        [SerializeField] private TuioManagerBehaviour _tuioManager;
         [SerializeField] private Tuio20TokenBehaviour _tuio20TokenPrefab;
         [SerializeField] private Tuio20PointerBehaviour _tuio20PointerPrefab;
+        [FormerlySerializedAs("_tuio20SymbolPrefab")] [SerializeField] private PhoneBehaviour _phonePrefab;
 
-        void Start()
+        
+        private readonly Dictionary<uint, Tuio20PointerBehaviour> _pointer = new();
+        private readonly Dictionary<uint, Tuio20TokenBehaviour> _token = new();
+        private readonly Dictionary<uint, PhoneBehaviour> _symbols = new();
+
+        private Tuio20Manager Manager => (Tuio20Manager)_tuioManager.TuioManager;
+
+        private void OnEnable()
         {
-            Tuio20Manager.Instance.AddTuio20Listener(this);
+            Manager.OnObjectAdd += SpawnTuioObject;
+            Manager.OnObjectRemove += DestroyTuioObject;
         }
 
-        public void TuioAdd(Tuio20Object tuio20Object)
+        private void OnDisable()
         {
-            if (tuio20Object.ContainsNewTuioToken())
+            Manager.OnObjectAdd -= SpawnTuioObject;
+            Manager.OnObjectRemove -= DestroyTuioObject;
+        }
+
+        private void SpawnTuioObject(Tuio20Object tuioObject)
+        {
+            if (tuioObject.ContainsNewTuioPointer())
             {
-                var tuio20TokenBehaviour = Instantiate(_tuio20TokenPrefab, transform);
-                tuio20TokenBehaviour.Initialize(tuio20Object.Token);
+                var pointerBehaviour = Instantiate(_tuio20PointerPrefab, transform);
+                pointerBehaviour.Initialize(tuioObject);
+                _pointer.Add(tuioObject.SessionId, pointerBehaviour);
+                return;
             }
-
-            if (tuio20Object.ContainsNewTuioPointer())
+            
+            if (tuioObject.ContainsNewTuioToken())
             {
-                var tuio20PointerBehaviour = Instantiate(_tuio20PointerPrefab, transform);
-                tuio20PointerBehaviour.Initialize(tuio20Object.Pointer);
+                var tokenBehaviour = Instantiate(_tuio20TokenPrefab, transform);
+                tokenBehaviour.Initialize(tuioObject);
+                _token.Add(tuioObject.SessionId, tokenBehaviour);
+                return;
+            }
+            
+            if (tuioObject.ContainsNewTuioSymbol())
+            {
+                var symbolBehaviour = Instantiate(_phonePrefab, transform);
+                symbolBehaviour.Initialize(tuioObject);
+                _symbols.Add(tuioObject.SessionId, symbolBehaviour);
+                return;
+            }
+            
+        }
+
+        private void DestroyTuioObject(Tuio20Object tuioObject)
+        {
+            if (_pointer.Remove(tuioObject.SessionId, out var pointerBehaviour))
+            {
+                pointerBehaviour.Destroy();
+            }
+            
+            if (_token.Remove(tuioObject.SessionId, out var tokenBehaviour))
+            {
+                tokenBehaviour.Destroy();
+            }
+            
+            if (_symbols.Remove(tuioObject.SessionId, out var symbolBehaviour))
+            {
+                symbolBehaviour.Destroy();
             }
         }
-
-        public void TuioUpdate(Tuio20Object tuio20Object)
-        {
-        }
-
-        public void TuioRemove(Tuio20Object tuio20Object)
-        {
-        }
-
-        public void TuioRefresh(TuioTime tuioTime)
-        {
-        }
+       
     }
 }
