@@ -13,10 +13,7 @@ namespace TuioUnity.Tuio20
         [SerializeField] private Tuio20PointerBehaviour _tuio20PointerPrefab;
         [SerializeField] private PhoneBehaviour _phonePrefab;
 
-        
-        private readonly Dictionary<uint, Tuio20PointerBehaviour> _pointer = new();
-        private readonly Dictionary<uint, Tuio20TokenBehaviour> _token = new();
-        private readonly Dictionary<uint, PhoneBehaviour> _phones = new();
+        private readonly Dictionary<uint, Tuio20ComponentBehaviour> _tuioBehaviours = new();
 
         private Tuio20Dispatcher Manager => (Tuio20Dispatcher)_tuioSession.TuioDispatcher;
 
@@ -38,7 +35,7 @@ namespace TuioUnity.Tuio20
             {
                 var pointerBehaviour = Instantiate(_tuio20PointerPrefab, transform);
                 pointerBehaviour.Initialize(tuioObject);
-                _pointer.Add(tuioObject.SessionId, pointerBehaviour);
+                _tuioBehaviours.Add(tuioObject.SessionId, pointerBehaviour);
                 return;
             }
             
@@ -46,7 +43,7 @@ namespace TuioUnity.Tuio20
             {
                 var tokenBehaviour = Instantiate(_tuio20TokenPrefab, transform);
                 tokenBehaviour.Initialize(tuioObject);
-                _token.Add(tuioObject.SessionId, tokenBehaviour);
+                _tuioBehaviours.Add(tuioObject.SessionId, tokenBehaviour);
                 return;
             }
             
@@ -54,7 +51,7 @@ namespace TuioUnity.Tuio20
             {
                 var symbolBehaviour = Instantiate(_phonePrefab, transform);
                 symbolBehaviour.Initialize(tuioObject);
-                _phones.Add(tuioObject.SessionId, symbolBehaviour);
+                _tuioBehaviours.Add(tuioObject.SessionId, symbolBehaviour);
                 return;
             }
             
@@ -62,17 +59,17 @@ namespace TuioUnity.Tuio20
 
         private void DestroyTuioObject(Tuio20Object tuioObject)
         {
-            if (_pointer.Remove(tuioObject.SessionId, out var pointerBehaviour))
+            if (_tuioBehaviours.Remove(tuioObject.SessionId, out var pointerBehaviour))
             {
                 pointerBehaviour.Destroy();
             }
             
-            if (_token.Remove(tuioObject.SessionId, out var tokenBehaviour))
+            if (_tuioBehaviours.Remove(tuioObject.SessionId, out var tokenBehaviour))
             {
                 tokenBehaviour.Destroy();
             }
             
-            if (_phones.Remove(tuioObject.SessionId, out var symbolBehaviour))
+            if (_tuioBehaviours.Remove(tuioObject.SessionId, out var symbolBehaviour))
             {
                 symbolBehaviour.Destroy();
             }
