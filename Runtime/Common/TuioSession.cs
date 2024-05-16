@@ -13,7 +13,7 @@ namespace TuioUnity.Common
 
         private ITuioDispatcher _tuioDispatcher;
 
-        public ITuioDispatcher TuioDispatcher
+        internal ITuioDispatcher TuioDispatcher
         {
             get
             {
