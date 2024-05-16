@@ -13,7 +13,7 @@ namespace TuioUnity.Common
     /// </summary>
     public class TuioSession : MonoBehaviour
     {
-        [SerializeField] private TuioVersion _tuioVersion = TuioVersion.Tuio11;
+        [field:SerializeField] public TuioVersion TuioVersion { get; set; } = TuioVersion.Tuio11;
         [SerializeField] private TuioNetworkSettings _tuioNetworkSettings;
 
         private ITuioDispatcher _tuioDispatcher;
@@ -24,7 +24,7 @@ namespace TuioUnity.Common
             {
                 if (_tuioDispatcher is null)
                 {
-                    _tuioDispatcher = _tuioVersion switch
+                    _tuioDispatcher = TuioVersion switch
                     {
                         TuioVersion.Tuio11 => new Tuio11Dispatcher(),
                         TuioVersion.Tuio20 => new Tuio20Dispatcher(),
