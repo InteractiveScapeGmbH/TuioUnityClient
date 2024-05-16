@@ -26,9 +26,16 @@ namespace TuioUnity
                 TuioVersion.Tuio11 => "TUIO 1.1 Session",
                 TuioVersion.Tuio20 => "TUIO 2.0 Session"
             };
+
+            var port = version switch
+            {
+                TuioVersion.Tuio11 => 3333,
+                TuioVersion.Tuio20 => 3343,
+            };
             GameObject go = new GameObject(name);
             var session = go.AddComponent<TuioSession>();
             session.TuioVersion = version;
+            session.UdpPort = port;
             GameObjectUtility.SetParentAndAlign(go, menuCommand.context as GameObject);
             Undo.RegisterCreatedObjectUndo(go, "Create " + go.name);
             Selection.activeObject = go;
