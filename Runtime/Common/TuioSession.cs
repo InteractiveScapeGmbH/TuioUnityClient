@@ -24,17 +24,12 @@ namespace TuioUnity.Common
         {
             get
             {
-                if (_tuioDispatcher is null)
+                return _tuioDispatcher ??= TuioVersion switch
                 {
-                    _tuioDispatcher = TuioVersion switch
-                    {
-                        TuioVersion.Tuio11 => new Tuio11Dispatcher(),
-                        TuioVersion.Tuio20 => new Tuio20Dispatcher(),
-                        _ => throw new ArgumentOutOfRangeException()
-                    };
-                }
-
-                return _tuioDispatcher;
+                    TuioVersion.Tuio11 => new Tuio11Dispatcher(),
+                    TuioVersion.Tuio20 => new Tuio20Dispatcher(),
+                    _ => throw new ArgumentOutOfRangeException()
+                };
             }
         }
         
