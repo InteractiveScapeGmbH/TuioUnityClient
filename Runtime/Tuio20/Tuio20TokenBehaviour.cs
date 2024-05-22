@@ -13,7 +13,7 @@ namespace TuioUnity.Tuio20
             Token = tuioObject.Token;
         }
 
-        protected override Tuio20Component GetComponent(Tuio20Object tuioObject)
+        protected override Tuio20Component GetTransformComponent(Tuio20Object tuioObject)
         {
             return tuioObject.Token;
         }
