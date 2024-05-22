@@ -117,4 +117,4 @@ MonoBehaviour:
   _tuioSession: {fileID: 0}
   _tokenPrefab: {fileID: 8159175845109018078, guid: 23252af3a26060a48bedf1716fd3b6df, type: 3}
   _pointerPrefab: {fileID: 7180560162413034633, guid: ec90a1736c95aa747b799c4ea1b0345f, type: 3}
-  _phonePrefab: {fileID: 2446837830664123726, guid: c19ee03977837834e99b6310db9b0252, type: 3}
+  _scapeXMobilePrefab: {fileID: 2446837830664123726, guid: c19ee03977837834e99b6310db9b0252, type: 3}

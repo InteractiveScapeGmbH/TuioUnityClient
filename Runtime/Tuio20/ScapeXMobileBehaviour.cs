@@ -1,11 +1,10 @@
 ﻿using TuioNet.Tuio20;
 using TuioUnity.Common;
 using TuioUnity.Utils;
-using UnityEngine;
 
 namespace TuioUnity.Tuio20
 {
-    public class PhoneBehaviour : Tuio20ComponentBehaviour
+    public class ScapeXMobileBehaviour : Tuio20ComponentBehaviour
     {
         private Tuio20Bounds _bounds;
         private Tuio20Symbol _symbol;

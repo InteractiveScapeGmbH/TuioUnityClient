@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 5686335255403768137}
   - component: {fileID: 2446837830664123726}
   m_Layer: 5
-  m_Name: Phone
+  m_Name: Scape X Mobile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

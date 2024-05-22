@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TuioNet.Tuio20;
 using TuioUnity.Common;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace TuioUnity.Tuio20
 {
@@ -14,7 +15,7 @@ namespace TuioUnity.Tuio20
         [SerializeField] private TuioSession _tuioSession;
         [SerializeField] private Tuio20TokenBehaviour _tokenPrefab;
         [SerializeField] private Tuio20PointerBehaviour _pointerPrefab;
-        [SerializeField] private PhoneBehaviour _phonePrefab;
+        [SerializeField] private ScapeXMobileBehaviour _scapeXMobilePrefab;
 
         private readonly Dictionary<uint, Tuio20ComponentBehaviour> _tuioBehaviours = new();
 
@@ -52,7 +53,7 @@ namespace TuioUnity.Tuio20
             
             if (tuioObject.ContainsNewTuioSymbol())
             {
-                var symbolBehaviour = Instantiate(_phonePrefab, transform);
+                var symbolBehaviour = Instantiate(_scapeXMobilePrefab, transform);
                 symbolBehaviour.Initialize(tuioObject);
                 _tuioBehaviours.Add(tuioObject.SessionId, symbolBehaviour);
                 return;
