@@ -44,7 +44,7 @@ namespace TuioUnity.Common
         private void Initialize()
         {
             if (_isInitialized) return;
-            int port = UdpPort;
+            var port = UdpPort;
             if (ConnectionType == TuioConnectionType.Websocket)
             {
                 port = TuioVersion switch
