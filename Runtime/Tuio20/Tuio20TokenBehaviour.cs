@@ -5,12 +5,12 @@ namespace TuioUnity.Tuio20
 {
     public class Tuio20TokenBehaviour : Tuio20ComponentBehaviour
     {
-        private Tuio20Token _token;
+        public Tuio20Token Token { get; private set; }
 
         public override void Initialize(Tuio20Object tuioObject)
         {
             base.Initialize(tuioObject);
-            _token = tuioObject.Token;
+            Token = tuioObject.Token;
         }
 
         protected override Tuio20Component GetComponent(Tuio20Object tuioObject)
@@ -20,7 +20,7 @@ namespace TuioUnity.Tuio20
 
         public override string DebugText()
         {
-            return $"ID: {_token.ComponentId} \nAngle: {_token.Angle:f2}\u00b0 \nPosition: {RectTransform.anchoredPosition}";
+            return $"ID: {Token.ComponentId} \nAngle: {Token.Angle:f2}\u00b0 \nPosition: {RectTransform.anchoredPosition}";
         }
     }
 }

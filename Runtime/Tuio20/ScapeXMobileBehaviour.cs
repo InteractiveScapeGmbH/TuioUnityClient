@@ -6,14 +6,14 @@ namespace TuioUnity.Tuio20
 {
     public class ScapeXMobileBehaviour : Tuio20ComponentBehaviour
     {
-        private Tuio20Bounds _bounds;
-        private Tuio20Symbol _symbol;
-        
+        public Tuio20Bounds Bounds { get; private set; }
+        public Tuio20Symbol Symbol { get; private set; }
+
         public override void Initialize(Tuio20Object tuioObject)
         {
             base.Initialize(tuioObject);
-            _bounds = tuioObject.Bounds;
-            _symbol = tuioObject.Symbol;
+            Bounds = tuioObject.Bounds;
+            Symbol = tuioObject.Symbol;
             SetupSize();
         }
 
@@ -24,12 +24,12 @@ namespace TuioUnity.Tuio20
 
         private void SetupSize()
         {
-            RectTransform.sizeDelta = TuioTransform.GetScreenSpaceSize(_bounds.Size.ToUnity());
+            RectTransform.sizeDelta = TuioTransform.GetScreenSpaceSize(Bounds.Size.ToUnity());
         }
 
         public override string DebugText()
         {
-            return $"ID: {_symbol.Data} \nAngle: {_bounds.Angle:f2}\u00b0 \nPosition: {RectTransform.anchoredPosition} \nSize: {_bounds.Size}";
+            return $"ID: {Symbol.Data} \nAngle: {Bounds.Angle:f2}\u00b0 \nPosition: {RectTransform.anchoredPosition} \nSize: {Bounds.Size}";
         }
     }
 }
