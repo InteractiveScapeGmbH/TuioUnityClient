@@ -14,7 +14,7 @@ namespace TuioUnity.Utils
     public class TuioDebug : MonoBehaviour
     {
         [SerializeField] private TMP_Text _debugText;
-        [SerializeField] private Image _background;
+        [SerializeField] private MaskableGraphic _background;
 
         private TuioBehaviour _tuioBehaviour;
         private void Start()
