@@ -28,7 +28,7 @@ namespace TuioUnity.Common
                 {
                     TuioVersion.Tuio11 => new Tuio11Dispatcher(),
                     TuioVersion.Tuio20 => new Tuio20Dispatcher(),
-                    _ => throw new NotImplementedException($"{typeof(TuioVersion)} has no value of {TuioVersion}.")
+                    _ => throw new ArgumentOutOfRangeException($"{typeof(TuioVersion)} has no value of {TuioVersion}.")
                 };
             }
         }
@@ -51,7 +51,7 @@ namespace TuioUnity.Common
                 {
                     TuioVersion.Tuio11 => 3333,
                     TuioVersion.Tuio20 => 3343,
-                    _ => throw new NotImplementedException($"{typeof(TuioVersion)} has no value of {TuioVersion}.")
+                    _ => throw new ArgumentOutOfRangeException($"{typeof(TuioVersion)} has no value of {TuioVersion}.")
                 };
             }
 
