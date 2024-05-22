@@ -43,24 +43,22 @@ namespace TuioUnity.Common
         
         private void Initialize()
         {
-            if (!_isInitialized)
+            if (_isInitialized) return;
+            int port = UdpPort;
+            if (ConnectionType == TuioConnectionType.Websocket)
             {
-                int port = UdpPort;
-                if (ConnectionType == TuioConnectionType.Websocket)
+                port = TuioVersion switch
                 {
-                    port = TuioVersion switch
-                    {
-                        TuioVersion.Tuio11 => 3333,
-                        TuioVersion.Tuio20 => 3343,
-                        _ => throw new NotImplementedException($"{typeof(TuioVersion)} has no value of {TuioVersion}.")
-                    };
-                }
-
-                _tuioClient = new TuioClient(ConnectionType, _ipAddress, port, false);
-                TuioDispatcher.SetupProcessor(_tuioClient);
-                _tuioClient.Connect();
-                _isInitialized = true;
+                    TuioVersion.Tuio11 => 3333,
+                    TuioVersion.Tuio20 => 3343,
+                    _ => throw new NotImplementedException($"{typeof(TuioVersion)} has no value of {TuioVersion}.")
+                };
             }
+
+            _tuioClient = new TuioClient(ConnectionType, _ipAddress, port, false);
+            TuioDispatcher.SetupProcessor(_tuioClient);
+            _tuioClient.Connect();
+            _isInitialized = true;
         }
 
         private void OnEnable()
