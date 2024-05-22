@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6282188938933972877}
   - component: {fileID: 6282188938933972878}
   m_Layer: 0
-  m_Name: Tuio Manager
+  m_Name: Tuio Session
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
