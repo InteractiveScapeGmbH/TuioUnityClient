@@ -184,6 +184,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dbaa5cd0f9d2e2140a42639f7b84806c, type: 3}
+--- !u!114 &569764314 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6282188938933972878, guid: dbaa5cd0f9d2e2140a42639f7b84806c, type: 3}
+  m_PrefabInstance: {fileID: 569764313}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 580a64d77d3d49c9baa2e5afef6a8238, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &584408649
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,7 +323,7 @@ PrefabInstance:
     - target: {fileID: 3355557078431954624, guid: a4c4bfea73aaca544ad05ce6c1dad2f7, type: 3}
       propertyPath: _tuioSession
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 569764314}
     - target: {fileID: 3355557078431954624, guid: a4c4bfea73aaca544ad05ce6c1dad2f7, type: 3}
       propertyPath: _tuioManagerBehaviour
       value: 
