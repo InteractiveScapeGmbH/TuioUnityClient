@@ -61,6 +61,21 @@ namespace TuioUnity.Common
             _isInitialized = true;
         }
 
+        public void AddMessageListener(MessageListener listener)
+        {
+            _tuioClient.AddMessageListener(listener);
+        }
+
+        public void RemoveMessageListener(string messageProfile)
+        {
+            _tuioClient.RemoveMessageListener(messageProfile);
+        }
+
+        public void RemoveMessageListener(MessageListener listener)
+        {
+            RemoveMessageListener(listener.MessageProfile);
+        }
+
         private void OnEnable()
         {
             TuioDispatcher.RegisterCallbacks();
