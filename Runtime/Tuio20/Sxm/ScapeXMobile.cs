@@ -6,11 +6,18 @@ using UnityEngine;
 
 namespace TuioUnity.Tuio20.Sxm
 {
+    /// <summary>
+    /// This is a special component for touch tables made by Interactive Scape. It registers a message listener to get
+    /// the configured Room Id and the url of the used MQTT Broker.
+    /// </summary>
     [RequireComponent(typeof(TuioSession))]
     public class ScapeXMobile : MonoBehaviour
     {
         public SxmConfig Config { get; private set; }
 
+        /// <summary>
+        /// This event gets invoked everytime you change the Scape X Mobile configuration in the Touch & Object Assistant.
+        /// </summary>
         public event Action<SxmConfig> OnConfigUpdate;
         
         private const string ScapeXMobileProfile = "/scape_x_mobile/def";
