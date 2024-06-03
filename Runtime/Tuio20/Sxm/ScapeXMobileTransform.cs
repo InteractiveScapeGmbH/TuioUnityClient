@@ -2,9 +2,9 @@
 using TuioUnity.Common;
 using TuioUnity.Utils;
 
-namespace TuioUnity.Tuio20
+namespace TuioUnity.Tuio20.Sxm
 {
-    public class ScapeXMobileBehaviour : Tuio20ComponentBehaviour
+    public class ScapeXMobileTransform : Tuio20ComponentBehaviour
     {
         public Tuio20Bounds Bounds { get; private set; }
         public Tuio20Symbol Symbol { get; private set; }

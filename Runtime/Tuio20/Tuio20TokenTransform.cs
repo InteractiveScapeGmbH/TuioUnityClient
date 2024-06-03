@@ -3,7 +3,7 @@ using TuioNet.Tuio20;
 
 namespace TuioUnity.Tuio20
 {
-    public class Tuio20TokenBehaviour : Tuio20ComponentBehaviour
+    public class Tuio20TokenTransform : Tuio20ComponentBehaviour
     {
         public Tuio20Token Token { get; private set; }
 

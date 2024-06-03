@@ -3,7 +3,7 @@ using TuioNet.Tuio20;
 
 namespace TuioUnity.Tuio20
 {
-    public class Tuio20PointerBehaviour : Tuio20ComponentBehaviour
+    public class Tuio20PointerTransform : Tuio20ComponentBehaviour
     {
         public Tuio20Pointer Pointer { get; private set; }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TuioUnity.Tuio11
 {
-    public class Tuio11BlobBehaviour : Tuio11Behaviour
+    public class Tuio11BlobTransform : Tuio11Behaviour
     {
         private Tuio11Blob _blob;
 

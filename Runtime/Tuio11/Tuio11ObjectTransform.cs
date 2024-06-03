@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TuioUnity.Tuio11
 {
-    public class Tuio11ObjectBehaviour : Tuio11Behaviour
+    public class Tuio11ObjectTransform : Tuio11Behaviour
     {
         private Tuio11Object _tuioObject;
 

@@ -12,9 +12,9 @@ namespace TuioUnity.Tuio11
     public class Tuio11Visualizer: MonoBehaviour
     {
         [SerializeField] private TuioSession _tuioSession;
-        [SerializeField] private Tuio11CursorBehaviour _cursorPrefab;
-        [SerializeField] private Tuio11ObjectBehaviour _objectPrefab;
-        [SerializeField] private Tuio11BlobBehaviour _blobPrefab;
+        [SerializeField] private Tuio11CursorTransform _cursorPrefab;
+        [SerializeField] private Tuio11ObjectTransform _objectPrefab;
+        [SerializeField] private Tuio11BlobTransform _blobPrefab;
 
         private readonly Dictionary<uint, Tuio11Behaviour> _tuioBehaviours = new();
 

@@ -2,7 +2,7 @@ using TuioNet.Tuio11;
 
 namespace TuioUnity.Tuio11
 {
-    public class Tuio11CursorBehaviour : Tuio11Behaviour
+    public class Tuio11CursorTransform : Tuio11Behaviour
     {
         private Tuio11Cursor _tuioCursor;
 

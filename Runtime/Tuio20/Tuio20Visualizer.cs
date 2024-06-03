@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TuioNet.Tuio20;
 using TuioUnity.Common;
+using TuioUnity.Tuio20.Sxm;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -13,9 +14,9 @@ namespace TuioUnity.Tuio20
     public class Tuio20Visualizer: MonoBehaviour
     {
         [SerializeField] private TuioSession _tuioSession;
-        [SerializeField] private Tuio20TokenBehaviour _tokenPrefab;
-        [SerializeField] private Tuio20PointerBehaviour _pointerPrefab;
-        [SerializeField] private ScapeXMobileBehaviour _scapeXMobilePrefab;
+        [SerializeField] private Tuio20TokenTransform _tokenPrefab;
+        [SerializeField] private Tuio20PointerTransform _pointerPrefab;
+        [SerializeField] private ScapeXMobileTransform _scapeXMobilePrefab;
 
         private readonly Dictionary<uint, Tuio20ComponentBehaviour> _tuioBehaviours = new();
 
