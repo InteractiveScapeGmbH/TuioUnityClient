@@ -27,7 +27,7 @@ namespace TuioUnity.Tuio11
 
         public override string DebugText()
         {
-            return $"ID: {_tuioObject.SymbolId} \nAngle: {_tuioObject.Angle}\u00b0 \nPosition: {_tuioObject.Position}";
+            return $"ID: {_tuioObject.SymbolId} \nAngle: {(Mathf.Rad2Deg * _tuioObject.Angle):f2}\u00b0 \nPosition: {_tuioObject.Position}";
         }
     }
 }

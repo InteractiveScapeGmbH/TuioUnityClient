@@ -1,6 +1,7 @@
 ﻿using TuioNet.Tuio20;
 using TuioUnity.Common;
 using TuioUnity.Utils;
+using UnityEngine;
 
 namespace TuioUnity.Tuio20.Sxm
 {
@@ -29,7 +30,7 @@ namespace TuioUnity.Tuio20.Sxm
 
         public override string DebugText()
         {
-            return $"ID: {Symbol.Data} \nAngle: {Bounds.Angle:f2}\u00b0 \nPosition: {RectTransform.anchoredPosition} \nSize: {Bounds.Size}";
+            return $"ID: {Symbol.Data} \nAngle: {(Mathf.Rad2Deg * Bounds.Angle):f2}\u00b0 \nPosition: {RectTransform.anchoredPosition} \nSize: {Bounds.Size}";
         }
     }
 }

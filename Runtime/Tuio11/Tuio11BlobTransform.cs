@@ -36,7 +36,7 @@ namespace TuioUnity.Tuio11
         public override string DebugText()
         {
             return
-                $"ID: {_blob.BlobId} \nAngle: {_blob.Angle:f2}\u00b0 \nPosition: {RectTransform.position} \nSize: {_blob.Size}";
+                $"ID: {_blob.BlobId} \nAngle: {(Mathf.Rad2Deg * _blob.Angle):f2}\u00b0 \nPosition: {RectTransform.position} \nSize: {_blob.Size}";
         }
     }
 }

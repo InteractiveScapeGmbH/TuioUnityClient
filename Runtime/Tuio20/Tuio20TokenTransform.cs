@@ -1,5 +1,6 @@
 using System;
 using TuioNet.Tuio20;
+using UnityEngine;
 
 namespace TuioUnity.Tuio20
 {
@@ -20,7 +21,7 @@ namespace TuioUnity.Tuio20
 
         public override string DebugText()
         {
-            return $"ID: {Token.ComponentId} \nAngle: {Token.Angle:f2}\u00b0 \nPosition: {RectTransform.anchoredPosition}";
+            return $"ID: {Token.ComponentId} \nAngle: {(Mathf.Rad2Deg * Token.Angle):f2}\u00b0 \nPosition: {RectTransform.anchoredPosition}";
         }
     }
 }
