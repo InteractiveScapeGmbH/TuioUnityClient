@@ -1,7 +1,7 @@
 ﻿using System;
 using TuioNet.Common;
-using TuioUnity.Tuio11;
-using TuioUnity.Tuio20;
+using TuioNet.Tuio11;
+using TuioNet.Tuio20;
 using UnityEngine;
 
 namespace TuioUnity.Common
@@ -11,30 +11,30 @@ namespace TuioUnity.Common
     /// a connection via UDP or Websocket depending on the given network settings and registers the appropriate callbacks on
     /// the events based on the used tuio version.
     /// </summary>
-    public class TuioSession : MonoBehaviour
+    public class TuioSessionBehaviour : MonoBehaviour
     {
         [field: SerializeField] public TuioVersion TuioVersion { get; set; } = TuioVersion.Tuio11;
         [field: SerializeField] public TuioConnectionType ConnectionType { get; set; } = TuioConnectionType.UDP;
         [SerializeField] private string _ipAddress = "10.0.0.20";
         [field: SerializeField] public int UdpPort { get; set; }= 3333;
 
-        private ITuioDispatcher _tuioDispatcher;
+        private TuioSession _session;
+        private bool _isInitialized;
 
-        internal ITuioDispatcher TuioDispatcher
+        public ITuioDispatcher TuioDispatcher
         {
             get
             {
-                return _tuioDispatcher ??= TuioVersion switch
+                if (_session == null)
                 {
-                    TuioVersion.Tuio11 => new Tuio11Dispatcher(),
-                    TuioVersion.Tuio20 => new Tuio20Dispatcher(),
-                    _ => throw new ArgumentOutOfRangeException($"{typeof(TuioVersion)} has no value of {TuioVersion}.")
-                };
+                    Initialize();
+                }
+
+                return _session.TuioDispatcher;
             }
         }
-        
-        private TuioClient _tuioClient;
-        private bool _isInitialized;
+
+        public string IpAddress => _ipAddress;
 
         private void Awake()
         {
@@ -55,20 +55,18 @@ namespace TuioUnity.Common
                 };
             }
 
-            _tuioClient = new TuioClient(ConnectionType, _ipAddress, port, false);
-            TuioDispatcher.SetupProcessor(_tuioClient);
-            _tuioClient.Connect();
+            _session = new TuioSession(TuioVersion, ConnectionType, _ipAddress, port, false);
             _isInitialized = true;
         }
 
         public void AddMessageListener(MessageListener listener)
         {
-            _tuioClient.AddMessageListener(listener);
+            _session.AddMessageListener(listener);
         }
 
         public void RemoveMessageListener(string messageProfile)
         {
-            _tuioClient.RemoveMessageListener(messageProfile);
+            _session.RemoveMessageListener(messageProfile);
         }
 
         public void RemoveMessageListener(MessageListener listener)
@@ -76,24 +74,24 @@ namespace TuioUnity.Common
             RemoveMessageListener(listener.MessageProfile);
         }
 
-        private void OnEnable()
-        {
-            TuioDispatcher.RegisterCallbacks();
-        }
-
-        private void OnDisable()
-        {
-            TuioDispatcher.UnregisterCallbacks();
-        }
+        // private void OnEnable()
+        // {
+        //     _session.TuioDispatcher.RegisterCallbacks();
+        // }
+        //
+        // private void OnDisable()
+        // {
+        //     _session.TuioDispatcher.UnregisterCallbacks();
+        // }
 
         private void Update()
         {
-            _tuioClient.ProcessMessages();
+            _session.ProcessMessages();
         }
 
         private void OnApplicationQuit()
         {
-            _tuioClient.Disconnect();
+            _session.Dispose();
         }
 
     }

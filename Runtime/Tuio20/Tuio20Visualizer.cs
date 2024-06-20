@@ -13,14 +13,14 @@ namespace TuioUnity.Tuio20
     /// </summary>
     public class Tuio20Visualizer: MonoBehaviour
     {
-        [SerializeField] private TuioSession _tuioSession;
+        [FormerlySerializedAs("_tuioSession")] [SerializeField] private TuioSessionBehaviour _tuioSessionBehaviour;
         [SerializeField] private Tuio20TokenTransform _tokenPrefab;
         [SerializeField] private Tuio20PointerTransform _pointerPrefab;
         [SerializeField] private ScapeXMobileTransform _scapeXMobilePrefab;
 
         private readonly Dictionary<uint, Tuio20ComponentBehaviour> _tuioBehaviours = new();
 
-        private Tuio20Dispatcher Dispatcher => (Tuio20Dispatcher)_tuioSession.TuioDispatcher;
+        private Tuio20Dispatcher Dispatcher => (Tuio20Dispatcher)_tuioSessionBehaviour.TuioDispatcher;
 
         private void OnEnable()
         {
@@ -34,7 +34,7 @@ namespace TuioUnity.Tuio20
             Dispatcher.OnObjectRemove -= DestroyTuioObject;
         }
 
-        private void SpawnTuioObject(Tuio20Object tuioObject)
+        private void SpawnTuioObject(object sender, Tuio20Object tuioObject)
         {
             if (tuioObject.ContainsNewTuioPointer())
             {
@@ -62,7 +62,7 @@ namespace TuioUnity.Tuio20
             
         }
 
-        private void DestroyTuioObject(Tuio20Object tuioObject)
+        private void DestroyTuioObject(object sender, Tuio20Object tuioObject)
         {
             if (_tuioBehaviours.Remove(tuioObject.SessionId, out var pointerBehaviour))
             {

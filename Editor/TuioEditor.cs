@@ -1,3 +1,4 @@
+using TuioNet.Common;
 using TuioUnity.Common;
 using UnityEditor;
 using UnityEngine;
@@ -33,7 +34,7 @@ namespace TuioUnity
                 TuioVersion.Tuio20 => 3343,
             };
             GameObject go = new GameObject(name);
-            var session = go.AddComponent<TuioSession>();
+            var session = go.AddComponent<TuioSessionBehaviour>();
             session.TuioVersion = version;
             session.UdpPort = port;
             GameObjectUtility.SetParentAndAlign(go, menuCommand.context as GameObject);
