@@ -1,4 +1,5 @@
 ﻿using SxmMqttBridge;
+using TuioNet.Common;
 using TuioUnity.Common;
 using UnityEngine;
 
@@ -12,13 +13,18 @@ namespace TuioUnity.Tuio20.Sxm
 
         private void Start()
         {
+            if (_session.TuioVersion != TuioVersion.Tuio20)
+            {
+                Debug.LogWarning("Scape X Mobile only works with Tuio 2.0");
+                return;
+            }
             _session = GetComponent<TuioSessionBehaviour>();
             _bridge = new MqttBridge(_session.IpAddress);
         }
 
         private void OnApplicationQuit()
         {
-            if(isActiveAndEnabled)
+            if(isActiveAndEnabled && _bridge != null)
                 _bridge.Dispose();
         }
     }
