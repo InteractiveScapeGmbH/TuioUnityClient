@@ -13,12 +13,12 @@ namespace TuioUnity.Tuio20.Sxm
 
         private void Start()
         {
+            _session = GetComponent<TuioSessionBehaviour>();
             if (_session.TuioVersion != TuioVersion.Tuio20)
             {
                 Debug.LogWarning("Scape X Mobile only works with Tuio 2.0");
                 return;
             }
-            _session = GetComponent<TuioSessionBehaviour>();
             _bridge = new MqttBridge(_session.IpAddress);
         }
 
