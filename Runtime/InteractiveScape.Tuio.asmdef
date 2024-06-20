@@ -10,7 +10,7 @@
     "overrideReferences": true,
     "precompiledReferences": [
         "TuioNet.dll",
-        "MQTTnet.dll"
+        "SxmMqttBridge.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [],
