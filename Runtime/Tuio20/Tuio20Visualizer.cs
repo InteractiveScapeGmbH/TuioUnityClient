@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TuioNet.Tuio20;
 using TuioUnity.Common;
@@ -13,7 +14,7 @@ namespace TuioUnity.Tuio20
     /// </summary>
     public class Tuio20Visualizer: MonoBehaviour
     {
-        [FormerlySerializedAs("_tuioSession")] [SerializeField] private TuioSessionBehaviour _tuioSessionBehaviour;
+        [SerializeField] private TuioSessionBehaviour _tuioSessionBehaviour;
         [SerializeField] private Tuio20TokenTransform _tokenPrefab;
         [SerializeField] private Tuio20PointerTransform _pointerPrefab;
         [SerializeField] private ScapeXMobileTransform _scapeXMobilePrefab;
@@ -24,14 +25,28 @@ namespace TuioUnity.Tuio20
 
         private void OnEnable()
         {
-            Dispatcher.OnObjectAdd += SpawnTuioObject;
-            Dispatcher.OnObjectRemove += DestroyTuioObject;
+            try
+            {
+                Dispatcher.OnObjectAdd += SpawnTuioObject;
+                Dispatcher.OnObjectRemove += DestroyTuioObject;
+            }
+            catch (InvalidCastException exception)
+            {
+                Debug.LogError($"[Tuio Client] Check the TUIO-Version on the TuioSession object. {exception.Message}");
+            }
         }
 
         private void OnDisable()
         {
-            Dispatcher.OnObjectAdd -= SpawnTuioObject;
-            Dispatcher.OnObjectRemove -= DestroyTuioObject;
+            try
+            {
+                Dispatcher.OnObjectAdd -= SpawnTuioObject;
+                Dispatcher.OnObjectRemove -= DestroyTuioObject;
+            }
+            catch (InvalidCastException exception)
+            {
+                Debug.LogError($"[Tuio Client] Check the TUIO-Version on the TuioSession object. {exception.Message}");
+            }
         }
 
         private void SpawnTuioObject(object sender, Tuio20Object tuioObject)
