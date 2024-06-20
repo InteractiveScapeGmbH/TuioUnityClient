@@ -16,7 +16,7 @@ namespace TuioUnity.Tuio20.Sxm
             _session = GetComponent<TuioSessionBehaviour>();
             if (_session.TuioVersion != TuioVersion.Tuio20)
             {
-                Debug.LogWarning("Scape X Mobile only works with Tuio 2.0");
+                Debug.LogWarning("[Tuio Client] Scape X Mobile only works with Tuio 2.0");
                 return;
             }
             _bridge = new MqttBridge(_session.IpAddress);
