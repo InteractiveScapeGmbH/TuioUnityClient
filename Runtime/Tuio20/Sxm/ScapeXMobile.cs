@@ -12,7 +12,7 @@ namespace TuioUnity.Tuio20.Sxm
         private MqttBridge _bridge;
         private TuioSessionBehaviour _session;
 
-        public event EventHandler<MqttConfig> OnConfigUpdate; 
+        public event EventHandler<SxmEventArgs> OnConfigUpdate; 
 
         private void Start()
         {
@@ -28,7 +28,12 @@ namespace TuioUnity.Tuio20.Sxm
 
         private void UpdateConfig(object sender, MqttConfig config)
         {
-            OnConfigUpdate?.Invoke(this,config);
+            var sxmConfig = new SxmEventArgs
+            {
+                RoomId = config.RoomId,
+                MqttUrl = config.MqttUrl
+            };
+            OnConfigUpdate?.Invoke(this, sxmConfig);
         }
 
         private void OnApplicationQuit()
