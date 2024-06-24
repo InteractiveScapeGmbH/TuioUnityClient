@@ -1,4 +1,5 @@
-﻿using SxmMqttBridge;
+﻿using System;
+using SxmMqttBridge;
 using TuioNet.Common;
 using TuioUnity.Common;
 using UnityEngine;
@@ -11,6 +12,8 @@ namespace TuioUnity.Tuio20.Sxm
         private MqttBridge _bridge;
         private TuioSessionBehaviour _session;
 
+        public event EventHandler<MqttConfig> OnConfigUpdate; 
+
         private void Start()
         {
             _session = GetComponent<TuioSessionBehaviour>();
@@ -20,6 +23,12 @@ namespace TuioUnity.Tuio20.Sxm
                 return;
             }
             _bridge = new MqttBridge(_session.IpAddress);
+            _bridge.OnConfigUpdate += UpdateConfig;
+        }
+
+        private void UpdateConfig(object sender, MqttConfig config)
+        {
+            OnConfigUpdate?.Invoke(this,config);
         }
 
         private void OnApplicationQuit()
