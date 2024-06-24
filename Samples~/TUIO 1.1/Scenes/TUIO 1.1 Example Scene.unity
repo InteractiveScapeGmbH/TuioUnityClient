@@ -175,6 +175,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6282188938933972878, guid: dbaa5cd0f9d2e2140a42639f7b84806c, type: 3}
+      propertyPath: _ipAddress
+      value: 10.0.0.20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282188938933972878, guid: dbaa5cd0f9d2e2140a42639f7b84806c, type: 3}
       propertyPath: <ConnectionType>k__BackingField
       value: 1
       objectReference: {fileID: 0}
@@ -328,6 +332,10 @@ PrefabInstance:
       propertyPath: _tuioManagerBehaviour
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3355557078431954624, guid: a4c4bfea73aaca544ad05ce6c1dad2f7, type: 3}
+      propertyPath: _tuioSessionBehaviour
+      value: 
+      objectReference: {fileID: 569764314}
     - target: {fileID: 3355557078431954625, guid: a4c4bfea73aaca544ad05ce6c1dad2f7, type: 3}
       propertyPath: m_Pivot.x
       value: 0
