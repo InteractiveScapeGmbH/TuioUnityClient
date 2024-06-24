@@ -4,6 +4,9 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 This package provides the functionality to use TUIO 1.1 or 2.0 in you Unity projects. It is based on [TuioNet](https://github.com/InteractiveScapeGmbH/TuioNet), a .Net implementation of the TUIO 1.1 and 2.0 specification by Martin Kaltenbrunner.
 
+## IMPORTANT
+**Version 2.0 introduces breaking changes. Take care when hitting the update button in the package manager!**
+
 ## Overview
 
 A TUIO Client package to enable the easy creation of apps and games that interface with TUIO capable hardware and software for tangible input.
@@ -27,7 +30,7 @@ After the import process is finished the package should appear in the Package Ma
 
 You will require a TUIO source connected to your device.
 
-This package is built to run from Unity 2020.3 upwards.
+This package is built to run from Unity 2021.3 upwards.
 
 **Important:** By default the windows firewall blocks network communication of the Unity Editor. In order to receive UDP messages from other devices in your local network you need to allow it in the windows firewall settings as shown below:
 
@@ -48,34 +51,115 @@ This package has not been tested outside of Windows, however should be compatibl
 
 ## Workflows
 
-- Create a TUIO 1.1 Manager or TUIO 2.0 Manager in your scene using GameObject > TUIO in the main Unity window or Right Click > TUIO in the Hierarchy.
+- Create a TUIO 1.1 Session or TUIO 2.0 Session in your scene using GameObject > TUIO in the main Unity window or Right Click > TUIO in the Hierarchy.
 
 ![Create Tuio Manager](Documentation~/img/add-manager.png)
-- Create a TUIO Manager Settings object in your Assets folder using Right Click > TUIO in the Project window. Reference the created TUIO Manager Settings asset from the TUIO 1.1 Manager or TUIO 2.0 Manager in the Hierarchy.
-![Add Settings](Documentation~/img/add-settings.png)
 
-Set the desired TUIO Manager Settings (see Reference).
+Set the desired TUIO Session Settings (see Reference).
 
 ![Manager Settings](Documentation~/img/settings.png)
 
-Create scripts that implement the Tuio11Listener or Tuio20Listener interface and subscribe them to the manager using ```Tuio11Manager.Instance.AddTuio11Listener(this)``` or ```Tuio20Manager.Instance.AddTuio20Listener(this)```. Use the
-appropriate callbacks to implement your own TUIO application. Within the sample projects examples are given with the ```Tuio11Visualizer.cs``` and ```Tuio20Visualizer.cs``` which spawn simple Cursor/Pointer or Objects/Tokens. 
+**Default Websocket ports**
+- Tuio 1.1: `3333`
+- Tuio 2.0: `3343`
 
-GameObjects which should appear as Cursors/Pointers and Objects/Tokens need an appropriate script attached to them the following are included in this package:
-- ```Tuio11CursorBehaviour.cs```
-- ```Tuio11ObjectBehaviour.cs```
-- ```Tuio20PointerBehaviour.cs```
-- ```Tuio20TokenBehaviour.cs```
+### Simple Setup
+- Add a TUIO 1.1 or TUIO 2.0 Visualizer from the `Prefabs` folder of the package to your scene
+- Set the reference to the `Tuio Session` and make sure all references to Tuio Prefabs are set (you can find them in the `Prefabs` folder of the packge too.)
 
+![Tuio Visualizer](Documentation~/img/tuio-visualizer.png)
+
+### Advanced Setup
+The TUIO Visualizer Prefabs are just for testing purpose to check if everything works as expected. But they are simple examples how to implement your own custom solution. The most important component is the `TuioDispatcher`. There is one for Tuio 1.1 (`Tuio11Dispatcher`) and Tuio 2.0 (`Tuio20Dispatcher`). They provide all events you need to. You can access the dispatcher through the `TuioSession` object.
+
+In general there are four types of events we care about. `Add`, `Update`, `Remove` and `Refresh`. 
+- `Add`/`Remove`: are called once when a touch or an object gets placed or removed from the table
+- `Update`: is called everytime when a property of a touch or an object was changed this frame (e.g. it was moved or rotated)
+- `Refresh`: is called every frame. This can be helpful if you want to handle all updates conained in one TUIO frame together
+
+There are some little differences between Tuio 1.1 and Tuio 2.0 for `Add`, `Remove` and `Update`.
+
+#### TUIO 1.1
+- there are `Add`, `Remove` and `Update` events for each type of tuio objects (`Touch`, `Object`, `Blob`)
+```csharp
+public event Action<Tuio11Cursor> OnCursorAdd;
+public event Action<Tuio11Cursor> OnCursorUpdate;
+public event Action<Tuio11Cursor> OnCursorRemove;
+
+public event Action<Tuio11Object> OnObjectAdd;
+public event Action<Tuio11Object> OnObjectUpdate;
+public event Action<Tuio11Object> OnObjectRemove;
+
+public event Action<Tuio11Blob> OnBlobAdd;
+public event Action<Tuio11Blob> OnBlobUpdate;
+public event Action<Tuio11Blob> OnBlobRemove;
+```
+
+#### TUIO 2.0
+- for tuio 2.0 things are handled a little bit differently. There is only one `Add`, `Remove` and `Update` event. 
+```csharp
+public event Action<Tuio20Object> OnObjectAdd;
+public event Action<Tuio20Object> OnObjectUpdate;
+public event Action<Tuio20Object> OnObjectRemove;
+```
+The `Tuio20Object` can hold different Tuio 2.0 types simultaneously and has methods to check which type it contains:
+
+**Tuio20Object.cs**
+```csharp
+ public bool ContainsTuioToken() => this.Token != null;
+
+public bool ContainsTuioPointer() => this.Pointer != null;
+
+public bool ContainsTuioBounds() => this.Bounds != null;
+
+public bool ContainsTuioSymbol() => this.Symbol != null;
+
+public bool ContainsNewTuioToken()
+{
+  Tuio20Token token = this.Token;
+  return token != null && token.State == TuioState.Added;
+}
+
+public bool ContainsNewTuioPointer()
+{
+  Tuio20Pointer pointer = this.Pointer;
+  return pointer != null && pointer.State == TuioState.Added;
+}
+
+public bool ContainsNewTuioBounds()
+{
+  Tuio20Bounds bounds = this.Bounds;
+  return bounds != null && bounds.State == TuioState.Added;
+}
+
+public bool ContainsNewTuioSymbol()
+{
+  Tuio20Symbol symbol = this.Symbol;
+  return symbol != null && symbol.State == TuioState.Added;
+}
+```
+
+You can then access the object you want by public properties of the `Tuio20Object`
+
+```csharp
+public Tuio20Token Token { get; private set; }
+
+public Tuio20Pointer Pointer { get; private set; }
+
+public Tuio20Bounds Bounds { get; private set; }
+
+public Tuio20Symbol Symbol { get; private set; }
+```
 
 ## Reference
 
 | **Field** | **Format** | **Description** |
 |--|--|--|
+|Tuio Version|Tuio 1.1/ Tuio 2.0| Version of the Tuio specification you want to use
 |Tuio Connection Type | Websocket / UDP | The connection type to use
 | Udp Port | 0 - 9999 | The local port to receive UDP messages on |
 | Websocket Address | IPv4 address   | The remote address to connect to websocket server
-| Websocket Port | 0 - 9999 | The remote port to connect to the websocket server |
+
 
 
 ## Samples

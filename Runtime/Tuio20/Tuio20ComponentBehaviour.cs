@@ -4,40 +4,41 @@ using UnityEngine;
 
 namespace TuioUnity.Tuio20
 {
+    /// <summary>
+    /// Base class for all Tuio 2.0 MonoBehaviours. Tuio objects update their transforms themselves and provide functionality
+    /// to destroy them when the object or touch gets removed from the screen.
+    /// </summary>
     public abstract class Tuio20ComponentBehaviour : TuioBehaviour
     {
-        public Tuio20Component Tuio20Component { get; protected set; }
+        private Tuio20Component _transformComponent;
         
-        private Transform _transform;
         private Vector2 _tuioPosition = Vector2.zero;
         private float _angle;
 
-        public virtual void Initialize(Tuio20Component component)
+        public virtual void Initialize(Tuio20Object tuioObject)
         {
-            _transform = transform;
-            Tuio20Component = component;
-            Tuio20Component.OnUpdate += UpdateComponent;
-            Tuio20Component.OnRemove += RemoveComponent;
+            _transformComponent = GetTransformComponent(tuioObject);
             UpdateComponent();
         }
 
-        private void OnDestroy()
+        protected abstract Tuio20Component GetTransformComponent(Tuio20Object tuioObject);
+
+        private void Update()
         {
-            Tuio20Component.OnUpdate -= UpdateComponent;
-            Tuio20Component.OnRemove -= RemoveComponent;
+            UpdateComponent();
         }
 
-        protected virtual void UpdateComponent()
+        private void UpdateComponent()
         {
-            _tuioPosition.x = Tuio20Component.Position.X;
-            _tuioPosition.y = Tuio20Component.Position.Y;
-            _angle = -Mathf.Rad2Deg * Tuio20Component.Angle;
+            _tuioPosition.x = _transformComponent.Position.X;
+            _tuioPosition.y = _transformComponent.Position.Y;
+            _angle = -Mathf.Rad2Deg * _transformComponent.Angle;
 
-            _transform.position = Tuio20Manager.Instance.GetScreenPosition(_tuioPosition);
-            _transform.rotation = Quaternion.Euler(0, 0, _angle);
+            RectTransform.position = TuioTransform.GetScreenPosition(_tuioPosition);
+            RectTransform.rotation = Quaternion.Euler(0, 0, _angle);
         }
 
-        private void RemoveComponent()
+        public void Destroy()
         {
             Destroy(gameObject);
         }

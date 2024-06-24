@@ -1,9 +1,9 @@
 {
   "name": "com.interactive-scape.tuio_client",
-  "version": "1.0.0",
+  "version": "2.0.0-preview.1",
   "displayName": "TUIO Client",
   "description": "TUIO Client package for TUIO 1.1 and TUIO 2.0",
-  "unity": "2020.3",
+  "unity": "2021.3",
   "unityRelease": "25f1",
   "documentationUrl": "https://example.com/",
   "changelogUrl": "https://example.com/changelog.html",

@@ -1,62 +1,109 @@
-using TuioNet.Common;
+using System;
+using System.Collections.Generic;
 using TuioNet.Tuio11;
+using TuioUnity.Common;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace TuioUnity.Tuio11
 {
-    public class Tuio11Visualizer: MonoBehaviour, ITuio11Listener
+    /// <summary>
+    /// Basic example how to implement a simple visualisation of Tuio 1.1 objects by registering on the Add and Remove
+    /// events to spawn and destroy UI elements for each type.
+    /// </summary>
+    public class Tuio11Visualizer: MonoBehaviour
     {
-        [SerializeField] private Tuio11CursorBehaviour _tuio11CursorPrefab;
-        [SerializeField] private Tuio11ObjectBehaviour _tuio11ObjectPrefab;
+        [SerializeField] private TuioSessionBehaviour _tuioSessionBehaviour;
+        [SerializeField] private Tuio11CursorTransform _cursorPrefab;
+        [SerializeField] private Tuio11ObjectTransform _objectPrefab;
+        [SerializeField] private Tuio11BlobTransform _blobPrefab;
 
-        void Start()
+        private readonly Dictionary<uint, Tuio11Behaviour> _tuioBehaviours = new();
+
+        private Tuio11Dispatcher _dispatcher;
+        private Tuio11Dispatcher Dispatcher => (Tuio11Dispatcher)_tuioSessionBehaviour.TuioDispatcher;
+
+        private void OnEnable()
         {
-            Tuio11Manager.Instance.AddTuio11Listener(this);
+            try
+            {
+                Dispatcher.OnCursorAdd += AddTuioCursor;
+                Dispatcher.OnCursorRemove += RemoveTuioCursor;
+
+                Dispatcher.OnObjectAdd += AddTuioObject;
+                Dispatcher.OnObjectRemove += RemoveTuioObject;
+
+                Dispatcher.OnBlobAdd += AddTuioBlob;
+                Dispatcher.OnBlobRemove += RemoveTuioBlob;
+            }
+            catch (InvalidCastException exception)
+            {
+                Debug.LogError($"[Tuio Client] Check the TUIO-Version on the TuioSession object. {exception.Message}");
+            }
         }
 
-        public void AddTuioObject(Tuio11Object tuio11Object)
+        private void OnDisable()
         {
-            var tuio11ObjectBehaviour = Instantiate(_tuio11ObjectPrefab, transform);
-            tuio11ObjectBehaviour.Initialize(tuio11Object);
+            try
+            {
+                Dispatcher.OnCursorAdd -= AddTuioCursor;
+                Dispatcher.OnCursorRemove -= RemoveTuioCursor;
+
+                Dispatcher.OnObjectAdd -= AddTuioObject;
+                Dispatcher.OnObjectRemove -= RemoveTuioObject;
+
+                Dispatcher.OnBlobAdd -= AddTuioBlob;
+                Dispatcher.OnBlobRemove -= RemoveTuioBlob;
+            }
+            catch (InvalidCastException exception)
+            {
+                Debug.LogError($"[Tuio Client] Check the TUIO-Version on the TuioSession object. {exception.Message}");
+            }
         }
 
-        public void UpdateTuioObject(Tuio11Object tuio11Object)
+        private void AddTuioCursor(object sender, Tuio11Cursor tuioCursor)
         {
+            var tuio11CursorBehaviour = Instantiate(_cursorPrefab, transform);
+            tuio11CursorBehaviour.Initialize(tuioCursor);
+            _tuioBehaviours.Add(tuioCursor.SessionId,tuio11CursorBehaviour);
         }
 
-        public void RemoveTuioObject(Tuio11Object tuio11Object)
+        private void RemoveTuioCursor(object sender, Tuio11Cursor tuioCursor)
         {
+            if (_tuioBehaviours.Remove(tuioCursor.SessionId, out var cursorBehaviour))
+            {
+                cursorBehaviour.Destroy();
+            }
+        }
+        
+        private void AddTuioObject(object sender, Tuio11Object tuioObject)
+        {
+            var objectBehaviour = Instantiate(_objectPrefab, transform);
+            objectBehaviour.Initialize(tuioObject);
+            _tuioBehaviours.Add(tuioObject.SessionId, objectBehaviour);
+        }
+        
+        private void RemoveTuioObject(object sender, Tuio11Object tuioObject)
+        {
+            if (_tuioBehaviours.Remove(tuioObject.SessionId, out var objectBehaviour))
+            {
+                objectBehaviour.Destroy();
+            }
         }
 
-        public void AddTuioCursor(Tuio11Cursor tuio11Cursor)
+        private void AddTuioBlob(object sender, Tuio11Blob tuioBlob)
         {
-            var tuio11CursorBehaviour = Instantiate(_tuio11CursorPrefab, transform);
-            tuio11CursorBehaviour.Initialize(tuio11Cursor);
+            var blobBehaviour = Instantiate(_blobPrefab, transform);
+            blobBehaviour.Initialize(tuioBlob);
+            _tuioBehaviours.Add(tuioBlob.SessionId, blobBehaviour);
         }
 
-        public void UpdateTuioCursor(Tuio11Cursor tuio11Cursor)
+        private void RemoveTuioBlob(object sender, Tuio11Blob tuioBlob)
         {
-        }
-
-        public void RemoveTuioCursor(Tuio11Cursor tuio11Cursor)
-        {
-            
-        }
-
-        public void AddTuioBlob(Tuio11Blob tuio11Blob)
-        {
-        }
-
-        public void UpdateTuioBlob(Tuio11Blob tuio11Blob)
-        {
-        }
-
-        public void RemoveTuioBlob(Tuio11Blob tuio11Blob)
-        {
-        }
-
-        public void Refresh(TuioTime tuioTime)
-        {
+            if (_tuioBehaviours.Remove(tuioBlob.SessionId, out var blobBehaviour))
+            {
+                blobBehaviour.Destroy();
+            }
         }
     }
 }

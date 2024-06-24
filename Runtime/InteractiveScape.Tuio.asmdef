@@ -9,7 +9,8 @@
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "TuioNet.dll"
+        "TuioNet.dll",
+        "SxmMqttBridge.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [],

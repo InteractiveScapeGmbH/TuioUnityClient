@@ -1,8 +1,16 @@
 {
     "name": "InteractiveScape.Tuio.Editor",
+    "rootNamespace": "TuioUnity",
     "references": [
         "InteractiveScape.Tuio"
     ],
     "includePlatforms": [],
-    "excludePlatforms": []
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

@@ -1,12 +1,20 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace TuioUnity.Common
 {
+    /// <summary>
+    /// Base class for all Tuio (1.1 and 2.0) MonoBehaviours.
+    /// </summary>
+    [RequireComponent(typeof(RectTransform))]
     public abstract class TuioBehaviour : MonoBehaviour
     {
-        public abstract uint SessionId { get; protected set; }
-        public abstract uint Id { get; protected set; }
-        public abstract event Action OnUpdate;
+        public abstract string DebugText();
+        
+        protected RectTransform RectTransform;
+
+        private void Awake()
+        {
+            RectTransform = GetComponent<RectTransform>();
+        }
     }
 }
