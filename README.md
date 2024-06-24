@@ -82,25 +82,25 @@ There are some little differences between Tuio 1.1 and Tuio 2.0 for `Add`, `Remo
 #### TUIO 1.1
 - there are `Add`, `Remove` and `Update` events for each type of tuio objects (`Touch`, `Object`, `Blob`)
 ```csharp
-public event Action<Tuio11Cursor> OnCursorAdd;
-public event Action<Tuio11Cursor> OnCursorUpdate;
-public event Action<Tuio11Cursor> OnCursorRemove;
+public event EventHandler<Tuio11Cursor> OnCursorAdd;
+public event EventHandler<Tuio11Cursor> OnCursorUpdate;
+public event EventHandler<Tuio11Cursor> OnCursorRemove;
 
-public event Action<Tuio11Object> OnObjectAdd;
-public event Action<Tuio11Object> OnObjectUpdate;
-public event Action<Tuio11Object> OnObjectRemove;
+public event EventHandler<Tuio11Object> OnObjectAdd;
+public event EventHandler<Tuio11Object> OnObjectUpdate;
+public event EventHandler<Tuio11Object> OnObjectRemove;
 
-public event Action<Tuio11Blob> OnBlobAdd;
-public event Action<Tuio11Blob> OnBlobUpdate;
-public event Action<Tuio11Blob> OnBlobRemove;
+public event EventHandler<Tuio11Blob> OnBlobAdd;
+public event EventHandler<Tuio11Blob> OnBlobUpdate;
+public event EventHandler<Tuio11Blob> OnBlobRemove;
 ```
 
 #### TUIO 2.0
 - for tuio 2.0 things are handled a little bit differently. There is only one `Add`, `Remove` and `Update` event. 
 ```csharp
-public event Action<Tuio20Object> OnObjectAdd;
-public event Action<Tuio20Object> OnObjectUpdate;
-public event Action<Tuio20Object> OnObjectRemove;
+public event EventHandler<Tuio20Object> OnObjectAdd;
+public event EventHandler<Tuio20Object> OnObjectUpdate;
+public event EventHandler<Tuio20Object> OnObjectRemove;
 ```
 The `Tuio20Object` can hold different Tuio 2.0 types simultaneously and has methods to check which type it contains:
 
