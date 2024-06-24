@@ -1,13 +1,11 @@
 {
   "name": "com.interactive-scape.tuio_client",
-  "version": "2.0.0-preview.1",
+  "version": "2.0.0",
   "displayName": "TUIO Client",
   "description": "TUIO Client package for TUIO 1.1 and TUIO 2.0",
   "unity": "2021.3",
   "unityRelease": "25f1",
-  "documentationUrl": "https://example.com/",
-  "changelogUrl": "https://example.com/changelog.html",
-  "licensesUrl": "https://example.com/licensing.html",
+  "documentationUrl": "https://github.com/InteractiveScapeGmbH/TuioUnityClient",
   "samples": [
     {
       "displayName": "TUIO 1.1",
