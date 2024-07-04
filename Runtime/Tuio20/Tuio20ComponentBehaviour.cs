@@ -1,3 +1,4 @@
+using System;
 using TuioNet.Tuio20;
 using TuioUnity.Common;
 using UnityEngine;
@@ -15,9 +16,17 @@ namespace TuioUnity.Tuio20
         private Vector2 _tuioPosition = Vector2.zero;
         private float _angle;
 
-        public virtual void Initialize(Tuio20Object tuioObject)
+        private Func<Vector2, Vector2> _getPosition;
+        
+        public virtual void Initialize(Tuio20Object tuioObject, RenderMode renderMode = RenderMode.ScreenSpaceOverlay)
         {
             _transformComponent = GetTransformComponent(tuioObject);
+            _getPosition = renderMode switch
+            {
+                RenderMode.WorldSpace => TuioTransform.GetWorldPosition,
+                RenderMode.ScreenSpaceCamera => TuioTransform.GetWorldPosition,
+                RenderMode.ScreenSpaceOverlay => TuioTransform.GetScreenPosition,
+            };
             UpdateComponent();
         }
 
@@ -34,7 +43,7 @@ namespace TuioUnity.Tuio20
             _tuioPosition.y = _transformComponent.Position.Y;
             _angle = -Mathf.Rad2Deg * _transformComponent.Angle;
 
-            RectTransform.position = TuioTransform.GetScreenPosition(_tuioPosition);
+            RectTransform.position = _getPosition.Invoke(_tuioPosition);
             RectTransform.rotation = Quaternion.Euler(0, 0, _angle);
         }
 

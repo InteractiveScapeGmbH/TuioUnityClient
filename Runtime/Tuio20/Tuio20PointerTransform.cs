@@ -1,5 +1,5 @@
-using System;
 using TuioNet.Tuio20;
+using UnityEngine;
 
 namespace TuioUnity.Tuio20
 {
@@ -7,9 +7,9 @@ namespace TuioUnity.Tuio20
     {
         public Tuio20Pointer Pointer { get; private set; }
 
-        public override void Initialize(Tuio20Object tuioObject)
+        public override void Initialize(Tuio20Object tuioObject, RenderMode renderMode = RenderMode.ScreenSpaceOverlay)
         {
-            base.Initialize(tuioObject);
+            base.Initialize(tuioObject, renderMode);
             Pointer = tuioObject.Pointer;
         }
 
