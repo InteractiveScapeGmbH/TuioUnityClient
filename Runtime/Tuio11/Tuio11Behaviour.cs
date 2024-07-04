@@ -19,7 +19,7 @@ namespace TuioUnity.Tuio11
             UpdateContainer();
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             UpdateContainer();
         }

@@ -23,7 +23,7 @@ namespace TuioUnity.Tuio20
 
         protected abstract Tuio20Component GetTransformComponent(Tuio20Object tuioObject);
 
-        private void Update()
+        protected virtual void Update()
         {
             UpdateComponent();
         }
