@@ -1,4 +1,5 @@
-﻿using TuioNet.Tuio11;
+﻿using System;
+using TuioNet.Tuio11;
 using TuioUnity.Common;
 using UnityEngine;
 
@@ -12,10 +13,17 @@ namespace TuioUnity.Tuio11
     {
         private Vector2 _position = Vector2.zero;
         private Tuio11Container _container;
+        private Func<Vector2, Vector2> _getPosition;
         
-        public virtual void Initialize(Tuio11Container container)
+        public virtual void Initialize(Tuio11Container container, RenderMode renderMode = RenderMode.ScreenSpaceOverlay)
         {
             _container = container;
+            _getPosition = renderMode switch
+            {
+                RenderMode.WorldSpace => TuioTransform.GetWorldPosition,
+                RenderMode.ScreenSpaceCamera => TuioTransform.GetWorldPosition,
+                RenderMode.ScreenSpaceOverlay => TuioTransform.GetScreenPosition,
+            };
             UpdateContainer();
         }
 
@@ -34,7 +42,7 @@ namespace TuioUnity.Tuio11
             _position.x = _container.Position.X;
             _position.y = _container.Position.Y;
 
-            RectTransform.position = TuioTransform.GetScreenPosition(_position);
+            RectTransform.position = _getPosition.Invoke(_position);
         }
 
         public void Destroy()
