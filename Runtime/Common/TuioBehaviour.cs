@@ -12,7 +12,7 @@ namespace TuioUnity.Common
         
         protected RectTransform RectTransform;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             RectTransform = GetComponent<RectTransform>();
         }
