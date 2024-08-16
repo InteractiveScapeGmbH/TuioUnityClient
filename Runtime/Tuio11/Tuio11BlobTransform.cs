@@ -8,10 +8,10 @@ namespace TuioUnity.Tuio11
     {
         private Tuio11Blob _blob;
 
-        public override void Initialize(Tuio11Container container)
+        public override void Initialize(Tuio11Container container, RenderMode renderMode = RenderMode.ScreenSpaceOverlay)
         {
             _blob = (Tuio11Blob)container;
-            base.Initialize(container);
+            base.Initialize(container, renderMode);
         }
         
         protected override void UpdateContainer()

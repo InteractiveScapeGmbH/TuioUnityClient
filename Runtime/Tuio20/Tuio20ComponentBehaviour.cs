@@ -11,6 +11,9 @@ namespace TuioUnity.Tuio20
     /// </summary>
     public abstract class Tuio20ComponentBehaviour : TuioBehaviour
     {
+        public bool UpdatePosition { get; set; } = true;
+        public bool UpdateRotation { get; set; } = true;
+        
         private Tuio20Component _transformComponent;
         
         private Vector2 _tuioPosition = Vector2.zero;
@@ -18,7 +21,7 @@ namespace TuioUnity.Tuio20
 
         private Func<Vector2, Vector2> _getPosition;
         
-        public virtual void Initialize(Tuio20Object tuioObject, RenderMode renderMode = RenderMode.ScreenSpaceOverlay)
+        public virtual void Initialize(Tuio20Object tuioObject, RenderMode renderMode)
         {
             _transformComponent = GetTransformComponent(tuioObject);
             _getPosition = renderMode switch
@@ -42,9 +45,11 @@ namespace TuioUnity.Tuio20
             _tuioPosition.x = _transformComponent.Position.X;
             _tuioPosition.y = _transformComponent.Position.Y;
             _angle = -Mathf.Rad2Deg * _transformComponent.Angle;
-
-            RectTransform.position = _getPosition.Invoke(_tuioPosition);
-            RectTransform.rotation = Quaternion.Euler(0, 0, _angle);
+            
+            if(UpdatePosition)
+                RectTransform.position = _getPosition.Invoke(_tuioPosition);
+            if(UpdateRotation)
+                RectTransform.rotation = Quaternion.Euler(0, 0, _angle);
         }
 
         public void Destroy()

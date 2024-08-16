@@ -8,9 +8,9 @@ namespace TuioUnity.Tuio20
     {
         public Tuio20Token Token { get; private set; }
 
-        public override void Initialize(Tuio20Object tuioObject)
+        public override void Initialize(Tuio20Object tuioObject, RenderMode renderMode = RenderMode.ScreenSpaceOverlay)
         {
-            base.Initialize(tuioObject);
+            base.Initialize(tuioObject, renderMode);
             Token = tuioObject.Token;
         }
 

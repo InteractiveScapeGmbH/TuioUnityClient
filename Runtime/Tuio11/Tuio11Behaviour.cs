@@ -15,7 +15,7 @@ namespace TuioUnity.Tuio11
         private Tuio11Container _container;
         private Func<Vector2, Vector2> _getPosition;
         
-        public virtual void Initialize(Tuio11Container container, RenderMode renderMode = RenderMode.ScreenSpaceOverlay)
+        public virtual void Initialize(Tuio11Container container, RenderMode renderMode)
         {
             _container = container;
             _getPosition = renderMode switch

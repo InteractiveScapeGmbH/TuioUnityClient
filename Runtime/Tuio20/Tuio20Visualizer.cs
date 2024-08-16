@@ -54,7 +54,7 @@ namespace TuioUnity.Tuio20
             if (tuioObject.ContainsNewTuioPointer())
             {
                 var pointerBehaviour = Instantiate(_pointerPrefab, transform);
-                pointerBehaviour.Initialize(tuioObject);
+                pointerBehaviour.Initialize(tuioObject, RenderMode.ScreenSpaceCamera);
                 _tuioBehaviours.Add(tuioObject.SessionId, pointerBehaviour);
                 return;
             }

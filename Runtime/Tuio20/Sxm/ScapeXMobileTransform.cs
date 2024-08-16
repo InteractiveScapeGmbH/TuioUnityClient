@@ -10,9 +10,9 @@ namespace TuioUnity.Tuio20.Sxm
         public Tuio20Bounds Bounds { get; private set; }
         public Tuio20Symbol Symbol { get; private set; }
 
-        public override void Initialize(Tuio20Object tuioObject)
+        public override void Initialize(Tuio20Object tuioObject, RenderMode renderMode = RenderMode.ScreenSpaceOverlay)
         {
-            base.Initialize(tuioObject);
+            base.Initialize(tuioObject, renderMode);
             Bounds = tuioObject.Bounds;
             Symbol = tuioObject.Symbol;
             SetupSize();
