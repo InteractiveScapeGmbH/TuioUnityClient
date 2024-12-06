@@ -4,7 +4,20 @@ namespace TuioUnity.Common
 {
     public static class TuioTransform
     {
-        public static Camera Camera { get; set; } = Camera.main;
+        private static Camera s_cam;
+
+        public static Camera Camera
+        {
+            get
+            {
+                if (!s_cam)
+                {
+                    s_cam = Camera.main;
+                }
+
+                return s_cam;
+            }
+        }
         
         public static Vector2 GetWorldPosition(Vector2 tuioPosition)
         {
