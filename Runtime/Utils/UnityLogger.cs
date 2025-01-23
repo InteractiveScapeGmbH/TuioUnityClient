@@ -52,9 +52,8 @@ namespace TuioUnity.Utils
         
         private object FormatMessage<TState>(TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
-            string now = DateTime.UtcNow.ToString("dd.MM.yyyy HH:mm:ss");
-            string message = formatter.Invoke(state, exception);
-            return $"{now}: {message}";
+            var message = formatter.Invoke(state, exception);
+            return $"{message}";
         }
     }
 }
