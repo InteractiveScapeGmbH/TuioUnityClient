@@ -10,7 +10,9 @@
     "overrideReferences": true,
     "precompiledReferences": [
         "TuioNet.dll",
-        "SxmMqttBridge.dll"
+        "SxmMqttBridge.dll",
+        "Microsoft.Extensions.Logging.Abstractions.dll",
+        "Microsoft.Extensions.DependencyInjection.Abstractions.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [],

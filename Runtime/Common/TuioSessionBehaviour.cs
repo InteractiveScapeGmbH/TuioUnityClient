@@ -1,7 +1,6 @@
 ﻿using System;
 using TuioNet.Common;
-using TuioNet.Tuio11;
-using TuioNet.Tuio20;
+using TuioUnity.Utils;
 using UnityEngine;
 
 namespace TuioUnity.Common
@@ -20,6 +19,7 @@ namespace TuioUnity.Common
 
         private TuioSession _session;
         private bool _isInitialized;
+        private UnityLogger _logger;
 
         public ITuioDispatcher TuioDispatcher
         {
@@ -55,7 +55,8 @@ namespace TuioUnity.Common
                 };
             }
 
-            _session = new TuioSession(TuioVersion, ConnectionType, _ipAddress, port, false);
+            _logger = new UnityLogger();
+            _session = new TuioSession(_logger, TuioVersion, ConnectionType, _ipAddress, port, false);
             _isInitialized = true;
         }
 
@@ -73,16 +74,6 @@ namespace TuioUnity.Common
         {
             RemoveMessageListener(listener.MessageProfile);
         }
-
-        // private void OnEnable()
-        // {
-        //     _session.TuioDispatcher.RegisterCallbacks();
-        // }
-        //
-        // private void OnDisable()
-        // {
-        //     _session.TuioDispatcher.UnregisterCallbacks();
-        // }
 
         private void Update()
         {

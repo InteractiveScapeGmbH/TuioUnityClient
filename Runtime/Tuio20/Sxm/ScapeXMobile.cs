@@ -2,6 +2,7 @@
 using SxmMqttBridge;
 using TuioNet.Common;
 using TuioUnity.Common;
+using TuioUnity.Utils;
 using UnityEngine;
 
 namespace TuioUnity.Tuio20.Sxm
@@ -12,17 +13,19 @@ namespace TuioUnity.Tuio20.Sxm
         private MqttBridge _bridge;
         private TuioSessionBehaviour _session;
 
-        public event EventHandler<SxmEventArgs> OnConfigUpdate; 
+        public event EventHandler<SxmEventArgs> OnConfigUpdate;
+        private UnityLogger _logger;
 
         private void Start()
         {
+            _logger = new UnityLogger();
             _session = GetComponent<TuioSessionBehaviour>();
             if (_session.TuioVersion != TuioVersion.Tuio20)
             {
                 Debug.LogWarning("[Tuio Client] Scape X Mobile only works with Tuio 2.0");
                 return;
             }
-            _bridge = new MqttBridge(_session.IpAddress);
+            _bridge = new MqttBridge(_logger, _session.IpAddress);
             _bridge.OnConfigUpdate += UpdateConfig;
         }
 
@@ -31,7 +34,7 @@ namespace TuioUnity.Tuio20.Sxm
             var sxmConfig = new SxmEventArgs
             {
                 RoomId = config.RoomId,
-                MqttUrl = config.MqttUrl
+                MqttUrl = config.MqttUrl.Authority
             };
             OnConfigUpdate?.Invoke(this, sxmConfig);
         }
