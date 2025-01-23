@@ -34,7 +34,7 @@ namespace TuioUnity.Tuio20.Sxm
             var sxmConfig = new SxmEventArgs
             {
                 RoomId = config.RoomId,
-                MqttUrl = config.MqttUrl
+                MqttUrl = config.MqttUrl.Authority
             };
             OnConfigUpdate?.Invoke(this, sxmConfig);
         }
