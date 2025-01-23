@@ -1,4 +1,7 @@
 # Changelog
+## Version 2.0.4
+- implement UnityLogger which enables logging in Unity using the ILogger interface from Microsoft.Extensions.Logging
+- fix bug with URL formatting of MQTT-Server
 
 ## Version 2.0.3
 - use unity package of newtonsoft json instead of dll.
