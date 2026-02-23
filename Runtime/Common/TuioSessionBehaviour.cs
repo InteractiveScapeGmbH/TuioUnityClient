@@ -1,4 +1,5 @@
 ﻿using System;
+using TuioNet.Client.Common;
 using TuioNet.Common;
 using TuioUnity.Utils;
 using UnityEngine;

@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
+using TuioNet.Client.Tuio11;
 using TuioNet.Tuio11;
 using TuioUnity.Common;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace TuioUnity.Tuio11
 {

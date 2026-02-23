@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
+using TuioNet.Client.Tuio20;
 using TuioNet.Tuio20;
 using TuioUnity.Common;
 using TuioUnity.Tuio20.Sxm;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace TuioUnity.Tuio20
 {
