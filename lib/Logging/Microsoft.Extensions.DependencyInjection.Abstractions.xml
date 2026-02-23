@@ -11,65 +11,65 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(System.IServiceProvider,System.Type,System.Object[])">
             <summary>
-            Instantiate a type with constructor arguments provided directly and/or from an <see cref="T:System.IServiceProvider"/>.
+            Instantiates a type with constructor arguments provided directly and/or from an <see cref="T:System.IServiceProvider"/>.
             </summary>
-            <param name="provider">The service provider used to resolve dependencies</param>
-            <param name="instanceType">The type to activate</param>
+            <param name="provider">The service provider used to resolve dependencies.</param>
+            <param name="instanceType">The type to activate.</param>
             <param name="parameters">Constructor arguments not provided by the <paramref name="provider"/>.</param>
-            <returns>An activated object of type instanceType</returns>
+            <returns>An activated object of type instanceType.</returns>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory(System.Type,System.Type[])">
             <summary>
-            Create a delegate that will instantiate a type with constructor arguments provided directly
+            Creates a delegate that will instantiate a type with constructor arguments provided directly
             and/or from an <see cref="T:System.IServiceProvider"/>.
             </summary>
-            <param name="instanceType">The type to activate</param>
+            <param name="instanceType">The type to activate.</param>
             <param name="argumentTypes">
-            The types of objects, in order, that will be passed to the returned function as its second parameter
+            The types of objects, in order, that will be passed to the returned function as its second parameter.
             </param>
             <returns>
             A factory that will instantiate instanceType using an <see cref="T:System.IServiceProvider"/>
-            and an argument array containing objects matching the types defined in argumentTypes
+            and an argument array containing objects matching the types defined in argumentTypes.
             </returns>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory``1(System.Type[])">
             <summary>
-            Create a delegate that will instantiate a type with constructor arguments provided directly
+            Creates a delegate that will instantiate a type with constructor arguments provided directly
             and/or from an <see cref="T:System.IServiceProvider"/>.
             </summary>
-            <typeparam name="T">The type to activate</typeparam>
+            <typeparam name="T">The type to activate.</typeparam>
             <param name="argumentTypes">
-            The types of objects, in order, that will be passed to the returned function as its second parameter
+            The types of objects, in order, that will be passed to the returned function as its second parameter.
             </param>
             <returns>
-            A factory that will instantiate type T using an <see cref="T:System.IServiceProvider"/>
-            and an argument array containing objects matching the types defined in argumentTypes
+            A factory that will instantiate type <typeparamref name="T" /> using an <see cref="T:System.IServiceProvider"/>
+            and an argument array containing objects matching the types defined in <paramref name="argumentTypes" />.
             </returns>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance``1(System.IServiceProvider,System.Object[])">
             <summary>
-            Instantiate a type with constructor arguments provided directly and/or from an <see cref="T:System.IServiceProvider"/>.
+            Instantiates a type with constructor arguments provided directly and/or from an <see cref="T:System.IServiceProvider"/>.
             </summary>
-            <typeparam name="T">The type to activate</typeparam>
-            <param name="provider">The service provider used to resolve dependencies</param>
-            <param name="parameters">Constructor arguments not provided by the <paramref name="provider"/>.</param>
-            <returns>An activated object of type T</returns>
+            <typeparam name="T">The type to activate.</typeparam>
+            <param name="provider">The service provider used to resolve dependencies.</param>
+            <param name="parameters">Constructor arguments not provided by <paramref name="provider"/>.</param>
+            <returns>An activated object of type <typeparamref name="T" />.</returns>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ActivatorUtilities.GetServiceOrCreateInstance``1(System.IServiceProvider)">
             <summary>
             Retrieve an instance of the given type from the service provider. If one is not found then instantiate it directly.
             </summary>
-            <typeparam name="T">The type of the service</typeparam>
-            <param name="provider">The service provider used to resolve dependencies</param>
-            <returns>The resolved service or created instance</returns>
+            <typeparam name="T">The type of the service.</typeparam>
+            <param name="provider">The service provider used to resolve dependencies.</param>
+            <returns>The resolved service or created instance.</returns>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ActivatorUtilities.GetServiceOrCreateInstance(System.IServiceProvider,System.Type)">
             <summary>
             Retrieve an instance of the given type from the service provider. If one is not found then instantiate it directly.
             </summary>
-            <param name="provider">The service provider</param>
-            <param name="type">The type of the service</param>
-            <returns>The resolved service or created instance</returns>
+            <param name="provider">The service provider.</param>
+            <param name="type">The type of the service.</param>
+            <returns>The resolved service or created instance.</returns>
         </member>
         <member name="T:Microsoft.Extensions.DependencyInjection.ActivatorUtilitiesConstructorAttribute">
             <summary>
@@ -316,7 +316,7 @@
             <summary>
             Adds a <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/> if an existing descriptor with the same
             <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceType"/> and an implementation that does not already exist
-            in <paramref name="services.."/>.
+            in <paramref name="services"/>.
             </summary>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
             <param name="descriptor">The <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</param>
@@ -335,7 +335,7 @@
             <summary>
             Adds the specified <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>s if an existing descriptor with the same
             <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceType"/> and an implementation that does not already exist
-            in <paramref name="services.."/>.
+            in <paramref name="services"/>.
             </summary>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
             <param name="descriptors">The <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>s.</param>
@@ -592,6 +592,8 @@
             <summary>
             Indicates that the parameter should be bound using the keyed service registered with the specified key.
             </summary>
+            <seealso cref="T:Microsoft.Extensions.DependencyInjection.ServiceKeyAttribute"/>
+            <seealso cref="T:Microsoft.Extensions.DependencyInjection.ServiceKeyLookupMode"/>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.FromKeyedServicesAttribute.#ctor(System.Object)">
             <summary>
@@ -599,15 +601,28 @@
             </summary>
             <param name="key">The key of the keyed service to bind to.</param>
         </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.FromKeyedServicesAttribute.#ctor">
+            <summary>
+            Creates a new <see cref="T:Microsoft.Extensions.DependencyInjection.FromKeyedServicesAttribute"/> instance with <see cref="P:Microsoft.Extensions.DependencyInjection.FromKeyedServicesAttribute.LookupMode"/> set to <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceKeyLookupMode.InheritKey"/>.
+            </summary>
+        </member>
         <member name="P:Microsoft.Extensions.DependencyInjection.FromKeyedServicesAttribute.Key">
             <summary>
             The key of the keyed service to bind to.
             </summary>
+            <remarks>A <see langword="null"/> value with indicates there is not a key and just the parameter type is used to resolve the service.
+            This is useful for DI implementations that require an explict way to declare that the parameter should be resolved for unkeyed services.
+            A <see langword="null"/> value is also used along with <see cref="P:Microsoft.Extensions.DependencyInjection.FromKeyedServicesAttribute.LookupMode"/> set to <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceKeyLookupMode.InheritKey"/> to indicate that the key should be inherited from the parent scope.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Extensions.DependencyInjection.FromKeyedServicesAttribute.LookupMode">
+            <summary>
+            Gets the mode used to look up the service key.
+            </summary>
         </member>
         <member name="T:Microsoft.Extensions.DependencyInjection.IKeyedServiceProvider">
             <summary>
-            IKeyedServiceProvider is a service provider that can be used to retrieve services using a key in addition
-            to a type.
+            Retrieves services using a key and a type.
             </summary>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.IKeyedServiceProvider.GetKeyedService(System.Type,System.Object)">
@@ -616,7 +631,9 @@
             </summary>
             <param name="serviceType">An object that specifies the type of service object to get.</param>
             <param name="serviceKey">An object that specifies the key of service object to get.</param>
-            <returns> A service object of type serviceType. -or- null if there is no service object of type serviceType.</returns>
+            <returns><para>A service object of type <paramref name="serviceType"/>.</para>
+            <para>-or-</para>
+            <para><see langword="null"/> if there is no service object of type <paramref name="serviceType"/>.</para></returns>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.IKeyedServiceProvider.GetRequiredKeyedService(System.Type,System.Object)">
             <summary>
@@ -630,12 +647,12 @@
         </member>
         <member name="T:Microsoft.Extensions.DependencyInjection.KeyedService">
             <summary>
-            Statics for use with <see cref="T:Microsoft.Extensions.DependencyInjection.IKeyedServiceProvider"/>.
+            Provides static APIs for use with <see cref="T:Microsoft.Extensions.DependencyInjection.IKeyedServiceProvider"/>.
             </summary>
         </member>
         <member name="P:Microsoft.Extensions.DependencyInjection.KeyedService.AnyKey">
             <summary>
-            Represents a key that matches any key.
+            Gets a key that matches any key.
             </summary>
         </member>
         <member name="T:Microsoft.Extensions.DependencyInjection.IServiceCollection">
@@ -652,19 +669,19 @@
             <summary>
             Creates a container builder from an <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
-            <param name="services">The collection of services</param>
+            <param name="services">The collection of services.</param>
             <returns>A container builder that can be used to create an <see cref="T:System.IServiceProvider"/>.</returns>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.IServiceProviderFactory`1.CreateServiceProvider(`0)">
             <summary>
             Creates an <see cref="T:System.IServiceProvider"/> from the container builder.
             </summary>
-            <param name="containerBuilder">The container builder</param>
-            <returns>An <see cref="T:System.IServiceProvider"/></returns>
+            <param name="containerBuilder">The container builder.</param>
+            <returns>An <see cref="T:System.IServiceProvider"/> instance.</returns>
         </member>
         <member name="T:Microsoft.Extensions.DependencyInjection.IServiceProviderIsKeyedService">
             <summary>
-            Optional service used to determine if the specified type with the specified service key is available
+            Provides methods to determine if the specified type with the specified service key is available
             from the <see cref="T:System.IServiceProvider"/>.
             </summary>
         </member>
@@ -679,7 +696,7 @@
         </member>
         <member name="T:Microsoft.Extensions.DependencyInjection.IServiceProviderIsService">
             <summary>
-            Optional service used to determine if the specified type is available from the <see cref="T:System.IServiceProvider"/>.
+            Provides methods to determine if the specified type is available from the <see cref="T:System.IServiceProvider"/>.
             </summary>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.IServiceProviderIsService.IsService(System.Type)">
@@ -691,26 +708,29 @@
         </member>
         <member name="T:Microsoft.Extensions.DependencyInjection.IServiceScope">
             <summary>
+            Defines a disposable service scope.
+            </summary>
+            <remarks>
             The <see cref="M:System.IDisposable.Dispose"/> method ends the scope lifetime. Once Dispose
             is called, any scoped services that have been resolved from
             <see cref="P:Microsoft.Extensions.DependencyInjection.IServiceScope.ServiceProvider"/> will be
             disposed.
-            </summary>
+            </remarks>
         </member>
         <member name="P:Microsoft.Extensions.DependencyInjection.IServiceScope.ServiceProvider">
             <summary>
-            The <see cref="T:System.IServiceProvider"/> used to resolve dependencies from the scope.
+            Gets the <see cref="T:System.IServiceProvider"/> used to resolve dependencies from the scope.
             </summary>
         </member>
         <member name="T:Microsoft.Extensions.DependencyInjection.IServiceScopeFactory">
             <summary>
-            A factory for creating instances of <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceScope"/>, which is used to create
+            Creates instances of <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceScope"/>, which is used to create
             services within a scope.
             </summary>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.IServiceScopeFactory.CreateScope">
             <summary>
-            Create an <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceScope"/> which
+            Create an <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceScope"/> that
             contains an <see cref="T:System.IServiceProvider"/> used to resolve dependencies from a
             newly created scope.
             </summary>
@@ -746,12 +766,12 @@
         </member>
         <member name="T:Microsoft.Extensions.DependencyInjection.ObjectFactory`1">
             <summary>
-            The result of <see cref="M:Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory``1(System.Type[])"/>. A delegate to specify a factory method to call to instantiate an instance of type `T`
+            Returns the result of <see cref="M:Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory``1(System.Type[])" />, which is a delegate that specifies a factory method to call to instantiate an instance of type <typeparamref name="T" />.
             </summary>
-            <typeparam name="T">The type of the instance being returned</typeparam>
+            <typeparam name="T">The type of the instance that's returned.</typeparam>
             <param name="serviceProvider">The <see cref="T:System.IServiceProvider"/> to get service arguments from.</param>
             <param name="arguments">Additional constructor arguments.</param>
-            <returns>An instance of T</returns>
+            <returns>An instance of type <typeparamref name="T" />.</returns>
         </member>
         <member name="T:Microsoft.Extensions.DependencyInjection.ServiceCollection">
             <summary>
@@ -1441,33 +1461,57 @@
         </member>
         <member name="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ImplementationType">
             <summary>
-            Gets the <see cref="T:System.Type"/> that implements the service.
+            Gets the <see cref="T:System.Type"/> that implements the service,
+            or returns <see langword="null"/> if <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.IsKeyedService"/> is <see langword="true"/>.
             </summary>
+            <remarks>
+            If <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.IsKeyedService"/> is <see langword="true"/>, <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.KeyedImplementationType"/> should be called instead.
+            </remarks>
         </member>
         <member name="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.KeyedImplementationType">
             <summary>
-            Gets the <see cref="T:System.Type"/> that implements the service.
+            Gets the <see cref="T:System.Type"/> that implements the service,
+            or throws <see cref="T:System.InvalidOperationException"/> if <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.IsKeyedService"/> is <see langword="false"/>.
             </summary>
+            <remarks>
+            If <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.IsKeyedService"/> is <see langword="false"/>, <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ImplementationType"/> should be called instead.
+            </remarks>
         </member>
         <member name="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ImplementationInstance">
             <summary>
-            Gets the instance that implements the service.
+            Gets the instance that implements the service,
+            or returns <see langword="null"/> if <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.IsKeyedService"/> is <see langword="true"/>.
             </summary>
+            <remarks>
+            If <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.IsKeyedService"/> is <see langword="true"/>, <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.KeyedImplementationInstance"/> should be called instead.
+            </remarks>
         </member>
         <member name="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.KeyedImplementationInstance">
             <summary>
-            Gets the instance that implements the service.
+            Gets the instance that implements the service,
+            or throws <see cref="T:System.InvalidOperationException"/> if <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.IsKeyedService"/> is <see langword="false"/>.
             </summary>
+            <remarks>
+            If <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.IsKeyedService"/> is <see langword="false"/>, <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ImplementationInstance"/> should be called instead.
+            </remarks>
         </member>
         <member name="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ImplementationFactory">
             <summary>
-            Gets the factory used for creating service instances.
+            Gets the factory used for creating service instance,
+            or returns <see langword="null"/> if <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.IsKeyedService"/> is <see langword="true"/>.
             </summary>
+            <remarks>
+            If <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.IsKeyedService"/> is <see langword="true"/>, <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.KeyedImplementationFactory"/> should be called instead.
+            </remarks>
         </member>
         <member name="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.KeyedImplementationFactory">
             <summary>
-            Gets the factory used for creating Keyed service instances.
+            Gets the factory used for creating Keyed service instances,
+            or throws <see cref="T:System.InvalidOperationException"/> if <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.IsKeyedService"/> is <see langword="false"/>.
             </summary>
+            <remarks>
+            If <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.IsKeyedService"/> is <see langword="false"/>, <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ImplementationFactory"/> should be called instead.
+            </remarks>
         </member>
         <member name="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.IsKeyedService">
             <summary>
@@ -1894,8 +1938,29 @@
         </member>
         <member name="T:Microsoft.Extensions.DependencyInjection.ServiceKeyAttribute">
             <summary>
-            ServiceKeyAttribute can be specified on a parameter to inject the key that was used for
-            registration/resolution.
+            Specifies the parameter to inject the key that was used for registration or resolution.
+            </summary>
+            <seealso cref="T:Microsoft.Extensions.DependencyInjection.FromKeyedServicesAttribute"/>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.ServiceKeyLookupMode">
+            <summary>
+            Specifies how to look up the service key for a parameter.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Extensions.DependencyInjection.ServiceKeyLookupMode.InheritKey">
+            <summary>
+            The key is inherited from the parent service.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Extensions.DependencyInjection.ServiceKeyLookupMode.NullKey">
+            <summary>
+            A <see langword="null" /> key indicates that the parameter should be resolved from unkeyed services.
+            This is useful for DI implementations that require an explicit way to declare that the parameter should be resolved from unkeyed services.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Extensions.DependencyInjection.ServiceKeyLookupMode.ExplicitKey">
+            <summary>
+            The key is explicitly specified.
             </summary>
         </member>
         <member name="T:Microsoft.Extensions.DependencyInjection.ServiceLifetime">
@@ -1934,6 +1999,15 @@
             <param name="provider">The <see cref="T:System.IServiceProvider"/> to retrieve the service object from.</param>
             <param name="serviceKey">An object that specifies the key of service object to get.</param>
             <returns>A service object of type <typeparamref name="T"/> or null if there is no such service.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceProviderKeyedServiceExtensions.GetKeyedService(System.IServiceProvider,System.Type,System.Object)">
+            <summary>
+            Get service of type <paramref name="serviceType"/> from the <see cref="T:System.IServiceProvider"/>.
+            </summary>
+            <param name="provider">The <see cref="T:System.IServiceProvider"/> to retrieve the service object from.</param>
+            <param name="serviceType">An object that specifies the type of service object to get.</param>
+            <param name="serviceKey">An object that specifies the key of service object to get.</param>
+            <returns>A service object of type <paramref name="serviceType"/> or null if there is no such service.</returns>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceProviderKeyedServiceExtensions.GetRequiredKeyedService(System.IServiceProvider,System.Type,System.Object)">
             <summary>
@@ -2040,91 +2114,6 @@
             </summary>
             <param name="serviceScopeFactory">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceScopeFactory"/> to create the scope from.</param>
             <returns>An <see cref="T:Microsoft.Extensions.DependencyInjection.AsyncServiceScope"/> that can be used to resolve scoped services.</returns>
-        </member>
-        <member name="M:System.ThrowHelper.ThrowIfNull(System.Object,System.String)">
-            <summary>Throws an <see cref="T:System.ArgumentNullException"/> if <paramref name="argument"/> is null.</summary>
-            <param name="argument">The reference type argument to validate as non-null.</param>
-            <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
-        </member>
-        <member name="M:System.ThrowHelper.IfNullOrWhitespace(System.String,System.String)">
-            <summary>
-            Throws either an <see cref="T:System.ArgumentNullException"/> or an <see cref="T:System.ArgumentException"/>
-            if the specified string is <see langword="null"/> or whitespace respectively.
-            </summary>
-            <param name="argument">String to be checked for <see langword="null"/> or whitespace.</param>
-            <param name="paramName">The name of the parameter being checked.</param>
-            <returns>The original value of <paramref name="argument"/>.</returns>
-        </member>
-        <member name="T:System.Runtime.InteropServices.LibraryImportAttribute">
-            <summary>
-            Attribute used to indicate a source generator should create a function for marshalling
-            arguments instead of relying on the runtime to generate an equivalent marshalling function at run-time.
-            </summary>
-            <remarks>
-            This attribute is meaningless if the source generator associated with it is not enabled.
-            The current built-in source generator only supports C# and only supplies an implementation when
-            applied to static, partial, non-generic methods.
-            </remarks>
-        </member>
-        <member name="M:System.Runtime.InteropServices.LibraryImportAttribute.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:System.Runtime.InteropServices.LibraryImportAttribute"/>.
-            </summary>
-            <param name="libraryName">Name of the library containing the import.</param>
-        </member>
-        <member name="P:System.Runtime.InteropServices.LibraryImportAttribute.LibraryName">
-            <summary>
-            Gets the name of the library containing the import.
-            </summary>
-        </member>
-        <member name="P:System.Runtime.InteropServices.LibraryImportAttribute.EntryPoint">
-            <summary>
-            Gets or sets the name of the entry point to be called.
-            </summary>
-        </member>
-        <member name="P:System.Runtime.InteropServices.LibraryImportAttribute.StringMarshalling">
-            <summary>
-            Gets or sets how to marshal string arguments to the method.
-            </summary>
-            <remarks>
-            If this field is set to a value other than <see cref="F:System.Runtime.InteropServices.StringMarshalling.Custom" />,
-            <see cref="P:System.Runtime.InteropServices.LibraryImportAttribute.StringMarshallingCustomType" /> must not be specified.
-            </remarks>
-        </member>
-        <member name="P:System.Runtime.InteropServices.LibraryImportAttribute.StringMarshallingCustomType">
-            <summary>
-            Gets or sets the <see cref="T:System.Type"/> used to control how string arguments to the method are marshalled.
-            </summary>
-            <remarks>
-            If this field is specified, <see cref="P:System.Runtime.InteropServices.LibraryImportAttribute.StringMarshalling" /> must not be specified
-            or must be set to <see cref="F:System.Runtime.InteropServices.StringMarshalling.Custom" />.
-            </remarks>
-        </member>
-        <member name="P:System.Runtime.InteropServices.LibraryImportAttribute.SetLastError">
-            <summary>
-            Gets or sets whether the callee sets an error (SetLastError on Windows or errno
-            on other platforms) before returning from the attributed method.
-            </summary>
-        </member>
-        <member name="T:System.Runtime.InteropServices.StringMarshalling">
-            <summary>
-            Specifies how strings should be marshalled for generated p/invokes
-            </summary>
-        </member>
-        <member name="F:System.Runtime.InteropServices.StringMarshalling.Custom">
-            <summary>
-            Indicates the user is suppling a specific marshaller in <see cref="P:System.Runtime.InteropServices.LibraryImportAttribute.StringMarshallingCustomType"/>.
-            </summary>
-        </member>
-        <member name="F:System.Runtime.InteropServices.StringMarshalling.Utf8">
-            <summary>
-            Use the platform-provided UTF-8 marshaller.
-            </summary>
-        </member>
-        <member name="F:System.Runtime.InteropServices.StringMarshalling.Utf16">
-            <summary>
-            Use the platform-provided UTF-16 marshaller.
-            </summary>
         </member>
         <member name="T:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembersAttribute">
              <summary>
@@ -2246,9 +2235,113 @@
             Specifies all interfaces implemented by the type.
             </summary>
         </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicConstructorsWithInherited">
+            <summary>
+            Specifies all non-public constructors, including those inherited from base classes.
+            </summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicMethodsWithInherited">
+            <summary>
+            Specifies all non-public methods, including those inherited from base classes.
+            </summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicFieldsWithInherited">
+            <summary>
+            Specifies all non-public fields, including those inherited from base classes.
+            </summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicNestedTypesWithInherited">
+            <summary>
+            Specifies all non-public nested types, including those inherited from base classes.
+            </summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicPropertiesWithInherited">
+            <summary>
+            Specifies all non-public properties, including those inherited from base classes.
+            </summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicEventsWithInherited">
+            <summary>
+            Specifies all non-public events, including those inherited from base classes.
+            </summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicConstructorsWithInherited">
+            <summary>
+            Specifies all public constructors, including those inherited from base classes.
+            </summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicNestedTypesWithInherited">
+            <summary>
+            Specifies all public nested types, including those inherited from base classes.
+            </summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.AllConstructors">
+            <summary>
+            Specifies all constructors, including those inherited from base classes.
+            </summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.AllMethods">
+            <summary>
+            Specifies all methods, including those inherited from base classes.
+            </summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.AllFields">
+            <summary>
+            Specifies all fields, including those inherited from base classes.
+            </summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.AllNestedTypes">
+            <summary>
+            Specifies all nested types, including those inherited from base classes.
+            </summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.AllProperties">
+            <summary>
+            Specifies all properties, including those inherited from base classes.
+            </summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.AllEvents">
+            <summary>
+            Specifies all events, including those inherited from base classes.
+            </summary>
+        </member>
         <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.All">
             <summary>
             Specifies all members.
+            </summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.RequiresDynamicCodeAttribute">
+            <summary>
+            Indicates that the specified method requires the ability to generate new code at runtime,
+            for example through <see cref="N:System.Reflection"/>.
+            </summary>
+            <remarks>
+            This allows tools to understand which methods are unsafe to call when compiling ahead of time.
+            </remarks>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.RequiresDynamicCodeAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Diagnostics.CodeAnalysis.RequiresDynamicCodeAttribute"/> class
+            with the specified message.
+            </summary>
+            <param name="message">
+            A message that contains information about the usage of dynamic code.
+            </param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.RequiresDynamicCodeAttribute.ExcludeStatics">
+            <summary>
+            When set to true, indicates that the annotation should not apply to static members.
+            </summary>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.RequiresDynamicCodeAttribute.Message">
+            <summary>
+            Gets a message that contains information about the usage of dynamic code.
+            </summary>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.RequiresDynamicCodeAttribute.Url">
+            <summary>
+            Gets or sets an optional URL that contains more information about the method,
+            why it requires dynamic code, and what options a consumer has to deal with it.
             </summary>
         </member>
         <member name="T:System.Diagnostics.CodeAnalysis.UnconditionalSuppressMessageAttribute">
@@ -2325,34 +2418,69 @@
             Gets or sets the justification for suppressing the code analysis message.
             </summary>
         </member>
-        <member name="T:System.Diagnostics.CodeAnalysis.RequiresDynamicCodeAttribute">
-            <summary>
-            Indicates that the specified method requires the ability to generate new code at runtime,
-            for example through <see cref="N:System.Reflection"/>.
-            </summary>
-            <remarks>
-            This allows tools to understand which methods are unsafe to call when compiling ahead of time.
-            </remarks>
+        <member name="T:System.Diagnostics.CodeAnalysis.AllowNullAttribute">
+            <summary>Specifies that null is allowed as an input even if the corresponding type disallows it.</summary>
         </member>
-        <member name="M:System.Diagnostics.CodeAnalysis.RequiresDynamicCodeAttribute.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:System.Diagnostics.CodeAnalysis.RequiresDynamicCodeAttribute"/> class
-            with the specified message.
-            </summary>
-            <param name="message">
-            A message that contains information about the usage of dynamic code.
+        <member name="T:System.Diagnostics.CodeAnalysis.DisallowNullAttribute">
+            <summary>Specifies that null is disallowed as an input even if the corresponding type allows it.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.MaybeNullAttribute">
+            <summary>Specifies that an output may be null even if the corresponding type disallows it.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.NotNullAttribute">
+            <summary>Specifies that an output will not be null even if the corresponding type allows it. Specifies that an input argument was not null when the call returns.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute">
+            <summary>Specifies that when a method returns <see cref="P:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute.ReturnValue"/>, the parameter may be null even if the corresponding type disallows it.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute.#ctor(System.Boolean)">
+            <summary>Initializes the attribute with the specified return value condition.</summary>
+            <param name="returnValue">
+            The return value condition. If the method returns this value, the associated parameter may be null.
             </param>
         </member>
-        <member name="P:System.Diagnostics.CodeAnalysis.RequiresDynamicCodeAttribute.Message">
-            <summary>
-            Gets a message that contains information about the usage of dynamic code.
-            </summary>
+        <member name="P:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute.ReturnValue">
+            <summary>Gets the return value condition.</summary>
         </member>
-        <member name="P:System.Diagnostics.CodeAnalysis.RequiresDynamicCodeAttribute.Url">
-            <summary>
-            Gets or sets an optional URL that contains more information about the method,
-            why it requires dynamic code, and what options a consumer has to deal with it.
-            </summary>
+        <member name="T:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute">
+            <summary>Specifies that when a method returns <see cref="P:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute.ReturnValue"/>, the parameter will not be null even if the corresponding type allows it.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute.#ctor(System.Boolean)">
+            <summary>Initializes the attribute with the specified return value condition.</summary>
+            <param name="returnValue">
+            The return value condition. If the method returns this value, the associated parameter will not be null.
+            </param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute.ReturnValue">
+            <summary>Gets the return value condition.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.NotNullIfNotNullAttribute">
+            <summary>Specifies that the output will be non-null if the named parameter is non-null.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.NotNullIfNotNullAttribute.#ctor(System.String)">
+            <summary>Initializes the attribute with the associated parameter name.</summary>
+            <param name="parameterName">
+            The associated parameter name.  The output will be non-null if the argument to the parameter specified is non-null.
+            </param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.NotNullIfNotNullAttribute.ParameterName">
+            <summary>Gets the associated parameter name.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.DoesNotReturnAttribute">
+            <summary>Applied to a method that will never return under any circumstance.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.DoesNotReturnIfAttribute">
+            <summary>Specifies that the method will not return if the associated Boolean parameter is passed the specified value.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.DoesNotReturnIfAttribute.#ctor(System.Boolean)">
+            <summary>Initializes the attribute with the specified parameter value.</summary>
+            <param name="parameterValue">
+            The condition parameter value. Code after the method will be considered unreachable by diagnostics if the argument to
+            the associated parameter matches this value.
+            </param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.DoesNotReturnIfAttribute.ParameterValue">
+            <summary>Gets the condition parameter value.</summary>
         </member>
         <member name="T:System.Diagnostics.CodeAnalysis.MemberNotNullAttribute">
             <summary>Specifies that the method or property will ensure that the listed field and property members have not-null values.</summary>
@@ -2378,7 +2506,7 @@
         <member name="M:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute.#ctor(System.Boolean,System.String)">
             <summary>Initializes the attribute with the specified return value condition and a field or property member.</summary>
             <param name="returnValue">
-            The return value condition. If the method returns this value, the associated parameter will not be null.
+            The return value condition. If the method returns this value, the associated field or property member will not be null.
             </param>
             <param name="member">
             The field or property member that is promised to be not-null.
@@ -2387,7 +2515,7 @@
         <member name="M:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute.#ctor(System.Boolean,System.String[])">
             <summary>Initializes the attribute with the specified return value condition and list of field and property members.</summary>
             <param name="returnValue">
-            The return value condition. If the method returns this value, the associated parameter will not be null.
+            The return value condition. If the method returns this value, the associated field and property members will not be null.
             </param>
             <param name="members">
             The list of field and property members that are promised to be not-null.
@@ -2398,6 +2526,93 @@
         </member>
         <member name="P:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute.Members">
             <summary>Gets field or property member names.</summary>
+        </member>
+        <member name="T:System.Runtime.CompilerServices.CompilerLoweringPreserveAttribute">
+            <summary>
+            When applied to an attribute class, instructs the compiler to flow applications of that attribute,
+            from source code down to compiler-generated symbols. This can help IL-based analysis tools.
+            </summary>
+            <remarks>
+            One example where this attribute applies is in C# primary constructor parameters. If an attribute
+            marked with <see cref="T:System.Runtime.CompilerServices.CompilerLoweringPreserveAttribute"/> gets applied to a primary constructor
+            parameter, the attribute will also be applied to any compiler-generated fields storing that parameter.
+            </remarks>
+        </member>
+        <member name="M:System.Runtime.CompilerServices.CompilerLoweringPreserveAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Runtime.CompilerServices.CompilerLoweringPreserveAttribute"/> class.
+            </summary>
+        </member>
+        <member name="T:System.Runtime.InteropServices.LibraryImportAttribute">
+            <summary>
+            Attribute used to indicate a source generator should create a function for marshalling
+            arguments instead of relying on the runtime to generate an equivalent marshalling function at run-time.
+            </summary>
+            <remarks>
+            This attribute is meaningless if the source generator associated with it is not enabled.
+            The current built-in source generator only supports C# and only supplies an implementation when
+            applied to static, partial, non-generic methods.
+            </remarks>
+        </member>
+        <member name="M:System.Runtime.InteropServices.LibraryImportAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Runtime.InteropServices.LibraryImportAttribute"/>.
+            </summary>
+            <param name="libraryName">Name of the library containing the import.</param>
+        </member>
+        <member name="P:System.Runtime.InteropServices.LibraryImportAttribute.LibraryName">
+            <summary>
+            Gets the name of the library containing the import.
+            </summary>
+        </member>
+        <member name="P:System.Runtime.InteropServices.LibraryImportAttribute.EntryPoint">
+            <summary>
+            Gets or sets the name of the entry point to be called.
+            </summary>
+        </member>
+        <member name="P:System.Runtime.InteropServices.LibraryImportAttribute.StringMarshalling">
+            <summary>
+            Gets or sets how to marshal string arguments to the method.
+            </summary>
+            <remarks>
+            If this field is set to a value other than <see cref="F:System.Runtime.InteropServices.StringMarshalling.Custom" />,
+            <see cref="P:System.Runtime.InteropServices.LibraryImportAttribute.StringMarshallingCustomType" /> must not be specified.
+            </remarks>
+        </member>
+        <member name="P:System.Runtime.InteropServices.LibraryImportAttribute.StringMarshallingCustomType">
+            <summary>
+            Gets or sets the <see cref="T:System.Type"/> used to control how string arguments to the method are marshalled.
+            </summary>
+            <remarks>
+            If this field is specified, <see cref="P:System.Runtime.InteropServices.LibraryImportAttribute.StringMarshalling" /> must not be specified
+            or must be set to <see cref="F:System.Runtime.InteropServices.StringMarshalling.Custom" />.
+            </remarks>
+        </member>
+        <member name="P:System.Runtime.InteropServices.LibraryImportAttribute.SetLastError">
+            <summary>
+            Gets or sets whether the callee sets an error (SetLastError on Windows or errno
+            on other platforms) before returning from the attributed method.
+            </summary>
+        </member>
+        <member name="T:System.Runtime.InteropServices.StringMarshalling">
+            <summary>
+            Specifies how strings should be marshalled for generated p/invokes
+            </summary>
+        </member>
+        <member name="F:System.Runtime.InteropServices.StringMarshalling.Custom">
+            <summary>
+            Indicates the user is supplying a specific marshaller in <see cref="P:System.Runtime.InteropServices.LibraryImportAttribute.StringMarshallingCustomType"/>.
+            </summary>
+        </member>
+        <member name="F:System.Runtime.InteropServices.StringMarshalling.Utf8">
+            <summary>
+            Use the platform-provided UTF-8 marshaller.
+            </summary>
+        </member>
+        <member name="F:System.Runtime.InteropServices.StringMarshalling.Utf16">
+            <summary>
+            Use the platform-provided UTF-16 marshaller.
+            </summary>
         </member>
         <member name="P:System.SR.AmbiguousConstructorMatch">
             <summary>Multiple constructors accepting all given argument types have been found in type '{0}'. There should only be one applicable constructor.</summary>
@@ -2441,11 +2656,11 @@
         <member name="P:System.SR.KeyedServicesNotSupported">
             <summary>This service provider doesn't support keyed services.</summary>
         </member>
-        <member name="P:System.SR.KeyedDescriptorMisuse">
-            <summary>This service descriptor is keyed. Your service provider may not support keyed services.</summary>
-        </member>
         <member name="P:System.SR.NonKeyedDescriptorMisuse">
             <summary>This service descriptor is not keyed.</summary>
+        </member>
+        <member name="T:System.ExceptionPolyfills">
+            <summary>Provides downlevel polyfills for static methods on Exception-derived types.</summary>
         </member>
     </members>
 </doc>

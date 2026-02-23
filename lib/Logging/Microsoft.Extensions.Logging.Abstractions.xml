@@ -4,6 +4,237 @@
         <name>Microsoft.Extensions.Logging.Abstractions</name>
     </assembly>
     <members>
+        <member name="T:Microsoft.Extensions.Logging.Abstractions.BufferedLogRecord">
+            <summary>
+            Represents a buffered log record to be written in batch to an <see cref="T:Microsoft.Extensions.Logging.Abstractions.IBufferedLogger" />.
+            </summary>
+            <remarks>
+            Instances of this type can be pooled and reused. Implementations of <see cref="T:Microsoft.Extensions.Logging.Abstractions.IBufferedLogger" /> must
+            not hold onto instance of <see cref="T:Microsoft.Extensions.Logging.Abstractions.BufferedLogRecord" /> passed to its <see cref="M:Microsoft.Extensions.Logging.Abstractions.IBufferedLogger.LogRecords(System.Collections.Generic.IEnumerable{Microsoft.Extensions.Logging.Abstractions.BufferedLogRecord})" /> method
+            beyond the invocation of that method.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Extensions.Logging.Abstractions.BufferedLogRecord.Timestamp">
+            <summary>
+            Gets the time when the log record was first created.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Logging.Abstractions.BufferedLogRecord.LogLevel">
+            <summary>
+            Gets the record's logging severity level.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Logging.Abstractions.BufferedLogRecord.EventId">
+            <summary>
+            Gets the record's event ID.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Logging.Abstractions.BufferedLogRecord.Exception">
+            <summary>
+            Gets an exception string for this record.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Logging.Abstractions.BufferedLogRecord.ActivitySpanId">
+            <summary>
+            Gets an activity span ID for this record, representing the state of the thread that created the record.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Logging.Abstractions.BufferedLogRecord.ActivityTraceId">
+            <summary>
+            Gets an activity trace ID for this record, representing the state of the thread that created the record.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Logging.Abstractions.BufferedLogRecord.ManagedThreadId">
+            <summary>
+            Gets the ID of the thread that created the log record.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Logging.Abstractions.BufferedLogRecord.FormattedMessage">
+            <summary>
+            Gets the formatted log message.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Logging.Abstractions.BufferedLogRecord.MessageTemplate">
+            <summary>
+            Gets the original log message template.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Logging.Abstractions.BufferedLogRecord.Attributes">
+            <summary>
+            Gets the variable set of name/value pairs associated with the record.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Extensions.Logging.Abstractions.IBufferedLogger">
+             <summary>
+             Represents the ability of a logging provider to support buffered logging.
+             </summary>
+             <remarks>
+             A logging provider implements the <see cref="T:Microsoft.Extensions.Logging.ILogger" /> interface that gets invoked by the
+             logging infrastructure whenever it’s time to log a piece of state.
+            
+             A logging provider may also optionally implement the <see cref="T:Microsoft.Extensions.Logging.Abstractions.IBufferedLogger" /> interface.
+             The logging infrastructure may type-test the <see cref="T:Microsoft.Extensions.Logging.ILogger" /> object to determine if
+             it supports the <see cref="T:Microsoft.Extensions.Logging.Abstractions.IBufferedLogger" /> interface. If it does, that indicates to the
+             logging infrastructure that the logging provider supports buffering. Whenever log
+             buffering is enabled, buffered log records may be delivered to the logging provider
+             in a batch via <see cref="M:Microsoft.Extensions.Logging.Abstractions.IBufferedLogger.LogRecords(System.Collections.Generic.IEnumerable{Microsoft.Extensions.Logging.Abstractions.BufferedLogRecord})" />.
+            
+             If a logging provider does not support log buffering, then it will always be given
+             unbuffered log records. If a logging provider does support log buffering, whether its
+             <see cref="T:Microsoft.Extensions.Logging.ILogger" /> or <see cref="T:Microsoft.Extensions.Logging.Abstractions.IBufferedLogger" /> implementation is used is
+             determined by the log producer.
+             </remarks>
+        </member>
+        <member name="M:Microsoft.Extensions.Logging.Abstractions.IBufferedLogger.LogRecords(System.Collections.Generic.IEnumerable{Microsoft.Extensions.Logging.Abstractions.BufferedLogRecord})">
+            <summary>
+            Delivers a batch of buffered log records to a logging provider.
+            </summary>
+            <param name="records">The buffered log records to log.</param>
+            <remarks>
+            Once this function returns, the implementation should no longer access the records
+            or state referenced by these records since the instances may be reused to represent other logs.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.Extensions.Logging.Abstractions.LogEntry`1">
+            <summary>
+            Holds the information for a single log entry.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Logging.Abstractions.LogEntry`1.#ctor(Microsoft.Extensions.Logging.LogLevel,System.String,Microsoft.Extensions.Logging.EventId,`0,System.Exception,System.Func{`0,System.Exception,System.String})">
+            <summary>
+            Initializes an instance of the LogEntry struct.
+            </summary>
+            <param name="logLevel">The log level.</param>
+            <param name="category">The category name for the log.</param>
+            <param name="eventId">The log event Id.</param>
+            <param name="state">The state for which log is being written.</param>
+            <param name="exception">The log exception.</param>
+            <param name="formatter">The formatter.</param>
+        </member>
+        <member name="P:Microsoft.Extensions.Logging.Abstractions.LogEntry`1.LogLevel">
+            <summary>
+            Gets the log level.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Logging.Abstractions.LogEntry`1.Category">
+            <summary>
+            Gets the log category.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Logging.Abstractions.LogEntry`1.EventId">
+            <summary>
+            Gets the log event ID.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Logging.Abstractions.LogEntry`1.State">
+            <summary>
+            Gets the state.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Logging.Abstractions.LogEntry`1.Exception">
+            <summary>
+            Gets the log exception.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Logging.Abstractions.LogEntry`1.Formatter">
+            <summary>
+            Gets the formatter.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Extensions.Logging.Abstractions.NullLogger">
+            <summary>
+            Minimalistic logger that does nothing.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Logging.Abstractions.NullLogger.Instance">
+            <summary>
+            Returns the shared instance of <see cref="T:Microsoft.Extensions.Logging.Abstractions.NullLogger"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Logging.Abstractions.NullLogger.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Extensions.Logging.Abstractions.NullLogger"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Logging.Abstractions.NullLogger.BeginScope``1(``0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Extensions.Logging.Abstractions.NullLogger.IsEnabled(Microsoft.Extensions.Logging.LogLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Extensions.Logging.Abstractions.NullLogger.Log``1(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,``0,System.Exception,System.Func{``0,System.Exception,System.String})">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.Extensions.Logging.Abstractions.NullLoggerFactory">
+            <summary>
+            An <see cref="T:Microsoft.Extensions.Logging.ILoggerFactory"/> used to create an instance of
+            <see cref="T:Microsoft.Extensions.Logging.Abstractions.NullLogger"/> that logs nothing.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Logging.Abstractions.NullLoggerFactory.#ctor">
+            <summary>
+            Creates a new <see cref="T:Microsoft.Extensions.Logging.Abstractions.NullLoggerFactory"/> instance.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Extensions.Logging.Abstractions.NullLoggerFactory.Instance">
+            <summary>
+            Returns the shared instance of <see cref="T:Microsoft.Extensions.Logging.Abstractions.NullLoggerFactory"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Logging.Abstractions.NullLoggerFactory.CreateLogger(System.String)">
+            <inheritdoc />
+            <remarks>
+            This returns a <see cref="T:Microsoft.Extensions.Logging.Abstractions.NullLogger"/> instance that logs nothing.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Extensions.Logging.Abstractions.NullLoggerFactory.AddProvider(Microsoft.Extensions.Logging.ILoggerProvider)">
+            <inheritdoc />
+            <remarks>
+            This method ignores the parameter and does nothing.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Extensions.Logging.Abstractions.NullLoggerFactory.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.Extensions.Logging.Abstractions.NullLoggerProvider">
+            <summary>
+            Provider for the <see cref="T:Microsoft.Extensions.Logging.Abstractions.NullLogger"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.Logging.Abstractions.NullLoggerProvider.Instance">
+            <summary>
+            Returns an instance of <see cref="T:Microsoft.Extensions.Logging.Abstractions.NullLoggerProvider"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Logging.Abstractions.NullLoggerProvider.CreateLogger(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Extensions.Logging.Abstractions.NullLoggerProvider.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.Extensions.Logging.Abstractions.NullLogger`1">
+            <summary>
+            Minimalistic logger that does nothing.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Extensions.Logging.Abstractions.NullLogger`1.Instance">
+            <summary>
+            Returns an instance of <see cref="T:Microsoft.Extensions.Logging.Abstractions.NullLogger`1"/>.
+            </summary>
+            <returns>An instance of <see cref="T:Microsoft.Extensions.Logging.Abstractions.NullLogger`1"/>.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.Logging.Abstractions.NullLogger`1.BeginScope``1(``0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Extensions.Logging.Abstractions.NullLogger`1.Log``1(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,``0,System.Exception,System.Func{``0,System.Exception,System.String})">
+            <inheritdoc />
+            <remarks>
+            This method ignores the parameters and does nothing.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Extensions.Logging.Abstractions.NullLogger`1.IsEnabled(Microsoft.Extensions.Logging.LogLevel)">
+            <inheritdoc />
+        </member>
         <member name="T:Microsoft.Extensions.Logging.EventId">
             <summary>
             Identifies a logging event. The primary identifier is the "Id" property, with the "Name" property providing a short description of this type of event.
@@ -17,7 +248,7 @@
         </member>
         <member name="M:Microsoft.Extensions.Logging.EventId.op_Equality(Microsoft.Extensions.Logging.EventId,Microsoft.Extensions.Logging.EventId)">
             <summary>
-            Checks if two specified <see cref="T:Microsoft.Extensions.Logging.EventId"/> instances have the same value. They are equal if they have the same Id.
+            Checks if two specified <see cref="T:Microsoft.Extensions.Logging.EventId"/> instances have the same value. They are equal if they have the same ID.
             </summary>
             <param name="left">The first <see cref="T:Microsoft.Extensions.Logging.EventId"/>.</param>
             <param name="right">The second <see cref="T:Microsoft.Extensions.Logging.EventId"/>.</param>
@@ -53,10 +284,10 @@
         </member>
         <member name="M:Microsoft.Extensions.Logging.EventId.Equals(Microsoft.Extensions.Logging.EventId)">
             <summary>
-            Indicates whether the current object is equal to another object of the same type. Two events are equal if they have the same id.
+            Compares the current instance to another object of the same type. Two events are equal if they have the same ID.
             </summary>
             <param name="other">An object to compare with this object.</param>
-            <returns><see langword="true" /> if the current object is equal to the other parameter; otherwise, <see langword="false" />.</returns>
+            <returns><see langword="true" /> if the current object is equal to <paramref name="other" />; otherwise, <see langword="false" />.</returns>
         </member>
         <member name="M:Microsoft.Extensions.Logging.EventId.Equals(System.Object)">
             <inheritdoc />
@@ -67,7 +298,7 @@
         <member name="T:Microsoft.Extensions.Logging.FormattedLogValues">
             <summary>
             LogValues to enable formatting options supported by <see cref="M:System.String.Format(System.IFormatProvider,System.String,System.Object)"/>.
-            This also enables using {NamedformatItem} in the format string.
+            This also enables using {NamedFormatItem} in the format string.
             </summary>
         </member>
         <member name="T:Microsoft.Extensions.Logging.IExternalScopeProvider">
@@ -80,15 +311,15 @@
             Executes callback for each currently active scope objects in order of creation.
             All callbacks are guaranteed to be called inline from this method.
             </summary>
-            <param name="callback">The callback to be executed for every scope object</param>
-            <param name="state">The state object to be passed into the callback</param>
+            <param name="callback">The callback to be executed for every scope object.</param>
+            <param name="state">The state object to be passed into the callback.</param>
             <typeparam name="TState">The type of state to accept.</typeparam>
         </member>
         <member name="M:Microsoft.Extensions.Logging.IExternalScopeProvider.Push(System.Object)">
             <summary>
-            Adds scope object to the list
+            Adds scope object to the list.
             </summary>
-            <param name="state">The scope object</param>
+            <param name="state">The scope object.</param>
             <returns>The <see cref="T:System.IDisposable"/> token that removes scope on dispose.</returns>
         </member>
         <member name="T:Microsoft.Extensions.Logging.ILogger">
@@ -113,7 +344,7 @@
             Checks if the given <paramref name="logLevel"/> is enabled.
             </summary>
             <param name="logLevel">Level to be checked.</param>
-            <returns><c>true</c> if enabled.</returns>
+            <returns><see langword="true" /> if enabled.</returns>
         </member>
         <member name="M:Microsoft.Extensions.Logging.ILogger.BeginScope``1(``0)">
             <summary>
@@ -185,153 +416,13 @@
         </member>
         <member name="T:Microsoft.Extensions.Logging.LogDefineOptions">
             <summary>
-            Options for <see cref="M:Microsoft.Extensions.Logging.LoggerMessage.Define(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,System.String)"/> and its overloads
+            Options for <see cref="M:Microsoft.Extensions.Logging.LoggerMessage.Define(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,System.String)"/> and its overloads.
             </summary>
         </member>
         <member name="P:Microsoft.Extensions.Logging.LogDefineOptions.SkipEnabledCheck">
             <summary>
             Gets or sets the flag to skip IsEnabled check for the logging method.
             </summary>
-        </member>
-        <member name="T:Microsoft.Extensions.Logging.Abstractions.LogEntry`1">
-            <summary>
-            Holds the information for a single log entry.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Extensions.Logging.Abstractions.LogEntry`1.#ctor(Microsoft.Extensions.Logging.LogLevel,System.String,Microsoft.Extensions.Logging.EventId,`0,System.Exception,System.Func{`0,System.Exception,System.String})">
-            <summary>
-            Initializes an instance of the LogEntry struct.
-            </summary>
-            <param name="logLevel">The log level.</param>
-            <param name="category">The category name for the log.</param>
-            <param name="eventId">The log event Id.</param>
-            <param name="state">The state for which log is being written.</param>
-            <param name="exception">The log exception.</param>
-            <param name="formatter">The formatter.</param>
-        </member>
-        <member name="P:Microsoft.Extensions.Logging.Abstractions.LogEntry`1.LogLevel">
-            <summary>
-            Gets the LogLevel
-            </summary>
-        </member>
-        <member name="P:Microsoft.Extensions.Logging.Abstractions.LogEntry`1.Category">
-            <summary>
-            Gets the log category
-            </summary>
-        </member>
-        <member name="P:Microsoft.Extensions.Logging.Abstractions.LogEntry`1.EventId">
-            <summary>
-            Gets the log EventId
-            </summary>
-        </member>
-        <member name="P:Microsoft.Extensions.Logging.Abstractions.LogEntry`1.State">
-            <summary>
-            Gets the TState
-            </summary>
-        </member>
-        <member name="P:Microsoft.Extensions.Logging.Abstractions.LogEntry`1.Exception">
-            <summary>
-            Gets the log exception
-            </summary>
-        </member>
-        <member name="P:Microsoft.Extensions.Logging.Abstractions.LogEntry`1.Formatter">
-            <summary>
-            Gets the formatter
-            </summary>
-        </member>
-        <member name="T:Microsoft.Extensions.Logging.Abstractions.NullLogger">
-            <summary>
-            Minimalistic logger that does nothing.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Extensions.Logging.Abstractions.NullLogger.Instance">
-            <summary>
-            Returns the shared instance of <see cref="T:Microsoft.Extensions.Logging.Abstractions.NullLogger"/>.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Extensions.Logging.Abstractions.NullLogger.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.Extensions.Logging.Abstractions.NullLogger"/> class.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Extensions.Logging.Abstractions.NullLogger.BeginScope``1(``0)">
-            <inheritdoc />
-        </member>
-        <member name="M:Microsoft.Extensions.Logging.Abstractions.NullLogger.IsEnabled(Microsoft.Extensions.Logging.LogLevel)">
-            <inheritdoc />
-        </member>
-        <member name="M:Microsoft.Extensions.Logging.Abstractions.NullLogger.Log``1(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,``0,System.Exception,System.Func{``0,System.Exception,System.String})">
-            <inheritdoc />
-        </member>
-        <member name="T:Microsoft.Extensions.Logging.Abstractions.NullLoggerFactory">
-            <summary>
-            An <see cref="T:Microsoft.Extensions.Logging.ILoggerFactory"/> used to create instance of
-            <see cref="T:Microsoft.Extensions.Logging.Abstractions.NullLogger"/> that logs nothing.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Extensions.Logging.Abstractions.NullLoggerFactory.#ctor">
-            <summary>
-            Creates a new <see cref="T:Microsoft.Extensions.Logging.Abstractions.NullLoggerFactory"/> instance.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Extensions.Logging.Abstractions.NullLoggerFactory.Instance">
-            <summary>
-            Returns the shared instance of <see cref="T:Microsoft.Extensions.Logging.Abstractions.NullLoggerFactory"/>.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Extensions.Logging.Abstractions.NullLoggerFactory.CreateLogger(System.String)">
-            <inheritdoc />
-            <remarks>
-            This returns a <see cref="T:Microsoft.Extensions.Logging.Abstractions.NullLogger"/> instance which logs nothing.
-            </remarks>
-        </member>
-        <member name="M:Microsoft.Extensions.Logging.Abstractions.NullLoggerFactory.AddProvider(Microsoft.Extensions.Logging.ILoggerProvider)">
-            <inheritdoc />
-            <remarks>
-            This method ignores the parameter and does nothing.
-            </remarks>
-        </member>
-        <member name="M:Microsoft.Extensions.Logging.Abstractions.NullLoggerFactory.Dispose">
-            <inheritdoc />
-        </member>
-        <member name="T:Microsoft.Extensions.Logging.Abstractions.NullLoggerProvider">
-            <summary>
-            Provider for the <see cref="T:Microsoft.Extensions.Logging.Abstractions.NullLogger"/>.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Extensions.Logging.Abstractions.NullLoggerProvider.Instance">
-            <summary>
-            Returns an instance of <see cref="T:Microsoft.Extensions.Logging.Abstractions.NullLoggerProvider"/>.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Extensions.Logging.Abstractions.NullLoggerProvider.CreateLogger(System.String)">
-            <inheritdoc />
-        </member>
-        <member name="M:Microsoft.Extensions.Logging.Abstractions.NullLoggerProvider.Dispose">
-            <inheritdoc />
-        </member>
-        <member name="T:Microsoft.Extensions.Logging.Abstractions.NullLogger`1">
-            <summary>
-            Minimalistic logger that does nothing.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Extensions.Logging.Abstractions.NullLogger`1.Instance">
-            <summary>
-            Returns an instance of <see cref="T:Microsoft.Extensions.Logging.Abstractions.NullLogger`1"/>.
-            </summary>
-            <returns>An instance of <see cref="T:Microsoft.Extensions.Logging.Abstractions.NullLogger`1"/>.</returns>
-        </member>
-        <member name="M:Microsoft.Extensions.Logging.Abstractions.NullLogger`1.BeginScope``1(``0)">
-            <inheritdoc />
-        </member>
-        <member name="M:Microsoft.Extensions.Logging.Abstractions.NullLogger`1.Log``1(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,``0,System.Exception,System.Func{``0,System.Exception,System.String})">
-            <inheritdoc />
-            <remarks>
-            This method ignores the parameters and does nothing.
-            </remarks>
-        </member>
-        <member name="M:Microsoft.Extensions.Logging.Abstractions.NullLogger`1.IsEnabled(Microsoft.Extensions.Logging.LogLevel)">
-            <inheritdoc />
         </member>
         <member name="T:Microsoft.Extensions.Logging.LoggerExtensions">
             <summary>
@@ -345,9 +436,13 @@
             <param name="logger">The <see cref="T:Microsoft.Extensions.Logging.ILogger"/> to write to.</param>
             <param name="eventId">The event id associated with the log.</param>
             <param name="exception">The exception to log.</param>
-            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c></param>
+            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c>.</param>
             <param name="args">An object array that contains zero or more objects to format.</param>
-            <example>logger.LogDebug(0, exception, "Error while processing request from {Address}", address)</example>
+            <example>
+            <code language="csharp">
+            logger.LogDebug(0, exception, "Error while processing request from {Address}", address)
+            </code>
+            </example>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerExtensions.LogDebug(Microsoft.Extensions.Logging.ILogger,Microsoft.Extensions.Logging.EventId,System.String,System.Object[])">
             <summary>
@@ -355,9 +450,13 @@
             </summary>
             <param name="logger">The <see cref="T:Microsoft.Extensions.Logging.ILogger"/> to write to.</param>
             <param name="eventId">The event id associated with the log.</param>
-            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c></param>
+            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c>.</param>
             <param name="args">An object array that contains zero or more objects to format.</param>
-            <example>logger.LogDebug(0, "Processing request from {Address}", address)</example>
+            <example>
+            <code language="csharp">
+            logger.LogDebug(0, "Processing request from {Address}", address)
+            </code>
+            </example>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerExtensions.LogDebug(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.Object[])">
             <summary>
@@ -365,18 +464,26 @@
             </summary>
             <param name="logger">The <see cref="T:Microsoft.Extensions.Logging.ILogger"/> to write to.</param>
             <param name="exception">The exception to log.</param>
-            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c></param>
+            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c>.</param>
             <param name="args">An object array that contains zero or more objects to format.</param>
-            <example>logger.LogDebug(exception, "Error while processing request from {Address}", address)</example>
+            <example>
+            <code language="csharp">
+            logger.LogDebug(exception, "Error while processing request from {Address}", address)
+            </code>
+            </example>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerExtensions.LogDebug(Microsoft.Extensions.Logging.ILogger,System.String,System.Object[])">
             <summary>
             Formats and writes a debug log message.
             </summary>
             <param name="logger">The <see cref="T:Microsoft.Extensions.Logging.ILogger"/> to write to.</param>
-            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c></param>
+            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c>.</param>
             <param name="args">An object array that contains zero or more objects to format.</param>
-            <example>logger.LogDebug("Processing request from {Address}", address)</example>
+            <example>
+            <code language="csharp">
+            logger.LogDebug("Processing request from {Address}", address)
+            </code>
+            </example>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerExtensions.LogTrace(Microsoft.Extensions.Logging.ILogger,Microsoft.Extensions.Logging.EventId,System.Exception,System.String,System.Object[])">
             <summary>
@@ -385,9 +492,13 @@
             <param name="logger">The <see cref="T:Microsoft.Extensions.Logging.ILogger"/> to write to.</param>
             <param name="eventId">The event id associated with the log.</param>
             <param name="exception">The exception to log.</param>
-            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c></param>
+            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c>.</param>
             <param name="args">An object array that contains zero or more objects to format.</param>
-            <example>logger.LogTrace(0, exception, "Error while processing request from {Address}", address)</example>
+            <example>
+            <code language="csharp">
+            logger.LogTrace(0, exception, "Error while processing request from {Address}", address)
+            </code>
+            </example>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerExtensions.LogTrace(Microsoft.Extensions.Logging.ILogger,Microsoft.Extensions.Logging.EventId,System.String,System.Object[])">
             <summary>
@@ -395,9 +506,13 @@
             </summary>
             <param name="logger">The <see cref="T:Microsoft.Extensions.Logging.ILogger"/> to write to.</param>
             <param name="eventId">The event id associated with the log.</param>
-            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c></param>
+            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c>.</param>
             <param name="args">An object array that contains zero or more objects to format.</param>
-            <example>logger.LogTrace(0, "Processing request from {Address}", address)</example>
+            <example>
+            <code language="csharp">
+            logger.LogTrace(0, "Processing request from {Address}", address)
+            </code>
+            </example>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerExtensions.LogTrace(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.Object[])">
             <summary>
@@ -405,18 +520,26 @@
             </summary>
             <param name="logger">The <see cref="T:Microsoft.Extensions.Logging.ILogger"/> to write to.</param>
             <param name="exception">The exception to log.</param>
-            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c></param>
+            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c>.</param>
             <param name="args">An object array that contains zero or more objects to format.</param>
-            <example>logger.LogTrace(exception, "Error while processing request from {Address}", address)</example>
+            <example>
+            <code language="csharp">
+            logger.LogTrace(exception, "Error while processing request from {Address}", address)
+            </code>
+            </example>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerExtensions.LogTrace(Microsoft.Extensions.Logging.ILogger,System.String,System.Object[])">
             <summary>
             Formats and writes a trace log message.
             </summary>
             <param name="logger">The <see cref="T:Microsoft.Extensions.Logging.ILogger"/> to write to.</param>
-            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c></param>
+            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c>.</param>
             <param name="args">An object array that contains zero or more objects to format.</param>
-            <example>logger.LogTrace("Processing request from {Address}", address)</example>
+            <example>
+            <code language="csharp">
+            logger.LogTrace("Processing request from {Address}", address)
+            </code>
+            </example>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerExtensions.LogInformation(Microsoft.Extensions.Logging.ILogger,Microsoft.Extensions.Logging.EventId,System.Exception,System.String,System.Object[])">
             <summary>
@@ -425,9 +548,13 @@
             <param name="logger">The <see cref="T:Microsoft.Extensions.Logging.ILogger"/> to write to.</param>
             <param name="eventId">The event id associated with the log.</param>
             <param name="exception">The exception to log.</param>
-            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c></param>
+            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c>.</param>
             <param name="args">An object array that contains zero or more objects to format.</param>
-            <example>logger.LogInformation(0, exception, "Error while processing request from {Address}", address)</example>
+            <example>
+            <code language="csharp">
+            logger.LogInformation(0, exception, "Error while processing request from {Address}", address)
+            </code>
+            </example>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerExtensions.LogInformation(Microsoft.Extensions.Logging.ILogger,Microsoft.Extensions.Logging.EventId,System.String,System.Object[])">
             <summary>
@@ -435,9 +562,13 @@
             </summary>
             <param name="logger">The <see cref="T:Microsoft.Extensions.Logging.ILogger"/> to write to.</param>
             <param name="eventId">The event id associated with the log.</param>
-            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c></param>
+            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c>.</param>
             <param name="args">An object array that contains zero or more objects to format.</param>
-            <example>logger.LogInformation(0, "Processing request from {Address}", address)</example>
+            <example>
+            <code language="csharp">
+            logger.LogInformation(0, "Processing request from {Address}", address)
+            </code>
+            </example>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerExtensions.LogInformation(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.Object[])">
             <summary>
@@ -445,18 +576,26 @@
             </summary>
             <param name="logger">The <see cref="T:Microsoft.Extensions.Logging.ILogger"/> to write to.</param>
             <param name="exception">The exception to log.</param>
-            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c></param>
+            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c>.</param>
             <param name="args">An object array that contains zero or more objects to format.</param>
-            <example>logger.LogInformation(exception, "Error while processing request from {Address}", address)</example>
+            <example>
+            <code language="csharp">
+            logger.LogInformation(exception, "Error while processing request from {Address}", address)
+            </code>
+            </example>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerExtensions.LogInformation(Microsoft.Extensions.Logging.ILogger,System.String,System.Object[])">
             <summary>
             Formats and writes an informational log message.
             </summary>
             <param name="logger">The <see cref="T:Microsoft.Extensions.Logging.ILogger"/> to write to.</param>
-            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c></param>
+            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c>.</param>
             <param name="args">An object array that contains zero or more objects to format.</param>
-            <example>logger.LogInformation("Processing request from {Address}", address)</example>
+            <example>
+            <code language="csharp">
+            logger.LogInformation("Processing request from {Address}", address)
+            </code>
+            </example>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerExtensions.LogWarning(Microsoft.Extensions.Logging.ILogger,Microsoft.Extensions.Logging.EventId,System.Exception,System.String,System.Object[])">
             <summary>
@@ -465,9 +604,13 @@
             <param name="logger">The <see cref="T:Microsoft.Extensions.Logging.ILogger"/> to write to.</param>
             <param name="eventId">The event id associated with the log.</param>
             <param name="exception">The exception to log.</param>
-            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c></param>
+            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c>.</param>
             <param name="args">An object array that contains zero or more objects to format.</param>
-            <example>logger.LogWarning(0, exception, "Error while processing request from {Address}", address)</example>
+            <example>
+            <code language="csharp">
+            logger.LogWarning(0, exception, "Error while processing request from {Address}", address)
+            </code>
+            </example>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerExtensions.LogWarning(Microsoft.Extensions.Logging.ILogger,Microsoft.Extensions.Logging.EventId,System.String,System.Object[])">
             <summary>
@@ -475,9 +618,13 @@
             </summary>
             <param name="logger">The <see cref="T:Microsoft.Extensions.Logging.ILogger"/> to write to.</param>
             <param name="eventId">The event id associated with the log.</param>
-            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c></param>
+            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c>.</param>
             <param name="args">An object array that contains zero or more objects to format.</param>
-            <example>logger.LogWarning(0, "Processing request from {Address}", address)</example>
+            <example>
+            <code language="csharp">
+            logger.LogWarning(0, "Processing request from {Address}", address)
+            </code>
+            </example>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerExtensions.LogWarning(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.Object[])">
             <summary>
@@ -485,18 +632,26 @@
             </summary>
             <param name="logger">The <see cref="T:Microsoft.Extensions.Logging.ILogger"/> to write to.</param>
             <param name="exception">The exception to log.</param>
-            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c></param>
+            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c>.</param>
             <param name="args">An object array that contains zero or more objects to format.</param>
-            <example>logger.LogWarning(exception, "Error while processing request from {Address}", address)</example>
+            <example>
+            <code language="csharp">
+            logger.LogWarning(exception, "Error while processing request from {Address}", address)
+            </code>
+            </example>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerExtensions.LogWarning(Microsoft.Extensions.Logging.ILogger,System.String,System.Object[])">
             <summary>
             Formats and writes a warning log message.
             </summary>
             <param name="logger">The <see cref="T:Microsoft.Extensions.Logging.ILogger"/> to write to.</param>
-            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c></param>
+            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c>.</param>
             <param name="args">An object array that contains zero or more objects to format.</param>
-            <example>logger.LogWarning("Processing request from {Address}", address)</example>
+            <example>
+            <code language="csharp">
+            logger.LogWarning("Processing request from {Address}", address)
+            </code>
+            </example>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerExtensions.LogError(Microsoft.Extensions.Logging.ILogger,Microsoft.Extensions.Logging.EventId,System.Exception,System.String,System.Object[])">
             <summary>
@@ -505,9 +660,13 @@
             <param name="logger">The <see cref="T:Microsoft.Extensions.Logging.ILogger"/> to write to.</param>
             <param name="eventId">The event id associated with the log.</param>
             <param name="exception">The exception to log.</param>
-            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c></param>
+            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c>.</param>
             <param name="args">An object array that contains zero or more objects to format.</param>
-            <example>logger.LogError(0, exception, "Error while processing request from {Address}", address)</example>
+            <example>
+            <code language="csharp">
+            logger.LogError(0, exception, "Error while processing request from {Address}", address)
+            </code>
+            </example>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerExtensions.LogError(Microsoft.Extensions.Logging.ILogger,Microsoft.Extensions.Logging.EventId,System.String,System.Object[])">
             <summary>
@@ -515,9 +674,13 @@
             </summary>
             <param name="logger">The <see cref="T:Microsoft.Extensions.Logging.ILogger"/> to write to.</param>
             <param name="eventId">The event id associated with the log.</param>
-            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c></param>
+            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c>.</param>
             <param name="args">An object array that contains zero or more objects to format.</param>
-            <example>logger.LogError(0, "Processing request from {Address}", address)</example>
+            <example>
+            <code language="csharp">
+            logger.LogError(0, "Processing request from {Address}", address)
+            </code>
+            </example>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerExtensions.LogError(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.Object[])">
             <summary>
@@ -525,18 +688,26 @@
             </summary>
             <param name="logger">The <see cref="T:Microsoft.Extensions.Logging.ILogger"/> to write to.</param>
             <param name="exception">The exception to log.</param>
-            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c></param>
+            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c>.</param>
             <param name="args">An object array that contains zero or more objects to format.</param>
-            <example>logger.LogError(exception, "Error while processing request from {Address}", address)</example>
+            <example>
+            <code language="csharp">
+            logger.LogError(exception, "Error while processing request from {Address}", address)
+            </code>
+            </example>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerExtensions.LogError(Microsoft.Extensions.Logging.ILogger,System.String,System.Object[])">
             <summary>
             Formats and writes an error log message.
             </summary>
             <param name="logger">The <see cref="T:Microsoft.Extensions.Logging.ILogger"/> to write to.</param>
-            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c></param>
+            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c>.</param>
             <param name="args">An object array that contains zero or more objects to format.</param>
-            <example>logger.LogError("Processing request from {Address}", address)</example>
+            <example>
+            <code language="csharp">
+            logger.LogError("Processing request from {Address}", address)
+            </code>
+            </example>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerExtensions.LogCritical(Microsoft.Extensions.Logging.ILogger,Microsoft.Extensions.Logging.EventId,System.Exception,System.String,System.Object[])">
             <summary>
@@ -545,9 +716,13 @@
             <param name="logger">The <see cref="T:Microsoft.Extensions.Logging.ILogger"/> to write to.</param>
             <param name="eventId">The event id associated with the log.</param>
             <param name="exception">The exception to log.</param>
-            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c></param>
+            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c>.</param>
             <param name="args">An object array that contains zero or more objects to format.</param>
-            <example>logger.LogCritical(0, exception, "Error while processing request from {Address}", address)</example>
+            <example>
+            <code language="csharp">
+            logger.LogCritical(0, exception, "Error while processing request from {Address}", address)
+            </code>
+            </example>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerExtensions.LogCritical(Microsoft.Extensions.Logging.ILogger,Microsoft.Extensions.Logging.EventId,System.String,System.Object[])">
             <summary>
@@ -555,9 +730,13 @@
             </summary>
             <param name="logger">The <see cref="T:Microsoft.Extensions.Logging.ILogger"/> to write to.</param>
             <param name="eventId">The event id associated with the log.</param>
-            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c></param>
+            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c>.</param>
             <param name="args">An object array that contains zero or more objects to format.</param>
-            <example>logger.LogCritical(0, "Processing request from {Address}", address)</example>
+            <example>
+            <code language="csharp">
+            logger.LogCritical(0, "Processing request from {Address}", address)
+            </code>
+            </example>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerExtensions.LogCritical(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.Object[])">
             <summary>
@@ -565,18 +744,26 @@
             </summary>
             <param name="logger">The <see cref="T:Microsoft.Extensions.Logging.ILogger"/> to write to.</param>
             <param name="exception">The exception to log.</param>
-            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c></param>
+            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c>.</param>
             <param name="args">An object array that contains zero or more objects to format.</param>
-            <example>logger.LogCritical(exception, "Error while processing request from {Address}", address)</example>
+            <example>
+            <code language="csharp">
+            logger.LogCritical(exception, "Error while processing request from {Address}", address)
+            </code>
+            </example>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerExtensions.LogCritical(Microsoft.Extensions.Logging.ILogger,System.String,System.Object[])">
             <summary>
             Formats and writes a critical log message.
             </summary>
             <param name="logger">The <see cref="T:Microsoft.Extensions.Logging.ILogger"/> to write to.</param>
-            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c></param>
+            <param name="message">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c>.</param>
             <param name="args">An object array that contains zero or more objects to format.</param>
-            <example>logger.LogCritical("Processing request from {Address}", address)</example>
+            <example>
+            <code language="csharp">
+            logger.LogCritical("Processing request from {Address}", address)
+            </code>
+            </example>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerExtensions.Log(Microsoft.Extensions.Logging.ILogger,Microsoft.Extensions.Logging.LogLevel,System.String,System.Object[])">
             <summary>
@@ -623,18 +810,18 @@
             Formats the message and creates a scope.
             </summary>
             <param name="logger">The <see cref="T:Microsoft.Extensions.Logging.ILogger"/> to create the scope in.</param>
-            <param name="messageFormat">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c></param>
+            <param name="messageFormat">Format string of the log message in message template format. Example: <c>"User {User} logged in from {Address}"</c>.</param>
             <param name="args">An object array that contains zero or more objects to format.</param>
             <returns>A disposable scope object. Can be null.</returns>
             <example>
-            using(logger.BeginScope("Processing request from {Address}", address))
-            {
-            }
+            <code language="csharp">
+            using(logger.BeginScope("Processing request from {Address}", address)) { }
+            </code>
             </example>
         </member>
         <member name="T:Microsoft.Extensions.Logging.LoggerExternalScopeProvider">
             <summary>
-            Default implementation of <see cref="T:Microsoft.Extensions.Logging.IExternalScopeProvider"/>
+            Default implementation of <see cref="T:Microsoft.Extensions.Logging.IExternalScopeProvider"/>.
             </summary>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerExternalScopeProvider.#ctor">
@@ -671,69 +858,69 @@
         </member>
         <member name="T:Microsoft.Extensions.Logging.LoggerMessage">
             <summary>
-            Creates delegates which can be later cached to log messages in a performant way.
+            Creates delegates that can be later cached to log messages in a performant way.
             </summary>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerMessage.DefineScope(System.String)">
             <summary>
-            Creates a delegate which can be invoked to create a log scope.
+            Creates a delegate that can be invoked to create a log scope.
             </summary>
-            <param name="formatString">The named format string</param>
-            <returns>A delegate which when invoked creates a log scope.</returns>
+            <param name="formatString">The named format string.</param>
+            <returns>A delegate that, when invoked, creates a log scope.</returns>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerMessage.DefineScope``1(System.String)">
             <summary>
-            Creates a delegate which can be invoked to create a log scope.
+            Creates a delegate that can be invoked to create a log scope.
             </summary>
             <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
-            <param name="formatString">The named format string</param>
-            <returns>A delegate which when invoked creates a log scope.</returns>
+            <param name="formatString">The named format string.</param>
+            <returns>A delegate that, when invoked, creates a log scope.</returns>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerMessage.DefineScope``2(System.String)">
             <summary>
-            Creates a delegate which can be invoked to create a log scope.
+            Creates a delegate that can be invoked to create a log scope.
             </summary>
             <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
             <typeparam name="T2">The type of the second parameter passed to the named format string.</typeparam>
-            <param name="formatString">The named format string</param>
-            <returns>A delegate which when invoked creates a log scope.</returns>
+            <param name="formatString">The named format string.</param>
+            <returns>A delegate that, when invoked, creates a log scope.</returns>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerMessage.DefineScope``3(System.String)">
             <summary>
-            Creates a delegate which can be invoked to create a log scope.
+            Creates a delegate that can be invoked to create a log scope.
             </summary>
             <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
             <typeparam name="T2">The type of the second parameter passed to the named format string.</typeparam>
             <typeparam name="T3">The type of the third parameter passed to the named format string.</typeparam>
-            <param name="formatString">The named format string</param>
-            <returns>A delegate which when invoked creates a log scope.</returns>
+            <param name="formatString">The named format string.</param>
+            <returns>A delegate that, when invoked, creates a log scope.</returns>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerMessage.DefineScope``4(System.String)">
             <summary>
-            Creates a delegate which can be invoked to create a log scope.
+            Creates a delegate that can be invoked to create a log scope.
             </summary>
             <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
             <typeparam name="T2">The type of the second parameter passed to the named format string.</typeparam>
             <typeparam name="T3">The type of the third parameter passed to the named format string.</typeparam>
             <typeparam name="T4">The type of the fourth parameter passed to the named format string.</typeparam>
-            <param name="formatString">The named format string</param>
-            <returns>A delegate which when invoked creates a log scope.</returns>
+            <param name="formatString">The named format string.</param>
+            <returns>A delegate that, when invoked, creates a log scope.</returns>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerMessage.DefineScope``5(System.String)">
             <summary>
-            Creates a delegate which can be invoked to create a log scope.
+            Creates a delegate that can be invoked to create a log scope.
             </summary>
             <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
             <typeparam name="T2">The type of the second parameter passed to the named format string.</typeparam>
             <typeparam name="T3">The type of the third parameter passed to the named format string.</typeparam>
             <typeparam name="T4">The type of the fourth parameter passed to the named format string.</typeparam>
             <typeparam name="T5">The type of the fifth parameter passed to the named format string.</typeparam>
-            <param name="formatString">The named format string</param>
-            <returns>A delegate which when invoked creates a log scope.</returns>
+            <param name="formatString">The named format string.</param>
+            <returns>A delegate that, when invoked, creates a log scope.</returns>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerMessage.DefineScope``6(System.String)">
             <summary>
-            Creates a delegate which can be invoked to create a log scope.
+            Creates a delegate that can be invoked to create a log scope.
             </summary>
             <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
             <typeparam name="T2">The type of the second parameter passed to the named format string.</typeparam>
@@ -741,156 +928,156 @@
             <typeparam name="T4">The type of the fourth parameter passed to the named format string.</typeparam>
             <typeparam name="T5">The type of the fifth parameter passed to the named format string.</typeparam>
             <typeparam name="T6">The type of the sixth parameter passed to the named format string.</typeparam>
-            <param name="formatString">The named format string</param>
-            <returns>A delegate which when invoked creates a log scope.</returns>
+            <param name="formatString">The named format string.</param>
+            <returns>A delegate that, when invoked, creates a log scope.</returns>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerMessage.Define(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,System.String)">
             <summary>
-            Creates a delegate which can be invoked for logging a message.
+            Creates a delegate that can be invoked for logging a message.
             </summary>
-            <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/></param>
-            <param name="eventId">The event id</param>
-            <param name="formatString">The named format string</param>
-            <returns>A delegate which when invoked creates a log message.</returns>
+            <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>.</param>
+            <param name="eventId">The event ID.</param>
+            <param name="formatString">The named format string.</param>
+            <returns>A delegate that, when invoked, creates a log message.</returns>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerMessage.Define(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,System.String,Microsoft.Extensions.Logging.LogDefineOptions)">
             <summary>
-            Creates a delegate which can be invoked for logging a message.
+            Creates a delegate that can be invoked for logging a message.
             </summary>
-            <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/></param>
-            <param name="eventId">The event id</param>
-            <param name="formatString">The named format string</param>
-            <param name="options">The <see cref="T:Microsoft.Extensions.Logging.LogDefineOptions"/></param>
-            <returns>A delegate which when invoked creates a log message.</returns>
+            <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>.</param>
+            <param name="eventId">The event ID.</param>
+            <param name="formatString">The named format string.</param>
+            <param name="options">The <see cref="T:Microsoft.Extensions.Logging.LogDefineOptions"/>.</param>
+            <returns>A delegate that, when invoked, creates a log message.</returns>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerMessage.Define``1(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,System.String)">
             <summary>
-            Creates a delegate which can be invoked for logging a message.
+            Creates a delegate that can be invoked for logging a message.
             </summary>
             <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
-            <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/></param>
-            <param name="eventId">The event id</param>
-            <param name="formatString">The named format string</param>
-            <returns>A delegate which when invoked creates a log message.</returns>
+            <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>.</param>
+            <param name="eventId">The event ID.</param>
+            <param name="formatString">The named format string.</param>
+            <returns>A delegate that, when invoked, creates a log message.</returns>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerMessage.Define``1(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,System.String,Microsoft.Extensions.Logging.LogDefineOptions)">
             <summary>
-            Creates a delegate which can be invoked for logging a message.
+            Creates a delegate that can be invoked for logging a message.
             </summary>
             <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
-            <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/></param>
-            <param name="eventId">The event id</param>
-            <param name="formatString">The named format string</param>
-            <param name="options">The <see cref="T:Microsoft.Extensions.Logging.LogDefineOptions"/></param>
-            <returns>A delegate which when invoked creates a log message.</returns>
+            <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>.</param>
+            <param name="eventId">The event ID.</param>
+            <param name="formatString">The named format string.</param>
+            <param name="options">The <see cref="T:Microsoft.Extensions.Logging.LogDefineOptions"/>.</param>
+            <returns>A delegate that, when invoked, creates a log message.</returns>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerMessage.Define``2(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,System.String)">
             <summary>
-            Creates a delegate which can be invoked for logging a message.
+            Creates a delegate that can be invoked for logging a message.
             </summary>
             <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
             <typeparam name="T2">The type of the second parameter passed to the named format string.</typeparam>
-            <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/></param>
-            <param name="eventId">The event id</param>
-            <param name="formatString">The named format string</param>
-            <returns>A delegate which when invoked creates a log message.</returns>
+            <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>.</param>
+            <param name="eventId">The event ID.</param>
+            <param name="formatString">The named format string.</param>
+            <returns>A delegate that, when invoked, creates a log message.</returns>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerMessage.Define``2(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,System.String,Microsoft.Extensions.Logging.LogDefineOptions)">
             <summary>
-            Creates a delegate which can be invoked for logging a message.
+            Creates a delegate that can be invoked for logging a message.
             </summary>
             <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
             <typeparam name="T2">The type of the second parameter passed to the named format string.</typeparam>
-            <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/></param>
-            <param name="eventId">The event id</param>
-            <param name="formatString">The named format string</param>
-            <param name="options">The <see cref="T:Microsoft.Extensions.Logging.LogDefineOptions"/></param>
-            <returns>A delegate which when invoked creates a log message.</returns>
+            <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>.</param>
+            <param name="eventId">The event ID.</param>
+            <param name="formatString">The named format string.</param>
+            <param name="options">The <see cref="T:Microsoft.Extensions.Logging.LogDefineOptions"/>.</param>
+            <returns>A delegate that, when invoked, creates a log message.</returns>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerMessage.Define``3(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,System.String)">
             <summary>
-            Creates a delegate which can be invoked for logging a message.
+            Creates a delegate that can be invoked for logging a message.
             </summary>
             <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
             <typeparam name="T2">The type of the second parameter passed to the named format string.</typeparam>
             <typeparam name="T3">The type of the third parameter passed to the named format string.</typeparam>
-            <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/></param>
-            <param name="eventId">The event id</param>
-            <param name="formatString">The named format string</param>
-            <returns>A delegate which when invoked creates a log message.</returns>
+            <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>.</param>
+            <param name="eventId">The event ID.</param>
+            <param name="formatString">The named format string.</param>
+            <returns>A delegate that, when invoked, creates a log message.</returns>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerMessage.Define``3(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,System.String,Microsoft.Extensions.Logging.LogDefineOptions)">
             <summary>
-            Creates a delegate which can be invoked for logging a message.
+            Creates a delegate that can be invoked for logging a message.
             </summary>
             <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
             <typeparam name="T2">The type of the second parameter passed to the named format string.</typeparam>
             <typeparam name="T3">The type of the third parameter passed to the named format string.</typeparam>
-            <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/></param>
-            <param name="eventId">The event id</param>
-            <param name="formatString">The named format string</param>
-            <param name="options">The <see cref="T:Microsoft.Extensions.Logging.LogDefineOptions"/></param>
-            <returns>A delegate which when invoked creates a log message.</returns>
+            <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>.</param>
+            <param name="eventId">The event ID.</param>
+            <param name="formatString">The named format string.</param>
+            <param name="options">The <see cref="T:Microsoft.Extensions.Logging.LogDefineOptions"/>.</param>
+            <returns>A delegate that, when invoked, creates a log message.</returns>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerMessage.Define``4(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,System.String)">
             <summary>
-            Creates a delegate which can be invoked for logging a message.
+            Creates a delegate that can be invoked for logging a message.
             </summary>
             <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
             <typeparam name="T2">The type of the second parameter passed to the named format string.</typeparam>
             <typeparam name="T3">The type of the third parameter passed to the named format string.</typeparam>
             <typeparam name="T4">The type of the fourth parameter passed to the named format string.</typeparam>
-            <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/></param>
-            <param name="eventId">The event id</param>
-            <param name="formatString">The named format string</param>
-            <returns>A delegate which when invoked creates a log message.</returns>
+            <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>.</param>
+            <param name="eventId">The event ID.</param>
+            <param name="formatString">The named format string.</param>
+            <returns>A delegate that, when invoked, creates a log message.</returns>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerMessage.Define``4(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,System.String,Microsoft.Extensions.Logging.LogDefineOptions)">
             <summary>
-            Creates a delegate which can be invoked for logging a message.
+            Creates a delegate that can be invoked for logging a message.
             </summary>
             <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
             <typeparam name="T2">The type of the second parameter passed to the named format string.</typeparam>
             <typeparam name="T3">The type of the third parameter passed to the named format string.</typeparam>
             <typeparam name="T4">The type of the fourth parameter passed to the named format string.</typeparam>
-            <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/></param>
-            <param name="eventId">The event id</param>
-            <param name="formatString">The named format string</param>
-            <param name="options">The <see cref="T:Microsoft.Extensions.Logging.LogDefineOptions"/></param>
-            <returns>A delegate which when invoked creates a log message.</returns>
+            <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>.</param>
+            <param name="eventId">The event ID.</param>
+            <param name="formatString">The named format string.</param>
+            <param name="options">The <see cref="T:Microsoft.Extensions.Logging.LogDefineOptions"/>.</param>
+            <returns>A delegate that, when invoked, creates a log message.</returns>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerMessage.Define``5(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,System.String)">
             <summary>
-            Creates a delegate which can be invoked for logging a message.
+            Creates a delegate that can be invoked for logging a message.
             </summary>
             <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
             <typeparam name="T2">The type of the second parameter passed to the named format string.</typeparam>
             <typeparam name="T3">The type of the third parameter passed to the named format string.</typeparam>
             <typeparam name="T4">The type of the fourth parameter passed to the named format string.</typeparam>
             <typeparam name="T5">The type of the fifth parameter passed to the named format string.</typeparam>
-            <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/></param>
-            <param name="eventId">The event id</param>
-            <param name="formatString">The named format string</param>
-            <returns>A delegate which when invoked creates a log message.</returns>
+            <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>.</param>
+            <param name="eventId">The event ID.</param>
+            <param name="formatString">The named format string.</param>
+            <returns>A delegate that, when invoked, creates a log message.</returns>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerMessage.Define``5(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,System.String,Microsoft.Extensions.Logging.LogDefineOptions)">
             <summary>
-            Creates a delegate which can be invoked for logging a message.
+            Creates a delegate that can be invoked for logging a message.
             </summary>
             <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
             <typeparam name="T2">The type of the second parameter passed to the named format string.</typeparam>
             <typeparam name="T3">The type of the third parameter passed to the named format string.</typeparam>
             <typeparam name="T4">The type of the fourth parameter passed to the named format string.</typeparam>
             <typeparam name="T5">The type of the fifth parameter passed to the named format string.</typeparam>
-            <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/></param>
-            <param name="eventId">The event id</param>
-            <param name="formatString">The named format string</param>
-            <param name="options">The <see cref="T:Microsoft.Extensions.Logging.LogDefineOptions"/></param>
-            <returns>A delegate which when invoked creates a log message.</returns>
+            <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>.</param>
+            <param name="eventId">The event ID.</param>
+            <param name="formatString">The named format string.</param>
+            <param name="options">The <see cref="T:Microsoft.Extensions.Logging.LogDefineOptions"/>.</param>
+            <returns>A delegate that, when invoked, creates a log message.</returns>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerMessage.Define``6(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,System.String)">
             <summary>
-            Creates a delegate which can be invoked for logging a message.
+            Creates a delegate that can be invoked for logging a message.
             </summary>
             <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
             <typeparam name="T2">The type of the second parameter passed to the named format string.</typeparam>
@@ -898,14 +1085,14 @@
             <typeparam name="T4">The type of the fourth parameter passed to the named format string.</typeparam>
             <typeparam name="T5">The type of the fifth parameter passed to the named format string.</typeparam>
             <typeparam name="T6">The type of the sixth parameter passed to the named format string.</typeparam>
-            <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/></param>
-            <param name="eventId">The event id</param>
-            <param name="formatString">The named format string</param>
-            <returns>A delegate which when invoked creates a log message.</returns>
+            <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>.</param>
+            <param name="eventId">The event ID.</param>
+            <param name="formatString">The named format string.</param>
+            <returns>A delegate that, when invoked, creates a log message.</returns>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerMessage.Define``6(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,System.String,Microsoft.Extensions.Logging.LogDefineOptions)">
             <summary>
-            Creates a delegate which can be invoked for logging a message.
+            Creates a delegate that can be invoked for logging a message.
             </summary>
             <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
             <typeparam name="T2">The type of the second parameter passed to the named format string.</typeparam>
@@ -913,15 +1100,15 @@
             <typeparam name="T4">The type of the fourth parameter passed to the named format string.</typeparam>
             <typeparam name="T5">The type of the fifth parameter passed to the named format string.</typeparam>
             <typeparam name="T6">The type of the sixth parameter passed to the named format string.</typeparam>
-            <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/></param>
-            <param name="eventId">The event id</param>
-            <param name="formatString">The named format string</param>
-            <param name="options">The <see cref="T:Microsoft.Extensions.Logging.LogDefineOptions"/></param>
-            <returns>A delegate which when invoked creates a log message.</returns>
+            <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>.</param>
+            <param name="eventId">The event ID.</param>
+            <param name="formatString">The named format string.</param>
+            <param name="options">The <see cref="T:Microsoft.Extensions.Logging.LogDefineOptions"/>.</param>
+            <returns>A delegate that, when invoked, creates a log message.</returns>
         </member>
         <member name="T:Microsoft.Extensions.Logging.LoggerMessageAttribute">
             <summary>
-            Provides information to guide the production of a strongly-typed logging method.
+            Provides information to guide the production of a strongly typed logging method.
             </summary>
             <remarks>
             <para>The method this attribute is applied to:</para>
@@ -947,22 +1134,22 @@
         <member name="M:Microsoft.Extensions.Logging.LoggerMessageAttribute.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:Microsoft.Extensions.Logging.LoggerMessageAttribute"/> class
-            which is used to guide the production of a strongly-typed logging method.
+            that's used to guide the production of a strongly typed logging method.
             </summary>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerMessageAttribute.#ctor(System.Int32,Microsoft.Extensions.Logging.LogLevel,System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:Microsoft.Extensions.Logging.LoggerMessageAttribute"/> class
-            which is used to guide the production of a strongly-typed logging method.
+            that's used to guide the production of a strongly typed logging method.
             </summary>
-            <param name="eventId">The log event Id.</param>
+            <param name="eventId">The log event ID.</param>
             <param name="level">The log level.</param>
             <param name="message">Format string of the log message.</param>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerMessageAttribute.#ctor(Microsoft.Extensions.Logging.LogLevel,System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:Microsoft.Extensions.Logging.LoggerMessageAttribute"/> class
-            which is used to guide the production of a strongly-typed logging method.
+            that's used to guide the production of a strongly typed logging method.
             </summary>
             <param name="level">The log level.</param>
             <param name="message">Format string of the log message.</param>
@@ -970,20 +1157,20 @@
         <member name="M:Microsoft.Extensions.Logging.LoggerMessageAttribute.#ctor(Microsoft.Extensions.Logging.LogLevel)">
             <summary>
             Initializes a new instance of the <see cref="T:Microsoft.Extensions.Logging.LoggerMessageAttribute"/> class
-            which is used to guide the production of a strongly-typed logging method.
+            that's used to guide the production of a strongly typed logging method.
             </summary>
             <param name="level">The log level.</param>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerMessageAttribute.#ctor(System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:Microsoft.Extensions.Logging.LoggerMessageAttribute"/> class
-            which is used to guide the production of a strongly-typed logging method.
+            that's used to guide the production of a strongly typed logging method.
             </summary>
             <param name="message">Format string of the log message.</param>
         </member>
         <member name="P:Microsoft.Extensions.Logging.LoggerMessageAttribute.EventId">
             <summary>
-            Gets the logging event id for the logging method.
+            Gets or sets the logging event ID for the logging method.
             </summary>
         </member>
         <member name="P:Microsoft.Extensions.Logging.LoggerMessageAttribute.EventName">
@@ -996,17 +1183,17 @@
         </member>
         <member name="P:Microsoft.Extensions.Logging.LoggerMessageAttribute.Level">
             <summary>
-            Gets the logging level for the logging method.
+            Gets or sets the logging level for the logging method.
             </summary>
         </member>
         <member name="P:Microsoft.Extensions.Logging.LoggerMessageAttribute.Message">
             <summary>
-            Gets the message text for the logging method.
+            Gets or sets the message text for the logging method.
             </summary>
         </member>
         <member name="P:Microsoft.Extensions.Logging.LoggerMessageAttribute.SkipEnabledCheck">
             <summary>
-            Gets the flag to skip IsEnabled check for the logging method.
+            Gets or sets the flag to skip IsEnabled check for the logging method.
             </summary>
         </member>
         <member name="T:Microsoft.Extensions.Logging.Logger`1">
@@ -1081,6 +1268,28 @@
             Formatter to convert the named format items like {NamedformatItem} to <see cref="M:System.String.Format(System.IFormatProvider,System.String,System.Object)"/> format.
             </summary>
         </member>
+        <member name="T:Microsoft.Extensions.Logging.ProviderAliasAttribute">
+            <summary>
+            Defines an alias for <see cref="T:Microsoft.Extensions.Logging.ILoggerProvider"/> implementation to be used in filtering rules.
+            </summary>
+            <remarks>
+            <para>By default, filtering rules are defined using the logging provider type's <see cref="P:System.Reflection.Assembly.FullName"/> as configuration section name.</para>
+            <para>The <see cref="T:Microsoft.Extensions.Logging.ProviderAliasAttribute"/> provides for specifying a second, additional, more concise and user-friendly configuration section name for specifying filter rules.</para>
+            <para>The logging provider type's <see cref="P:System.Reflection.Assembly.FullName"/> can still be used as configuration section name when the <see cref="T:Microsoft.Extensions.Logging.ProviderAliasAttribute"/> is specified for the provider, and its configuration section filtering rules have priority over the filtering rules specified for the alias.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Extensions.Logging.ProviderAliasAttribute.#ctor(System.String)">
+            <summary>
+            Creates a new <see cref="T:Microsoft.Extensions.Logging.ProviderAliasAttribute"/> instance.
+            </summary>
+            <param name="alias">The alias to set.</param>
+        </member>
+        <member name="P:Microsoft.Extensions.Logging.ProviderAliasAttribute.Alias">
+            <summary>
+            Gets the alias of the provider.
+            </summary>
+        </member>
         <member name="T:Microsoft.Extensions.Logging.NullExternalScopeProvider">
             <summary>
             Scope provider that does nothing.
@@ -1149,19 +1358,8 @@
             Number of chars requested beyond current position.
             </param>
         </member>
-        <member name="M:System.ThrowHelper.ThrowIfNull(System.Object,System.String)">
-            <summary>Throws an <see cref="T:System.ArgumentNullException"/> if <paramref name="argument"/> is null.</summary>
-            <param name="argument">The reference type argument to validate as non-null.</param>
-            <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
-        </member>
-        <member name="M:System.ThrowHelper.IfNullOrWhitespace(System.String,System.String)">
-            <summary>
-            Throws either an <see cref="T:System.ArgumentNullException"/> or an <see cref="T:System.ArgumentException"/>
-            if the specified string is <see langword="null"/> or whitespace respectively.
-            </summary>
-            <param name="argument">String to be checked for <see langword="null"/> or whitespace.</param>
-            <param name="paramName">The name of the parameter being checked.</param>
-            <returns>The original value of <paramref name="argument"/>.</returns>
+        <member name="P:System.SR.UnexpectedNumberOfNamedParameters">
+            <summary>The format string '{0}' does not have the expected number of named parameters. Expected {1} parameter(s) but found {2} parameter(s).</summary>
         </member>
         <member name="T:System.Runtime.InteropServices.LibraryImportAttribute">
             <summary>
@@ -1221,7 +1419,7 @@
         </member>
         <member name="F:System.Runtime.InteropServices.StringMarshalling.Custom">
             <summary>
-            Indicates the user is suppling a specific marshaller in <see cref="P:System.Runtime.InteropServices.LibraryImportAttribute.StringMarshallingCustomType"/>.
+            Indicates the user is supplying a specific marshaller in <see cref="P:System.Runtime.InteropServices.LibraryImportAttribute.StringMarshallingCustomType"/>.
             </summary>
         </member>
         <member name="F:System.Runtime.InteropServices.StringMarshalling.Utf8">
@@ -1233,9 +1431,6 @@
             <summary>
             Use the platform-provided UTF-16 marshaller.
             </summary>
-        </member>
-        <member name="P:System.SR.UnexpectedNumberOfNamedParameters">
-            <summary>The format string '{0}' does not have the expected number of named parameters. Expected {1} parameter(s) but found {2} parameter(s).</summary>
         </member>
         <member name="T:System.Diagnostics.CodeAnalysis.AllowNullAttribute">
             <summary>Specifies that null is allowed as an input even if the corresponding type disallows it.</summary>
@@ -1325,7 +1520,7 @@
         <member name="M:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute.#ctor(System.Boolean,System.String)">
             <summary>Initializes the attribute with the specified return value condition and a field or property member.</summary>
             <param name="returnValue">
-            The return value condition. If the method returns this value, the associated parameter will not be null.
+            The return value condition. If the method returns this value, the associated field or property member will not be null.
             </param>
             <param name="member">
             The field or property member that is promised to be not-null.
@@ -1334,7 +1529,7 @@
         <member name="M:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute.#ctor(System.Boolean,System.String[])">
             <summary>Initializes the attribute with the specified return value condition and list of field and property members.</summary>
             <param name="returnValue">
-            The return value condition. If the method returns this value, the associated parameter will not be null.
+            The return value condition. If the method returns this value, the associated field and property members will not be null.
             </param>
             <param name="members">
             The list of field and property members that are promised to be not-null.
@@ -1345,6 +1540,9 @@
         </member>
         <member name="P:System.Diagnostics.CodeAnalysis.MemberNotNullWhenAttribute.Members">
             <summary>Gets field or property member names.</summary>
+        </member>
+        <member name="T:System.ExceptionPolyfills">
+            <summary>Provides downlevel polyfills for static methods on Exception-derived types.</summary>
         </member>
     </members>
 </doc>
